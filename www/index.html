@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0C0E16">
+  <meta name="color-scheme" content="dark">
+  <title>Rubik Studio</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app" data-mode="0">
+    <header id="topbar"></header>
+    <aside id="sidebar"></aside>
+    <main id="stage">
+      <div id="viewwrap"><canvas id="view"></canvas><div id="legendhost"></div></div>
+      <div id="bar"></div>
+    </main>
+    <section id="panel">
+      <div id="modeseg"></div>
+      <div id="panes"></div>
+    </section>
+    <nav id="nav"></nav>
+  </div>
+  <div id="modal-root"></div>
+  <div id="splash">Rubik Studio</div>
+  <script src="js/vendor/capacitor.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

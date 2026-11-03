@@ -1,0 +1,17 @@
+{
+  "appId": "com.rubikstudio.app",
+  "appName": "Rubik Studio",
+  "webDir": "www",
+  "backgroundColor": "#0C0E16",
+  "android": {
+    "backgroundColor": "#0C0E16",
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "DARK",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
+}
