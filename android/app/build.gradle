@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 // ---- Ký bản release: đọc từ biến môi trường (GitHub Actions) hoặc gradle.properties / -P ----
 def secret = { String name -> System.getenv(name) ?: (project.findProperty(name) ?: null) }
 def keystorePath = secret('KEYSTORE_FILE')
+def appVersionCode = (secret('VERSION_CODE') ?: '1').toString().toInteger()
+def appVersionName = (secret('VERSION_NAME') ?: '1.0').toString()
 
 android {
     namespace = "com.rubikstudio.app"
@@ -11,8 +13,8 @@ android {
         applicationId "com.rubikstudio.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode (secret('VERSION_CODE') ?: 1).toString().toInteger()
-        versionName (secret('VERSION_NAME') ?: "1.0")
+        versionCode appVersionCode
+        versionName appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
