@@ -3,7 +3,7 @@ import { h } from './dom.js';
 import { t, td } from './i18n.js';
 import { loadPuzzleData } from './data.js';
 import { getPuzzle } from './registry.js';
-import { Segmented, CaseCard } from './components.js';
+import { Segmented, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 import { levelList } from './guide.js';
 
 const ALL = '__all__';
@@ -24,8 +24,7 @@ export class PracticePanel {
     this.title = h('div', { class: 'h1' }, t('mode.practice'));
     this.seg = new Segmented([t('level.basic')], (i) => this.levelChanged(i));
     this.levelTitle = h('div', { class: 'h2' });
-    this.combo = h('select', { class: 'select', 'aria-label': t('mode.practice') });
-    this.combo.addEventListener('change', () => this.poolChanged(this.combo.selectedIndex));
+    this.combo = new StepPicker((i) => this.poolChanged(i));
     this.count = h('span', { class: 'badge' });
     this.bPrev = h('button', { type: 'button', class: 'action prev', title: t('practice.prev'), 'aria-label': t('practice.prev'), onClick: () => this.prevCase() }, '◀');
     this.bNext = h('button', { type: 'button', class: 'action primary', onClick: () => this.nextCase() }, '🎲  ' + t('practice.random'));
@@ -34,7 +33,7 @@ export class PracticePanel {
     this.holder = h('div', { class: 'holder' }, this.empty);
     this.bHide = h('button', { type: 'button', class: 'action', onClick: () => this.toggleHide() }, '🙈  ' + t('practice.hide'));
     this.tip = h('div', { class: 'desc' }, t('practice.tip'));
-    this.el = h('div', { class: 'pane practice' }, this.title, this.seg.el, this.levelTitle, this.combo,
+    this.el = h('div', { class: 'pane practice' }, this.title, this.seg.el, this.levelTitle, this.combo.el,
       h('div', { class: 'row' }, this.count), h('div', { class: 'row gap' }, this.bPrev, this.bNext),
       this.stat, this.holder, this.bHide, this.tip);
     this.refreshButtons();
@@ -61,14 +60,18 @@ export class PracticePanel {
 
   fillCats(selectId = null) {
     this.cats = this.catsOf(this.levelId);
-    this.combo.textContent = '';
     this.comboIds = [];
+    const items = [];
     if (this.cats.length > 1) {
-      const total = this.cats.reduce((s, c) => s + c.cases.length, 0);
-      this.combo.append(h('option', {}, t('practice.all', { n: total })));
+      const total = this.cats.reduce((x, c) => x + c.cases.length, 0);
+      items.push({ label: t('practice.all', { n: total }), count: null, all: true });
       this.comboIds.push(ALL);
     }
-    for (const c of this.cats) { this.combo.append(h('option', {}, td(c.title))); this.comboIds.push(c.id); }
+    for (const c of this.cats) {
+      items.push({ label: cleanTitle(td(c.title), c.cases.length), count: c.cases.length });
+      this.comboIds.push(c.id);
+    }
+    this.combo.setItems(items, levelSummary(this.cats));
     let idx = 0;
     if (selectId !== null) { const k = this.comboIds.indexOf(selectId); if (k >= 0) idx = k; }
     else if (this.cats.length > 1) idx = 1;

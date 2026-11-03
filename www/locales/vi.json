@@ -273,5 +273,7 @@
   "bar.placeholder.guide.m": "Chọn một công thức trong danh sách bên dưới để xem khối xoay.",
   "bar.placeholder.practice.m": "Bấm “Ca ngẫu nhiên” bên dưới để bắt đầu luyện tập.",
   "help.main.m": "Hoặc kéo <b>trên ô màu</b> để xoay lớp; kéo vào <b>nền</b> để xoay camera; chụm hai ngón để phóng to/thu nhỏ. Chạm vào một phím để xem tác dụng của nó.",
-  "sidebar.tip.m": "Mẹo: chụm hai ngón tay để phóng to/thu nhỏ khối."
+  "sidebar.tip.m": "Mẹo: chụm hai ngón tay để phóng to/thu nhỏ khối.",
+  "guide.total": "Tổng để hoàn thành cấp độ này: {c}",
+  "guide.pick": "Chọn mục"
 }

@@ -273,5 +273,7 @@
   "bar.placeholder.guide.m": "在下方列表中选择一个公式，即可观看魔方转动。",
   "bar.placeholder.practice.m": "点击下方的“随机情况”开始练习。",
   "help.main.m": "也可以在<b>色块上</b>拖动来转动一层；在<b>背景</b>上拖动来旋转视角；双指捏合可缩放。点按按键可查看其作用。",
-  "sidebar.tip.m": "提示：用双指捏合可放大或缩小魔方。"
+  "sidebar.tip.m": "提示：用双指捏合可放大或缩小魔方。",
+  "guide.total": "完成本级别共需：{c}",
+  "guide.pick": "选择部分"
 }

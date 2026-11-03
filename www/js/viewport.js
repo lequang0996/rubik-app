@@ -49,6 +49,7 @@ export class PuzzleView extends Emitter {
     this._queue = []; this._press = null; this._drawReq = false;
     this._pointers = new Map(); this._pinch = null;
     this.w = 300; this.h = 300; this.dpr = 1;
+    this.fit = false; this.zMin = 0.55; this.zMax = 1.9;   // đọc từ CSS (--cube-*), xem css/app.css
     this._bind();
     new ResizeObserver(() => this.resize()).observe(canvas.parentElement);
     this.resize();
@@ -60,7 +61,22 @@ export class PuzzleView extends Emitter {
     this.w = Math.max(50, Math.round(r.width)); this.h = Math.max(50, Math.round(r.height));
     this.canvas.width = Math.round(this.w * this.dpr); this.canvas.height = Math.round(this.h * this.dpr);
     this.canvas.style.width = this.w + 'px'; this.canvas.style.height = this.h + 'px';
+    const cs = getComputedStyle(this.canvas.parentElement);
+    this.fit = cs.getPropertyValue('--cube-fit').trim() === 'width';
+    this.zMin = parseFloat(cs.getPropertyValue('--cube-minzoom')) || 0.55;
+    this.zMax = parseFloat(cs.getPropertyValue('--cube-maxzoom')) || 1.9;
+    this.zoom = this._clampZoom(this.zoom);
     this.update();
+  }
+
+  _clampZoom(z) { return Math.min(this.zMax, Math.max(this.zMin, z)); }
+
+  // Hệ số kích thước khối. Điện thoại dọc: kích thước tính theo CHIỀU RỘNG màn hình (không phụ thuộc chiều cao khung),
+  // bằng đúng mức "thu nhỏ hết cỡ" của bản trước (≈ 0,40 × chiều rộng).
+  _baseScale() {
+    if (!this.fit) return 1;
+    const m = Math.min(this.w, this.h);
+    return Math.min(0.549 * this.w / m, 1.25);
   }
 
   // ---------- puzzle ----------
@@ -261,7 +277,7 @@ export class PuzzleView extends Emitter {
       const e = ease(Math.min(1.0, (performance.now() - a.t0) / a.dur));
       for (const [m, idx] of a.items) anims.push([idx, rotMatrix(m.axis, m.angle * e)]);
     }
-    this.frame = render(ctx, w, h, this.puzzle, this.yaw, this.pitch, anims, this.zoom, true, -8);
+    this.frame = render(ctx, w, h, this.puzzle, this.yaw, this.pitch, anims, this.zoom * this._baseScale(), true, -8);
   }
 
   // ---------- chuột / cảm ứng ----------
@@ -270,7 +286,7 @@ export class PuzzleView extends Emitter {
     c.style.touchAction = 'none';
     c.addEventListener('wheel', (e) => {
       e.preventDefault();
-      this.zoom = Math.min(1.9, Math.max(0.55, this.zoom * 1.0015 ** (-e.deltaY)));
+      this.zoom = this._clampZoom(this.zoom * 1.0015 ** (-e.deltaY));
       this.update();
     }, { passive: false });
     c.addEventListener('pointerdown', (e) => this._down(e));
@@ -312,7 +328,7 @@ export class PuzzleView extends Emitter {
     if (this._pinch && this._pointers.size >= 2) {
       const [a, b] = [...this._pointers.values()];
       const d = Math.hypot(a[0] - b[0], a[1] - b[1]);
-      this.zoom = Math.min(1.9, Math.max(0.55, this._pinch.z * d / Math.max(1, this._pinch.d)));
+      this.zoom = this._clampZoom(this._pinch.z * d / Math.max(1, this._pinch.d));
       this.update();
       return;
     }

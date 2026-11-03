@@ -273,5 +273,7 @@
   "bar.placeholder.guide.m": "Elige un algoritmo en la lista de abajo para ver cómo gira el puzzle.",
   "bar.placeholder.practice.m": "Pulsa «Caso aleatorio» abajo para empezar a practicar.",
   "help.main.m": "También puedes arrastrar <b>sobre una pegatina</b> para girar una capa; arrastra el <b>fondo</b> para rotar la cámara; pellizca para hacer zoom. Toca una tecla para ver qué hace.",
-  "sidebar.tip.m": "Consejo: pellizca con dos dedos para acercar o alejar el puzzle."
+  "sidebar.tip.m": "Consejo: pellizca con dos dedos para acercar o alejar el puzzle.",
+  "guide.total": "Total para completar este nivel: {c}",
+  "guide.pick": "Elige una sección"
 }

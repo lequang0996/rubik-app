@@ -25,6 +25,75 @@ export class Segmented {
   setIndex(i) { this.buttons.forEach((b, k) => b.classList.toggle('on', k === i)); this.index = i; }
 }
 
+// ------------------------------------------------------------------ Chọn mục (thay cho dropdown)
+// Bỏ số lượng ca nhúng sẵn trong tiêu đề ("OLL – 57 cases", "(324)") vì giao diện đã có nhãn số riêng
+export function cleanTitle(text, n) {
+  const N = String(n);
+  let s = text.replace(new RegExp(`\\s*[（(]\\s*${N}\\s*[）)]\\s*$`), '');
+  s = s.replace(new RegExp(`\\s*[–—-]\\s*${N}\\S*(\\s+\\S+){0,2}\\s*$`), '');
+  return s.trim() || text;
+}
+
+// Tổng số ca / công thức cần học của một nhóm danh mục (không tính phần "Ký hiệu")
+export function levelSummary(cats) {
+  let n = 0, a = 0;
+  for (const c of cats) {
+    if (c.id === 'notation') continue;
+    n += c.cases.length;
+    a += c.cases.reduce((x, cs) => x + cs.algs.length, 0);
+  }
+  return n ? t('guide.total', { c: t('count.all', { n, a }) }) : '';
+}
+
+export class StepPicker {
+  constructor(onChange) {
+    this.onChange = onChange; this.items = []; this.index = 0; this.summary = '';
+    this.titleEl = h('span', { class: 'steptitle' });
+    this.countEl = h('span', { class: 'stepcount' });
+    this.btn = h('button', { type: 'button', class: 'stepbtn', 'aria-haspopup': 'dialog', onClick: () => this.open() },
+      this.titleEl, this.countEl, h('span', { class: 'chev' }, '▾'));
+    this.sumEl = h('div', { class: 'stepsum' });
+    this.el = h('div', { class: 'steppicker' }, this.btn, this.sumEl);
+    this._esc = (e) => { if (e.key === 'Escape') this.close(); };
+  }
+  // items: [{label, count (hoặc null), all?}]
+  setItems(items, summary = '') { this.items = items; this.summary = summary; this.index = 0; this._sync(); }
+  get selectedIndex() { return this.index; }
+  set selectedIndex(i) { this.index = Math.max(0, Math.min(this.items.length - 1, i)); this._sync(); }
+  _sync() {
+    const it = this.items[this.index];
+    this.titleEl.textContent = it ? it.label : '';
+    const has = it && it.count !== null && it.count !== undefined;
+    this.countEl.textContent = has ? it.count : '';
+    this.countEl.style.display = has ? '' : 'none';
+    this.sumEl.textContent = this.summary;
+    this.sumEl.style.display = this.summary ? '' : 'none';
+    this.btn.disabled = !it;
+  }
+  open() {
+    const root = document.getElementById('modal-root');
+    // Tên dạng "2 · F2L – …": lấy số làm badge, bỏ khỏi tên để không bị lặp
+    const parsed = this.items.map((it) => { const m = /^(\d+)\s*·\s*(.+)$/.exec(it.label); return m ? { num: m[1], text: m[2] } : { num: null, text: it.label }; });
+    const anyNum = parsed.some((x) => x.num);
+    const rows = this.items.map((it, i) => h('button', {
+      type: 'button', class: 'steprow' + (i === this.index ? ' on' : ''),
+      onClick: () => { this.close(); this.selectedIndex = i; this.onChange(i); },
+    }, h('span', { class: 'stepidx' }, it.all ? '∗' : parsed[i].num || (anyNum ? '•' : String(i + 1))), h('span', { class: 'steptitle' }, parsed[i].text),
+    it.count !== null && it.count !== undefined ? h('span', { class: 'stepcount' }, it.count) : null,
+    i === this.index ? h('span', { class: 'check' }, '✓') : null));
+    const list = h('div', { class: 'steplist' }, rows);
+    const sheet = h('div', { class: 'sheet', role: 'dialog' },
+      h('div', { class: 'sheet-title' }, t('guide.pick')),
+      this.summary ? h('div', { class: 'sheet-sub' }, this.summary) : null, list);
+    clear(root);
+    root.append(h('div', { class: 'backdrop', onClick: (e) => { if (e.target === e.currentTarget) this.close(); } }, sheet));
+    document.addEventListener('keydown', this._esc);
+    const row = rows[this.index];
+    if (row) list.scrollTop = Math.max(0, row.offsetTop - list.offsetTop - list.clientHeight / 2 + row.offsetHeight / 2);
+  }
+  close() { document.removeEventListener('keydown', this._esc); clear(document.getElementById('modal-root')); }
+}
+
 // ------------------------------------------------------------------ DescBox
 function richParagraphs(text) {
   return (text || '').split('\n').map((p) => p.trim()).filter(Boolean).map((p) => `<p>${esc(p)}</p>`).join('');

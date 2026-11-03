@@ -3,7 +3,7 @@ import { h, clear } from './dom.js';
 import { t, td } from './i18n.js';
 import { loadPuzzleData } from './data.js';
 import { getPuzzle } from './registry.js';
-import { Segmented, DescBox, CaseCard } from './components.js';
+import { Segmented, DescBox, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 
 // Tính danh sách cấp độ từ dữ liệu: [[id, nhãn, tiêu đề]]
 export function levelList(data, practice = false) {
@@ -31,8 +31,7 @@ export class GuidePanel {
 
     this.seg = new Segmented([t('level.basic')], (i) => this.levelChanged(i));
     this.levelTitle = h('div', { class: 'h2' });
-    this.combo = h('select', { class: 'select', 'aria-label': t('mode.guide') });
-    this.combo.addEventListener('change', () => this.categoryChanged(this.combo.selectedIndex));
+    this.combo = new StepPicker((i) => this.categoryChanged(i));
     this.desc = new DescBox();
     this.count = h('span', { class: 'badge' });
     this.search = h('input', { type: 'search', class: 'input search', placeholder: t('search.placeholder'), enterkeyhint: 'search' });
@@ -44,7 +43,7 @@ export class GuidePanel {
     this.pageIn.addEventListener('change', () => this.goto((parseInt(this.pageIn.value, 10) || 1) - 1));
     this.pageTotal = h('span', { class: 'muted' }, '/ 1');
     this.pager = h('div', { class: 'pager', hidden: true }, this.bPrev, h('span', { class: 'muted' }, t('pager.page')), this.pageIn, this.pageTotal, this.bNext);
-    this.el = h('div', { class: 'pane guide' }, this.seg.el, this.levelTitle, this.combo, this.desc.el,
+    this.el = h('div', { class: 'pane guide' }, this.seg.el, this.levelTitle, this.combo.el, this.desc.el,
       h('div', { class: 'row between' }, this.count, this.search), this.list, this.pager);
   }
 
@@ -74,9 +73,8 @@ export class GuidePanel {
       this.levelTitle.textContent = this.levels.length > 1 ? lv[2] : '';
       this.levelTitle.style.display = lv[2] && this.levels.length > 1 ? '' : 'none';
     } else this.levelTitle.style.display = 'none';
-    clear(this.combo);
-    this.cats().forEach((c, k) => this.combo.append(h('option', { value: k }, td(c.title))));
-    this.combo.selectedIndex = 0;
+    const cats = this.cats();
+    this.combo.setItems(cats.map((c) => ({ label: cleanTitle(td(c.title), c.cases.length), count: c.cases.length })), levelSummary(cats));
     this.categoryChanged(0);
   }
 

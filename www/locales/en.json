@@ -273,5 +273,7 @@
   "bar.placeholder.guide.m": "Pick an algorithm in the list below to watch the puzzle turn.",
   "bar.placeholder.practice.m": "Tap “Random case” below to start practicing.",
   "help.main.m": "Or drag <b>on a sticker</b> to turn a layer; drag the <b>background</b> to rotate the camera; pinch to zoom. Tap a key to see what it does.",
-  "sidebar.tip.m": "Tip: pinch with two fingers to zoom the puzzle in and out."
+  "sidebar.tip.m": "Tip: pinch with two fingers to zoom the puzzle in and out.",
+  "guide.total": "Total to complete this level: {c}",
+  "guide.pick": "Choose a section"
 }
