@@ -1,4 +1,4 @@
-package com.rubikstudio.app;
+package com.tenban.cubeallinone;
 
 import com.getcapacitor.BridgeActivity;
 
