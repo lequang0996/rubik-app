@@ -15,11 +15,21 @@ Giao diện + engine được viết lại bằng JavaScript thuần (Canvas 2D,
 | Tab **Luyện tập**: xáo bộ bài (không lặp tới khi hết vòng), ca trước/sau, ẩn công thức, đồng bộ với tab Hướng dẫn | ✅ |
 | Tab **Chơi**: xáo trộn, bấm giờ, kỷ lục từng puzzle, hoàn tác/làm lại, phím ảo theo từng puzzle, kéo trên sticker để xoay lớp, kéo nền để xoay camera | ✅ |
 | Chú giải màu (nút `?`), 8 ngôn ngữ (en, zh, es, pt, ru, ja, ko, vi) | ✅ |
+| Cấp độ người chơi Lv 0–30 mở khoá Luyện tập/Chơi và các cấp nâng cao | ➕ tính năng mới của bản Android |
 | Phím tắt bàn phím, Ctrl+Z / Ctrl+Y, Space, cuộn chuột để zoom | ✅ (khi có bàn phím/chuột) |
 
 Thích ứng cho điện thoại: thanh chọn puzzle phía trên, thanh điều hướng 3 chế độ phía dưới, **chụm hai ngón để zoom**,
 chạm phím để xem gợi ý thay cho tooltip chuột, nút Back của Android, bố cục dọc/ngang/máy tính bảng, tự chọn ngôn ngữ theo máy
 ở lần mở đầu tiên. Megaminx và Square-1 **không** có trong bản này vì bản gốc cũng chưa đăng ký chúng trong `registry.py`.
+
+## Hệ thống cấp độ người chơi (Lv 0–30)
+
+* Mỗi giây **app đang mở (màn hình hiển thị)** được **+1 exp**. Đạt **Lv n** khi tổng exp ≥ 2^(n−1) (Lv 1 = 2⁰ = 1 exp … Lv 30 = 2²⁹).
+* **Lv 10** (≈ 8 phút 32 giây): mở **Luyện tập** và **Chơi**.
+* **Lv 15** (≈ 4 giờ 33 phút): mở cấp **Nâng cao** của mọi puzzle; riêng 3x3 là **Tối ưu** và **Nhánh Roux**.
+* **Lv 20** (≈ 6 ngày 1 giờ): mở 3x3 **Thi đấu**.
+* Dữ liệu lưu trong `localStorage` (`rubik_studio_progress`). Mã nằm ở `www/js/progress.js` (mốc mở khoá, `EXP_PER_SECOND`) và `www/js/levelui.js`.
+* **Thử nhanh các mốc**: đặt `EXP_PER_SECOND = 1000` trong `progress.js` cho bản thử, hoặc mở DevTools từ xa (`chrome://inspect`) rồi chạy `__rubik.progress.setExp(16384)`.
 
 ## Cấu trúc
 

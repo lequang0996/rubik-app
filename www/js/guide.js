@@ -3,6 +3,8 @@ import { h, clear } from './dom.js';
 import { t, td } from './i18n.js';
 import { loadPuzzleData } from './data.js';
 import { getPuzzle } from './registry.js';
+import { progress, levelReq } from './progress.js';
+import { toast } from './levelui.js';
 import { Segmented, DescBox, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 
 // Tính danh sách cấp độ từ dữ liệu: [[id, nhãn, tiêu đề]]
@@ -54,10 +56,13 @@ export class GuidePanel {
     this.data = data;
     this.levels = levelList(data);
     this.seg.setItems(this.levels.map((l) => l[1]).length ? this.levels.map((l) => l[1]) : [t('level.basic')], this.levels.length ? this.levels.map((l) => l[2]) : null);
+    this.seg.setLocks(this.levels.map((l) => levelReq(key, l[0])), () => progress.level, (req) => toast(t('lv.locked', { n: req })));
     this.seg.el.style.display = this.levels.length > 1 ? '' : 'none';
     this.levelId = this.levels.length ? this.levels[0][0] : 'basic';
     this.levelChanged(0);
   }
+
+  refreshLocks() { this.seg.refreshLocks(); }
 
   cats() { return this.data ? this.data.levels[this.levelId] || [] : []; }
 

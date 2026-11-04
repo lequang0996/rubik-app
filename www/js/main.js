@@ -9,6 +9,8 @@ import { thumb, Segmented, PlayerBar, LegendButton } from './components.js';
 import { GuidePanel } from './guide.js';
 import { PracticePanel } from './practice.js';
 import { PlayPanel } from './play.js';
+import { progress, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
+import { LevelPill, toast } from './levelui.js';
 
 const MODE_GUIDE = 0, MODE_PRACTICE = 1, MODE_PLAY = 2;
 const view = new PuzzleView($('#view'));
@@ -31,7 +33,7 @@ function build() {
   const legend = new LegendButton();
   const bar = new PlayerBar({
     play: () => view.togglePlay(), forward: () => view.stepForward(), back: () => view.stepBack(),
-    restart: () => view.restart(), speed: (s) => view.setSpeed(s),
+    restart: () => view.restart(),
   });
   const guide = new GuidePanel((setup, alg) => onAlg(setup, alg));
   const practice = new PracticePanel({
@@ -42,6 +44,8 @@ function build() {
     onHideChanged: (on) => bar.setFormulaHidden(on),
   });
   const play = new PlayPanel(view);
+
+  const topPill = new LevelPill(), sidePill = new LevelPill(true);
 
   // thanh bên (máy tính bảng / máy tính)
   const side = $('#sidebar'); clear(side);
@@ -57,26 +61,24 @@ function build() {
   sel.addEventListener('change', () => changeLanguage(sel.value));
   side.append(h('div', { class: 'brand' }, 'Rubik Studio'), h('div', { class: 'brandsub' }, t('app.subtitle')),
     h('div', { class: 'section' }, t('sidebar.section')), grid, h('div', { class: 'grow' }),
-    h('div', { class: 'brandsub' }, '🌐  ' + t('sidebar.language')), sel, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
+    sidePill.el, h('div', { class: 'brandsub' }, '🌐  ' + t('sidebar.language')), sel, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
 
-  // thanh trên (điện thoại)
+  // thanh trên (điện thoại): nút puzzle (mở danh sách) + cấp độ + ngôn ngữ
   const top = $('#topbar'); clear(top);
-  const chips = h('div', { class: 'pchips' });
-  const chipBtns = PUZZLES.map(([key, title]) => {
-    const b = h('button', { type: 'button', class: 'pchip', onClick: () => selectPuzzle(key) }, thumb(puzzleIcon(key), 30), h('span', {}, title));
-    chips.append(b);
-    return b;
-  });
-  top.append(chips, h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), onClick: openLanguageModal }, '🌐'));
+  const pIcon = h('span', { class: 'picon' }), pName = h('span', { class: 'pname' });
+  const pBtn = h('button', { type: 'button', class: 'pbtn', 'aria-haspopup': 'dialog', onClick: openPuzzleModal }, pIcon, pName, h('span', { class: 'chev' }, '▾'));
+  top.append(pBtn, topPill.el, h('span', { class: 'grow' }),
+    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), onClick: openLanguageModal }, '🌐'));
 
   // chế độ
   const labels = ['📘  ' + t('mode.guide'), '🎯  ' + t('mode.practice'), '🎮  ' + t('mode.play')];
-  const seg = new Segmented(labels, (i) => setMode(i));
+  const seg = new Segmented(labels, (i) => requestMode(i));
+  seg.setLocks(MODE_REQ, () => progress.level, (req) => toast(t('lv.locked', { n: req })));
   const modeHost = $('#modeseg'); clear(modeHost); modeHost.append(seg.el);
   const nav = $('#nav'); clear(nav);
   const navBtns = labels.map((l, i) => {
     const [emo, ...rest] = l.split('  ');
-    const b = h('button', { type: 'button', class: 'navbtn', onClick: () => setMode(i) }, h('span', { class: 'emo' }, emo), h('span', {}, rest.join(' ')));
+    const b = h('button', { type: 'button', class: 'navbtn', onClick: () => requestMode(i) }, h('span', { class: 'emo' }, emo), h('span', {}, rest.join(' ')));
     nav.append(b);
     return b;
   });
@@ -88,7 +90,27 @@ function build() {
 
   view.on('progress', (i, n) => bar.setProgress(i, n));
   view.on('playingChanged', (on) => bar.setPlaying(on));
-  ui = { legend, bar, guide, practice, play, seg, navBtns, cards, chipBtns, panes };
+  ui = { legend, bar, guide, practice, play, seg, navBtns, cards, pIcon, pName, pills: [topPill, sidePill], panes };
+  refreshLocks();
+}
+
+// Cập nhật mọi thứ phụ thuộc cấp độ người chơi
+function refreshLocks() {
+  ui.pills.forEach((p) => p.update());
+  ui.seg.refreshLocks();
+  ui.navBtns.forEach((b, i) => {
+    const lk = MODE_REQ[i] > progress.level, ic = b.querySelector('.lockic');
+    b.classList.toggle('locked', lk);
+    if (lk && !ic) b.querySelector('.emo').after(h('span', { class: 'lockic' }, '🔒'));
+    else if (!lk && ic) ic.remove();
+  });
+  ui.guide.refreshLocks();
+  ui.practice.refreshLocks();
+}
+
+function requestMode(i) {
+  if (MODE_REQ[i] > progress.level) { toast(t('lv.locked', { n: MODE_REQ[i] })); return; }
+  setMode(i);
 }
 
 function onAlg(setup, alg) {
@@ -101,11 +123,8 @@ async function selectPuzzle(key) {
   view.setPuzzle(key);
   ui.legend.setKey(key);
   ui.cards.forEach((b, i) => b.classList.toggle('on', PUZZLES[i][0] === key));
-  ui.chipBtns.forEach((b, i) => {
-    const on = PUZZLES[i][0] === key;
-    b.classList.toggle('on', on);
-    if (on) b.scrollIntoView({ block: 'nearest', inline: 'center' });
-  });
+  clear(ui.pIcon); ui.pIcon.append(thumb(puzzleIcon(key), 32));
+  ui.pName.textContent = PUZZLES.find((p) => p[0] === key)[1];
   await Promise.all([ui.guide.setPuzzle(key), ui.practice.setPuzzle(key)]);
   if (state.key !== key) return;
   ui.bar.setAlg([]);
@@ -120,6 +139,7 @@ function setMode(i) {
   [ui.guide, ui.practice, ui.play].forEach((p, k) => { p.el.style.display = k === i ? '' : 'none'; });
   ui.panes.scrollTop = 0;
   view.setPlayMode(i === MODE_PLAY);
+  view.setSpeed(i === MODE_PLAY ? ui.play.speed : 1);   // Hướng dẫn / Luyện tập luôn 1x
   ui.bar.setFormulaHidden(i === MODE_PRACTICE && ui.practice.formulaHidden);
   requestAnimationFrame(() => view.resize());
   if (i === MODE_PLAY) { ui.play.refreshHelp(); return; }
@@ -143,7 +163,17 @@ async function changeLanguage(code) {
   setMode(mode);
 }
 
-// ------------------------------------------------------------------ hộp thoại chọn ngôn ngữ (điện thoại)
+// ------------------------------------------------------------------ hộp thoại chọn puzzle / ngôn ngữ (điện thoại)
+function openPuzzleModal() {
+  const list = h('div', { class: 'langlist' }, PUZZLES.map(([key, title]) =>
+    h('button', { type: 'button', class: 'langbtn puzzlebtn' + (key === state.key ? ' on' : ''), onClick: () => { closeModal(); selectPuzzle(key); } },
+      thumb(puzzleIcon(key), 40), h('span', { class: 'steptitle' }, title), key === state.key ? h('span', {}, '✓') : null)));
+  const root = $('#modal-root');
+  clear(root);
+  root.append(h('div', { class: 'backdrop', onClick: (e) => { if (e.target === e.currentTarget) closeModal(); } },
+    h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('sidebar.section')), list)));
+}
+
 function closeModal() { clear($('#modal-root')); }
 const modalOpen = () => $('#modal-root').childElementCount > 0;
 function openLanguageModal() {
@@ -190,6 +220,16 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
 (async function init() {
   await i18n.loadSaved();
   build();
+  progress.on('change', () => ui.pills.forEach((p) => p.update()));
+  progress.on('levelup', (n, old) => {
+    refreshLocks();
+    const x = [];
+    if (old < MODE_REQ[1] && n >= MODE_REQ[1]) x.push(`${t('mode.practice')} · ${t('mode.play')}`);
+    if (old < REQ_ADVANCED && n >= REQ_ADVANCED) x.push(t('lv.u15'));
+    if (old < REQ_COMPETITION && n >= REQ_COMPETITION) x.push(t('lv.u20'));
+    toast(t('lv.up', { n }) + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''));
+  });
+  progress.start();
   await selectPuzzle('3x3');
   setMode(MODE_GUIDE);
   const sp = $('#splash');
@@ -197,4 +237,4 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
   setTimeout(() => sp.remove(), 400);
 })();
 
-window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, changeLanguage };   // phục vụ kiểm thử
+window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, requestMode, changeLanguage, progress };   // phục vụ kiểm thử

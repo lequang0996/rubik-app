@@ -88,7 +88,7 @@ export class PlayPanel {
     this.bUndo = h('button', { type: 'button', class: 'action', onClick: () => view.undo() }, '↶ ' + t('play.undo'));
     this.bRedo = h('button', { type: 'button', class: 'action', onClick: () => view.redo() }, '↷ ' + t('play.redo'));
     this.slider = h('input', { type: 'range', min: 50, max: 500, value: 180, class: 'slider', 'aria-label': t('play.speed') });
-    this.slider.addEventListener('input', () => view.setSpeed(+this.slider.value / 100));
+    this.slider.addEventListener('input', () => view.setSpeed(this.speed));
     this.chipRow = h('div', { class: 'chips' });
     this.padHost = h('div', { class: 'padhost' });
     this.keyhint = h('div', { class: 'keyhint' });
@@ -97,10 +97,11 @@ export class PlayPanel {
       h('div', { class: 'row gap three' }, this.bReset, this.bUndo, this.bRedo),
       h('div', { class: 'row gap' }, h('span', { class: 'muted' }, t('play.speed')), this.slider),
       h('div', { class: 'section' }, t('play.keys')), this.chipRow, this.padHost, this.keyhint, this.help);
-    view.speed = +this.slider.value / 100;
     view.on('userMoved', (n) => this.onMoved(n));
     view.on('puzzleChanged', () => this.refreshHelp());
   }
+
+  get speed() { return +this.slider.value / 100; }
 
   buildPad() {
     const key = this.view.puzzle.key;

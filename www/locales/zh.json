@@ -275,5 +275,17 @@
   "help.main.m": "也可以在<b>色块上</b>拖动来转动一层；在<b>背景</b>上拖动来旋转视角；双指捏合可缩放。点按按键可查看其作用。",
   "sidebar.tip.m": "提示：用双指捏合可放大或缩小魔方。",
   "guide.total": "完成本级别共需：{c}",
-  "guide.pick": "选择部分"
+  "guide.pick": "选择部分",
+  "lv.short": "Lv {n}",
+  "lv.title": "你的等级",
+  "lv.exp": "经验：{e} exp",
+  "lv.next": "下一级（Lv {n}）需要 {e} exp，还需约 {t}",
+  "lv.max": "已达到最高等级！",
+  "lv.rule": "应用每打开一秒，获得 +1 exp。",
+  "lv.unlocks": "解锁内容",
+  "lv.u15": "所有魔方的进阶级别、3x3 最优解与 Roux",
+  "lv.u20": "3x3 竞赛",
+  "lv.locked": "未解锁——达到 Lv {n} 即可解锁。",
+  "lv.up": "🎉 升级了！你已达到 Lv {n}。",
+  "lv.unlocked": "已解锁：{x}"
 }

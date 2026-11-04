@@ -275,5 +275,17 @@
   "help.main.m": "Or drag <b>on a sticker</b> to turn a layer; drag the <b>background</b> to rotate the camera; pinch to zoom. Tap a key to see what it does.",
   "sidebar.tip.m": "Tip: pinch with two fingers to zoom the puzzle in and out.",
   "guide.total": "Total to complete this level: {c}",
-  "guide.pick": "Choose a section"
+  "guide.pick": "Choose a section",
+  "lv.short": "Lv {n}",
+  "lv.title": "Your level",
+  "lv.exp": "Experience: {e} exp",
+  "lv.next": "Next level (Lv {n}) needs {e} exp — about {t} left",
+  "lv.max": "Maximum level reached!",
+  "lv.rule": "Every second the app is open gives you +1 exp.",
+  "lv.unlocks": "UNLOCKS",
+  "lv.u15": "Advanced levels of every puzzle, 3x3 Optimal and Roux",
+  "lv.u20": "3x3 Competition",
+  "lv.locked": "Locked – reach Lv {n} to unlock.",
+  "lv.up": "🎉 Level up! You reached Lv {n}.",
+  "lv.unlocked": "Unlocked: {x}"
 }

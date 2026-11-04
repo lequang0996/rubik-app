@@ -11,16 +11,32 @@ export class Segmented {
   constructor(labels, onChange, tips = null) {
     this.el = h('div', { class: 'seg' });
     this.onChange = onChange;
+    this.locks = []; this.getLevel = () => 99; this.onLocked = () => {};
     this.setItems(labels, tips);
   }
   setItems(labels, tips = null) {
     clear(this.el);
+    this.locks = [];
     this.buttons = labels.map((label, i) => {
-      const b = h('button', { type: 'button', class: 'seg-btn', title: (tips && tips[i]) || null, onClick: () => { this.setIndex(i); this.onChange(i); } }, label);
+      const b = h('button', { type: 'button', class: 'seg-btn', title: (tips && tips[i]) || null, onClick: () => {
+        if (this._locked(i)) { this.onLocked(this.locks[i]); return; }
+        this.setIndex(i); this.onChange(i);
+      } }, label);
       this.el.append(b);
       return b;
     });
     this.setIndex(0);
+  }
+  // reqs[i] = cấp người chơi cần có để dùng mục i (0 = luôn mở)
+  setLocks(reqs, getLevel, onLocked) { this.locks = reqs; this.getLevel = getLevel; this.onLocked = onLocked; this.refreshLocks(); }
+  _locked(i) { return (this.locks[i] || 0) > this.getLevel(); }
+  refreshLocks() {
+    this.buttons.forEach((b, i) => {
+      const lk = this._locked(i), ic = b.querySelector('.lockic');
+      b.classList.toggle('locked', lk);
+      if (lk && !ic) b.prepend(h('span', { class: 'lockic' }, '🔒'));
+      else if (!lk && ic) ic.remove();
+    });
   }
   setIndex(i) { this.buttons.forEach((b, k) => b.classList.toggle('on', k === i)); this.index = i; }
 }
@@ -214,13 +230,10 @@ export class PlayerBar {
     this.bBack = btn('', t('bar.back'), handlers.back); this.bBack.innerHTML = ICON.back;
     this.bPlay = btn('', t('bar.play') === 'bar.play' ? null : t('bar.play'), handlers.play, 'ctl primary'); this.bPlay.innerHTML = ICON.play;
     this.bFwd = btn('', t('bar.forward'), handlers.forward); this.bFwd.innerHTML = ICON.forward;
-    this.val = h('span', { class: 'muted speedval' }, '1x');
-    this.slider = h('input', { type: 'range', min: 25, max: 400, value: 100, class: 'slider', 'aria-label': t('bar.speed') });
-    this.slider.addEventListener('input', () => { const v = +this.slider.value / 100; handlers.speed(v); this.val.textContent = `${+v.toPrecision(2)}x`; });
     this.counter = h('span', { class: 'muted counter' });
     this.el = h('div', { class: 'playerbar' }, this.line,
       h('div', { class: 'ctlrow' }, this.bRestart, this.bBack, this.bPlay, this.bFwd,
-        h('span', { class: 'muted speedlbl' }, t('bar.speed')), this.slider, this.val, h('span', { class: 'grow' }), this.counter));
+        h('span', { class: 'grow' }), this.counter));
     this.setEnabled(false);
   }
   setEnabled(on) { [this.bRestart, this.bBack, this.bPlay, this.bFwd].forEach((b) => { b.disabled = !on; }); }

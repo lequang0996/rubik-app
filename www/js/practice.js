@@ -3,6 +3,8 @@ import { h } from './dom.js';
 import { t, td } from './i18n.js';
 import { loadPuzzleData } from './data.js';
 import { getPuzzle } from './registry.js';
+import { progress, levelReq } from './progress.js';
+import { toast } from './levelui.js';
 import { Segmented, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 import { levelList } from './guide.js';
 
@@ -47,11 +49,14 @@ export class PracticePanel {
     this.levels = levelList(data, true);
     this.title.textContent = t('practice.title', { name: getPuzzle(key).title });
     this.seg.setItems(this.levels.length ? this.levels.map((l) => l[1]) : [t('level.basic')], this.levels.length ? this.levels.map((l) => l[2]) : null);
+    this.seg.setLocks(this.levels.map((l) => levelReq(key, l[0])), () => progress.level, (req) => toast(t('lv.locked', { n: req })));
     this.seg.el.style.display = this.levels.length > 1 ? '' : 'none';
     this.levelId = this.levels.length ? this.levels[0][0] : null;
     this.done = 0;
     this.poolChanged(this.fillCats());
   }
+
+  refreshLocks() { this.seg.refreshLocks(); }
 
   catsOf(lid) {
     if (!(this.data && lid)) return [];

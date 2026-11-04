@@ -275,5 +275,17 @@
   "help.main.m": "También puedes arrastrar <b>sobre una pegatina</b> para girar una capa; arrastra el <b>fondo</b> para rotar la cámara; pellizca para hacer zoom. Toca una tecla para ver qué hace.",
   "sidebar.tip.m": "Consejo: pellizca con dos dedos para acercar o alejar el puzzle.",
   "guide.total": "Total para completar este nivel: {c}",
-  "guide.pick": "Elige una sección"
+  "guide.pick": "Elige una sección",
+  "lv.short": "Lv {n}",
+  "lv.title": "Tu nivel",
+  "lv.exp": "Experiencia: {e} exp",
+  "lv.next": "El siguiente nivel (Lv {n}) requiere {e} exp: faltan unos {t}",
+  "lv.max": "¡Nivel máximo alcanzado!",
+  "lv.rule": "Cada segundo con la app abierta te da +1 exp.",
+  "lv.unlocks": "DESBLOQUEOS",
+  "lv.u15": "Niveles avanzados de todos los puzzles, 3x3 Óptimo y Roux",
+  "lv.u20": "3x3 Competición",
+  "lv.locked": "Bloqueado: alcanza el Lv {n} para desbloquear.",
+  "lv.up": "🎉 ¡Subes de nivel! Has llegado al Lv {n}.",
+  "lv.unlocked": "Desbloqueado: {x}"
 }

@@ -275,5 +275,17 @@
   "help.main.m": "Hoặc kéo <b>trên ô màu</b> để xoay lớp; kéo vào <b>nền</b> để xoay camera; chụm hai ngón để phóng to/thu nhỏ. Chạm vào một phím để xem tác dụng của nó.",
   "sidebar.tip.m": "Mẹo: chụm hai ngón tay để phóng to/thu nhỏ khối.",
   "guide.total": "Tổng để hoàn thành cấp độ này: {c}",
-  "guide.pick": "Chọn mục"
+  "guide.pick": "Chọn mục",
+  "lv.short": "Lv {n}",
+  "lv.title": "Cấp của bạn",
+  "lv.exp": "Kinh nghiệm: {e} exp",
+  "lv.next": "Cấp tiếp theo (Lv {n}) cần {e} exp — còn khoảng {t}",
+  "lv.max": "Đã đạt cấp tối đa!",
+  "lv.rule": "Mỗi giây mở ứng dụng bạn nhận +1 exp.",
+  "lv.unlocks": "MỞ KHOÁ",
+  "lv.u15": "Cấp nâng cao của mọi puzzle, 3x3 Tối ưu và Roux",
+  "lv.u20": "3x3 Thi đấu",
+  "lv.locked": "Đang khoá – đạt Lv {n} để mở.",
+  "lv.up": "🎉 Lên cấp! Bạn đã đạt Lv {n}.",
+  "lv.unlocked": "Đã mở khoá: {x}"
 }

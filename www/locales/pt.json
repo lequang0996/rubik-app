@@ -275,5 +275,17 @@
   "help.main.m": "Ou arraste <b>sobre um adesivo</b> para girar uma camada; arraste o <b>fundo</b> para girar a câmera; use o gesto de pinça para dar zoom. Toque em uma tecla para ver o que ela faz.",
   "sidebar.tip.m": "Dica: use dois dedos em pinça para aproximar ou afastar o puzzle.",
   "guide.total": "Total para concluir este nível: {c}",
-  "guide.pick": "Escolha uma seção"
+  "guide.pick": "Escolha uma seção",
+  "lv.short": "Lv {n}",
+  "lv.title": "Seu nível",
+  "lv.exp": "Experiência: {e} exp",
+  "lv.next": "O próximo nível (Lv {n}) exige {e} exp — faltam cerca de {t}",
+  "lv.max": "Nível máximo atingido!",
+  "lv.rule": "Cada segundo com o app aberto dá +1 exp.",
+  "lv.unlocks": "DESBLOQUEIOS",
+  "lv.u15": "Níveis avançados de todos os puzzles, 3x3 Ótimo e Roux",
+  "lv.u20": "3x3 Competição",
+  "lv.locked": "Bloqueado – alcance o Lv {n} para desbloquear.",
+  "lv.up": "🎉 Subiu de nível! Você chegou ao Lv {n}.",
+  "lv.unlocked": "Desbloqueado: {x}"
 }
