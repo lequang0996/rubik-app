@@ -1,1 +1,114 @@
-{"puzzle": "5x5", "level_info": [{"id": "basic", "label": "@level.basic", "title": "@lv59"}, {"id": "advanced", "label": "@level.advanced", "title": "@lv60"}], "levels": {"basic": [{"id": "notation", "title": "@c39", "desc": "@d.5x5.notation", "diagram": "3d", "mode": "orient", "cases": [{"name": "@n61", "algs": ["R"]}, {"name": "@n41", "algs": ["Rw"]}, {"name": "@n62", "algs": ["3Rw"]}, {"name": "@n63", "algs": ["2R"]}, {"name": "@n64", "algs": ["3R"]}, {"name": "@n43", "algs": ["Uw"]}, {"name": "@n65", "algs": ["3Uw'"]}, {"name": "@n66", "algs": ["2L"]}, {"name": "@n48", "algs": ["x"]}, {"name": "@n47", "algs": ["Fw2"]}]}, {"id": "centers", "title": "@c50", "desc": "@d.5x5.centers", "diagram": "3d", "mode": "orient", "cases": [{"name": "@n67", "algs": ["3Rw U 3Rw' D 3Rw U' 3Rw' D'"], "note": "@n68"}, {"name": "@center.swap|n=4", "algs": ["2R2 3U2 2R2 3U2", "3U2 2R2 3U2 2R2", "2R2 3U2 R2 Rw2 3U2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=4", "algs": ["2R2 3F2 2R2 3F2", "3F2 2R2 3F2 2R2", "2R2 3F2 R2 Rw2 3F2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=4", "algs": ["2U2 3R2 2U2 3R2", "3R2 2U2 3R2 2U2", "2U2 3R2 U2 Uw2 3R2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=4", "algs": ["2U2 3F2 2U2 3F2", "3F2 2U2 3F2 2U2", "2U2 3F2 U2 Uw2 3F2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=4", "algs": ["2F2 3R2 2F2 3R2", "3R2 2F2 3R2 2F2", "2F2 3R2 F2 Fw2 3R2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=4", "algs": ["2F2 3U2 2F2 3U2", "3U2 2F2 3U2 2F2", "2F2 3U2 F2 Fw2 3U2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2R2 2U2 2R2 2U2", "2R2 2U2 2R2 U2 Uw2", "2R2 2U2 2R2 Uw2 U2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2R2 2F2 2R2 2F2", "2R2 2F2 2R2 F2 Fw2", "2R2 2F2 2R2 Fw2 F2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2U2 2R2 2U2 2R2", "2U2 2R2 2U2 R2 Rw2", "2U2 2R2 2U2 Rw2 R2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2F2 2R2 2F2 2R2", "2F2 2R2 2F2 R2 Rw2", "2F2 2R2 2F2 Rw2 R2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2U2 2F2 2U2 2F2", "2U2 2F2 2U2 F2 Fw2", "2U2 2F2 2U2 Fw2 F2"], "note": "@center.note|n=4"}, {"name": "@center.swap|n=6", "algs": ["2F2 2U2 2F2 2U2", "2F2 2U2 2F2 U2 Uw2", "2F2 2U2 2F2 Uw2 U2"], "note": "@center.note|n=4"}]}, {"id": "edges", "title": "@c51", "desc": "@d.5x5.edges", "diagram": "3d", "mode": "orient", "cases": [{"name": "@n69", "algs": ["R U R' F R' F' R"]}, {"name": "@n70", "algs": ["Rw U R' U' Rw'"]}]}], "advanced": [{"id": "l2c", "title": "@c71", "desc": "@d.5x5.l2c", "diagram": "3d", "mode": "orient", "cases": [{"name": "L2C 1", "algs": ["U2 Rw U Rw' U Rw U2 Rw'"]}, {"name": "L2C 2", "algs": ["Rw U M' U2 M U Rw'"]}, {"name": "L2C 3", "algs": ["Rw U Rw'"]}, {"name": "L2C 4", "algs": ["Rw U Rw' U' Rw U' Rw'"]}, {"name": "L2C 5", "algs": ["Rw U' Rw' U' Rw U' Rw'"]}, {"name": "L2C 6", "algs": ["Rw U2 Rw' U Rw U2 Rw'"]}, {"name": "L2C 7", "algs": ["Rw U' Rw'"]}, {"name": "L2C 8", "algs": ["Rw U' Rw' U Rw U Rw'"]}, {"name": "L2C 9", "algs": ["Rw U Rw' U Rw U Rw'"]}, {"name": "L2C 10", "algs": ["Rw U2 Rw' U' Rw U2 Rw'"]}, {"name": "L2C 11", "algs": ["U2 Rw U Rw' U' Rw U Rw' U' Rw U Rw' U'"]}, {"name": "L2C 12", "algs": ["Rw U' Rw' U2 Rw U' Rw'"]}, {"name": "L2C 13", "algs": ["Rw U2 Rw'"]}, {"name": "L2C 14", "algs": ["Rw U Rw' U' Rw U2 Rw'"]}, {"name": "L2C 15", "algs": ["Rw U Rw' U Rw U2 Rw'"]}, {"name": "L2C 16", "algs": ["Rw U' Rw' U Rw U' Rw'"]}, {"name": "L2C 17", "algs": ["Rw U Rw' U' Rw U Rw'"]}, {"name": "L2C 18", "algs": ["M' U2 M U Rw U2 Rw'"]}]}, {"id": "l2e", "title": "@c72", "desc": "@d.5x5.l2e", "diagram": "3d", "mode": "orient", "cases": [{"name": "L2E 1", "algs": ["Rw' U' R' U R' F R F' Rw"]}, {"name": "L2E 2", "algs": ["Lw U' R' U R' F R F' Lw'"]}, {"name": "L2E 3", "algs": ["x' M' U' R' U R' F R F' M x"]}, {"name": "L2E 4", "algs": ["Rw2 F2 U2 Rw2 U2 F2 Rw2"]}, {"name": "L2E 5", "algs": ["Rw2 B2 Rw' U2 Rw' U2' x' U2 Rw' U2' Rw U2 Rw' U2' Rw2 U2 x"]}, {"name": "L2E 6", "algs": ["Rw' U2 3Rw U2 3Rw' F2 Rw2 U2 Rw U2 Rw' U2 F2 Rw2 F2"]}, {"name": "L2E 7", "algs": ["y2 Rw U2 Rw U2' x U2 Rw U2' 3Rw' U2 Lw U2' Rw2"]}, {"name": "L2E 8", "algs": ["Lw2 F2 U2 Lw' U2 Lw2 F2 Lw' U2 Lw2 U2 F2 Lw' F2"]}, {"name": "L2E 9", "algs": ["B2 Rw' U2 Rw' U2' Rw B2 Rw U2 Rw U2' Rw' U2 Rw U2' Rw2"]}, {"name": "L2E 10", "algs": ["Rw' U2 Rw2 U2 Rw U2 Rw' U2 Rw U2 Rw2 U2 Rw'"]}, {"name": "L2E 11", "algs": ["Rw U2 Rw2 U2 Rw' U2 Rw U2 Rw' U2 Rw2 U2 Rw"]}, {"name": "L2E 12", "algs": ["Rw' U2 Rw U2 3Lw' U2 Rw U2 Rw U2' Rw' U2 Rw U2' Rw2 D2 F2 U2 D2"]}, {"name": "L2E 13", "algs": ["Rw U R U' Rw2 U' R U Rw2 U R U' Rw'"]}]}]}}
+{
+  "puzzle": "5x5",
+  "level_info": [
+    { "id": "basic", "label": "@level.basic", "title": "@lv59" },
+    { "id": "advanced", "label": "@level.advanced", "title": "@lv60" }
+  ],
+  "levels": {
+    "basic": [
+      {
+        "id": "notation",
+        "title": "@c39",
+        "desc": "@d.5x5.notation",
+        "diagram": "3d",
+        "mode": "orient",
+        "cases": [
+          { "name": "@n61", "algs": ["R"] },
+          { "name": "@n41", "algs": ["Rw"] },
+          { "name": "@n62", "algs": ["3Rw"] },
+          { "name": "@n63", "algs": ["2R"] },
+          { "name": "@n64", "algs": ["3R"] },
+          { "name": "@n43", "algs": ["Uw"] },
+          { "name": "@n65", "algs": ["3Uw'"] },
+          { "name": "@n66", "algs": ["2L"] },
+          { "name": "@n48", "algs": ["x"] },
+          { "name": "@n47", "algs": ["Fw2"] }
+        ]
+      },
+      {
+        "id": "centers",
+        "title": "@c50",
+        "desc": "@d.5x5.centers",
+        "diagram": "3d",
+        "mode": "orient",
+        "cases": [
+          { "name": "@n67", "algs": ["3Rw U 3Rw' D 3Rw U' 3Rw' D'"], "note": "@n68" },
+          { "name": "@center.swap|n=4", "algs": ["2R2 3U2 2R2 3U2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=4", "algs": ["2R2 3F2 2R2 3F2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=4", "algs": ["2U2 3R2 2U2 3R2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=4", "algs": ["2U2 3F2 2U2 3F2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=4", "algs": ["2F2 3R2 2F2 3R2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=4", "algs": ["2F2 3U2 2F2 3U2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2R2 2U2 2R2 2U2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2R2 2F2 2R2 2F2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2U2 2R2 2U2 2R2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2F2 2R2 2F2 2R2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2U2 2F2 2U2 2F2"], "note": "@center.note|n=4" },
+          { "name": "@center.swap|n=6", "algs": ["2F2 2U2 2F2 2U2"], "note": "@center.note|n=4" }
+        ]
+      },
+      {
+        "id": "edges",
+        "title": "@c51",
+        "desc": "@d.5x5.edges",
+        "diagram": "3d",
+        "mode": "orient",
+        "cases": [
+          { "name": "@n69", "algs": ["R U R' F R' F' R"] },
+          { "name": "@n70", "algs": ["Rw U R' U' Rw'"] }
+        ]
+      }
+    ],
+    "advanced": [
+      {
+        "id": "l2c",
+        "title": "@c71",
+        "desc": "@d.5x5.l2c",
+        "diagram": "3d",
+        "mode": "orient",
+        "cases": [
+          { "name": "L2C 1", "algs": ["U2 Rw U Rw' U Rw U2 Rw'"] },
+          { "name": "L2C 2", "algs": ["Rw U M' U2 M U Rw'"] },
+          { "name": "L2C 3", "algs": ["Rw U Rw'"] },
+          { "name": "L2C 4", "algs": ["Rw U Rw' U' Rw U' Rw'"] },
+          { "name": "L2C 5", "algs": ["Rw U' Rw' U' Rw U' Rw'"] },
+          { "name": "L2C 6", "algs": ["Rw U2 Rw' U Rw U2 Rw'"] },
+          { "name": "L2C 7", "algs": ["Rw U' Rw'"] },
+          { "name": "L2C 8", "algs": ["Rw U' Rw' U Rw U Rw'"] },
+          { "name": "L2C 9", "algs": ["Rw U Rw' U Rw U Rw'"] },
+          { "name": "L2C 10", "algs": ["Rw U2 Rw' U' Rw U2 Rw'"] },
+          { "name": "L2C 11", "algs": ["U2 Rw U Rw' U' Rw U Rw' U' Rw U Rw' U'"] },
+          { "name": "L2C 12", "algs": ["Rw U' Rw' U2 Rw U' Rw'"] },
+          { "name": "L2C 13", "algs": ["Rw U2 Rw'"] },
+          { "name": "L2C 14", "algs": ["Rw U Rw' U' Rw U2 Rw'"] },
+          { "name": "L2C 15", "algs": ["Rw U Rw' U Rw U2 Rw'"] },
+          { "name": "L2C 16", "algs": ["Rw U' Rw' U Rw U' Rw'"] },
+          { "name": "L2C 17", "algs": ["Rw U Rw' U' Rw U Rw'"] },
+          { "name": "L2C 18", "algs": ["M' U2 M U Rw U2 Rw'"] }
+        ]
+      },
+      {
+        "id": "l2e",
+        "title": "@c72",
+        "desc": "@d.5x5.l2e",
+        "diagram": "3d",
+        "mode": "orient",
+        "cases": [
+          { "name": "L2E 1", "algs": ["Rw' U' R' U R' F R F' Rw"] },
+          { "name": "L2E 2", "algs": ["Lw U' R' U R' F R F' Lw'"] },
+          { "name": "L2E 3", "algs": ["x' M' U' R' U R' F R F' M x"] },
+          { "name": "L2E 4", "algs": ["Rw2 F2 U2 Rw2 U2 F2 Rw2"] },
+          { "name": "L2E 5", "algs": ["Rw2 B2 Rw' U2 Rw' U2 x' U2 Rw' U2 Rw U2 Rw' U2 Rw2 U2 x"] },
+          { "name": "L2E 6", "algs": ["Rw' U2 3Rw U2 3Rw' F2 Rw2 U2 Rw U2 Rw' U2 F2 Rw2 F2"] },
+          { "name": "L2E 7", "algs": ["y2 Rw U2 Rw U2 x U2 Rw U2 3Rw' U2 Lw U2 Rw2"] },
+          { "name": "L2E 8", "algs": ["Lw2 F2 U2 Lw' U2 Lw2 F2 Lw' U2 Lw2 U2 F2 Lw' F2"] },
+          { "name": "L2E 9", "algs": ["B2 Rw' U2 Rw' U2 Rw B2 Rw U2 Rw U2 Rw' U2 Rw U2 Rw2"] },
+          { "name": "L2E 10", "algs": ["Rw' U2 Rw2 U2 Rw U2 Rw' U2 Rw U2 Rw2 U2 Rw'"] },
+          { "name": "L2E 11", "algs": ["Rw U2 Rw2 U2 Rw' U2 Rw U2 Rw' U2 Rw2 U2 Rw"] },
+          { "name": "L2E 12", "algs": ["Rw' U2 Rw U2 3Lw' U2 Rw U2 Rw U2 Rw' U2 Rw U2 Rw2 D2 F2 U2 D2"] },
+          { "name": "L2E 13", "algs": ["Rw U R U' Rw2 U' R U Rw2 U R U' Rw'"] }
+        ]
+      }
+    ]
+  }
+}

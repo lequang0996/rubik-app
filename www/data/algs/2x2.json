@@ -1,1 +1,140 @@
-{"puzzle": "2x2", "levels": {"basic": [{"id": "notation", "title": "@c0", "desc": "@d.2x2.notation", "diagram": "3d", "cases": [{"name": "@n1", "algs": ["R"]}, {"name": "@n2", "algs": ["R'"]}, {"name": "@n3", "algs": ["U"]}, {"name": "@n4", "algs": ["U'"]}, {"name": "@n5", "algs": ["F"]}, {"name": "@n6", "algs": ["F'"]}, {"name": "@n7", "algs": ["R2"]}]}, {"id": "begin", "title": "@c8", "desc": "@d.2x2.begin", "diagram": "3d", "cases": [{"name": "@n9", "algs": ["R U R' U'"], "note": "@n10"}, {"name": "@n11", "algs": ["R' D' R D"]}, {"name": "@n12", "algs": ["R' D' R D"], "note": "@n13"}]}, {"id": "oll", "title": "@c14", "desc": "@d.2x2.oll", "diagram": "top", "mode": "orient", "cases": [{"name": "Sune", "algs": ["R U R' U R U2 R'"]}, {"name": "Anti-Sune", "algs": ["R U2 R' U' R U' R'"]}, {"name": "H", "algs": ["R U R' U R U' R' U R U2 R'", "F R U R' U' R U R' U' R U R' U' F'"]}, {"name": "Pi", "algs": ["R U2 R2 U' R2 U' R2 U2 R", "F R U R' U' R U R' U' F' U' F R U R' U' F'"]}, {"name": "U", "algs": ["R2 D R' U2 R D' R' U2 R'", "F R U R' U' F' U"]}]}, {"id": "pbl", "title": "@c15", "desc": "@d.2x2.pbl", "diagram": "top", "mode": "color", "cases": [{"name": "@n16", "algs": ["R U2 R' U' R U2 L' U R' U' L", "R U R' U' R' F R2 U' R' U' R U R' F'"]}, {"name": "@n17", "algs": ["F R U' R' U' R U R' F' R U R' U' R' F R F'"]}]}], "advanced": [{"id": "cll-4", "title": "@c18", "desc": "@d.2x2.cll-4", "diagram": "top", "mode": "color", "cases": [{"name": "CLL 1", "algs": ["R2 F2 R' U' R F2 R' U R'", "R2 F2 R F R' F2 R U' R", "F R' F R2 F' U F R2 F2"], "note": "@cll.note|k=4"}, {"name": "CLL 2", "algs": ["R U' R' U' F2 U' R U R' U F2", "R U' R2 U' F' R' U F2 R U' F", "R U' F R U' R2 U' F' R' U F2"], "note": "@cll.note|k=4"}]}, {"id": "cll-1", "title": "@c19", "desc": "@d.2x2.cll-1", "diagram": "top", "mode": "color", "cases": [{"name": "CLL 3", "algs": ["R U2 R' U' R U' R'", "F' U' F U' F' U2 F", "F' U' F2 U F2 U' F'"], "note": "@cll.note|k=1"}, {"name": "CLL 4", "algs": ["R U R' U R U2 R'", "R U R2 U' R2 U R", "F' U2 F U F' U F"], "note": "@cll.note|k=1"}, {"name": "CLL 5", "algs": ["R' F R F' R U R'", "U2 R' U R F' U F R'", "R' U' R F2 U R U' F2"], "note": "@cll.note|k=1"}, {"name": "CLL 6", "algs": ["R U' R' F R' F' R", "U2 R F' U' F R' U' R", "R2 U R' U' R2 F' U F"], "note": "@cll.note|k=1"}, {"name": "CLL 7", "algs": ["F R2 F' U2 F' U F R'", "U R U2 R' U2 R' F R F'", "R2 U F2 R' U R F2 U' R2"], "note": "@cll.note|k=1"}, {"name": "CLL 8", "algs": ["F R' F' R U2 R U2 R'", "R2 U F2 R' U' R F2 U' R2", "U R U' R' F U2 F U2 F'"], "note": "@cll.note|k=1"}, {"name": "CLL 9", "algs": ["F' U F R' U2 R' U2 R", "U2 F' R U R' U2 R' F2 R", "R F R' F2 R' U2 R F R'"], "note": "@cll.note|k=1"}, {"name": "CLL 10", "algs": ["R' F2 R U2 R U' R' F", "F R' U' R2 U R2 U R' F'", "U2 R' U2 R U2 R F' U' F"], "note": "@cll.note|k=1"}, {"name": "CLL 11", "algs": ["F2 R U F2 R' F2 U' R' F2", "F2 R U' F2 R F2 U R' F2", "F2 R' F U2 R U2 F' R F2"], "note": "@cll.note|k=1"}, {"name": "CLL 12", "algs": ["F2 U R U2 R' U F2 U' F", "F R' F2 R F' U2 F U F2", "R U' F2 R U R U2 F' U' R2"], "note": "@cll.note|k=1"}, {"name": "CLL 13", "algs": ["R2 F R U2 F U2 R' F' R2", "R2 F R' U2 F' U2 R F' R2", "R2 F' U R2 F' R2 U' F R2"], "note": "@cll.note|k=1"}, {"name": "CLL 14", "algs": ["F' R U2 R' F U2 F' U' F2", "F2 U' R' F2 R U' F2 U F'", "U R' U R2 U' F R2 F' U' R2"], "note": "@cll.note|k=1"}]}, {"id": "cll-2", "title": "@c20", "desc": "@d.2x2.cll-2", "diagram": "top", "mode": "color", "cases": [{"name": "CLL 15", "algs": ["F U R U' R' F'", "F' R' F' R U F", "U R F R F' U' R'"], "note": "@cll.note|k=2"}, {"name": "CLL 16", "algs": ["R' U' R U F R F'", "R' U2 F' U' F U2 R", "F R' F' U2 R' U2 R"], "note": "@cll.note|k=2"}, {"name": "CLL 17", "algs": ["R F2 U R U' F2 R'", "R F U' F' U' R' F", "F' R U F2 R F2 R'"], "note": "@cll.note|k=2"}, {"name": "CLL 18", "algs": ["F' U F U R U' R'", "R F2 U R' U' F2 R'", "R F2 R' F2 U' R' F"], "note": "@cll.note|k=2"}, {"name": "CLL 19", "algs": ["F R' F' U' R' U R", "R' F2 U' F U F2 R", "R' F2 R U2 F U F'"], "note": "@cll.note|k=2"}, {"name": "CLL 20", "algs": ["R' F2 U2 R U R' U F' R", "R F' U F' U R' U' F2 R2", "R F2 U2 R' U' F R' F R'"], "note": "@cll.note|k=2"}, {"name": "CLL 21", "algs": ["R2 U R' U2 R U2 R' U R2", "F2 U' F U2 F' U2 F U' F2", "U' R2 U' R U2 R' U2 R U' R2"], "note": "@cll.note|k=2"}, {"name": "CLL 22", "algs": ["F2 U R U' F2 U R' U R", "F2 U' F' U F2 U' R U' R'", "R F U' F U2 F' R U F2"], "note": "@cll.note|k=2"}, {"name": "CLL 23", "algs": ["R' U F' R U' R' F2 U2 R", "R2 F2 U' R' U F' R U' R", "R F' R F' U R U2 F2 R'"], "note": "@cll.note|k=2"}, {"name": "CLL 24", "algs": ["R F' R' U F' U' R U' F", "R F2 R U2 R' F2 R F2 R2", "R' F2 R' F2 R U2 R' F2 R2"], "note": "@cll.note|k=2"}, {"name": "CLL 25", "algs": ["R2 U' R U R2 U F R2 F'", "R2 U' F R2 F' U R U2 R", "R2 U2 R U R' U F R F' R"], "note": "@cll.note|k=2"}, {"name": "CLL 26", "algs": ["R U2 R U F' U2 F U' R2", "F' U2 F U R2 U R U' R2", "R U F R2 F' R U R U' R2"], "note": "@cll.note|k=2"}, {"name": "CLL 27", "algs": ["R2 U R' U' R2 U' F' U2 F", "R2 U F' U2 F U' R' U2 R'", "R2 U2 R U' F R' F' R' U R'"], "note": "@cll.note|k=2"}, {"name": "CLL 28", "algs": ["R2 F2 R' U2 R F2 R' U2 R'", "R U' F U' R' U F' R' F", "R' F U' R F R' U R F'"], "note": "@cll.note|k=2"}, {"name": "CLL 29", "algs": ["R F2 R' F' R2 F' R' U F2", "F' R2 F' R' F R2 F' U F2", "U R' U2 R' U' F R2 F' U R2"], "note": "@cll.note|k=2"}, {"name": "CLL 30", "algs": ["R U2 R' F R' F' R2 U2 R'", "R F U2 R2 U F R' U2 R", "R' U2 R2 F' U' F R' U2 R"], "note": "@cll.note|k=2"}, {"name": "CLL 31", "algs": ["R2 U2 R U F R F' R' U R2", "R2 U2 R U' R' F' U F U' R2", "R2 U2 R U2 R' U F R' F' R'"], "note": "@cll.note|k=2"}, {"name": "CLL 32", "algs": ["F2 U' R U R' U F2 R U' R'", "F R U2 R U2 R F R' U2 R2", "F R U2 R2 U F U R2 U R2"], "note": "@cll.note|k=2"}]}, {"id": "cll-0", "title": "@c21", "desc": "@d.2x2.cll-0", "diagram": "top", "mode": "color", "cases": [{"name": "CLL 33", "algs": ["R2 U2 R' U2 R2", "R2 U2 R U2 R2", "U2 R2 U2 R U2 R2"], "note": "@cll.note|k=0"}, {"name": "CLL 34", "algs": ["R2 F' R2 F2 U2 F' R2", "R2 F U2 F2 R2 F R2", "R2 F R2 F2 U2 F R2"], "note": "@cll.note|k=0"}, {"name": "CLL 35", "algs": ["R U' R2 U R2 U R2 U' R", "R' U R2 U' R2 U' R2 U R'", "R U2 R2 U' R2 U R2 U2 R'"], "note": "@cll.note|k=0"}, {"name": "CLL 36", "algs": ["R U2 F' R2 F' R2 F U2 R'", "R' U2 F U2 F U2 F' U2 R", "R F R2 F U2 F R U2 F2"], "note": "@cll.note|k=0"}, {"name": "CLL 37", "algs": ["R U2 F2 U R2 U' F2 U' R'", "R F2 U' R2 U R2 U F2 R'", "R' U2 F2 U' F2 U F2 U R"], "note": "@cll.note|k=0"}, {"name": "CLL 38", "algs": ["R2 U F2 R' U2 R F2 U' R2", "R2 U' F2 R F2 R' F2 U R2", "R F R F' U R' U' R U' R'"], "note": "@cll.note|k=0"}, {"name": "CLL 39", "algs": ["R U' R F U2 R2 F R' U' R", "R' U R' F' R2 U2 F' R U R'", "R F' U R2 U2 F' U R U R2"], "note": "@cll.note|k=0"}, {"name": "CLL 40", "algs": ["R2 U R U F' R2 U2 R F' R", "R2 U R U' R2 U2 F R' F' R", "R2 U' R' U R2 U2 F' U F R'"], "note": "@cll.note|k=0"}, {"name": "CLL 41", "algs": ["F' R2 F U2 R' U R2 U' F' R", "F' R2 F U2 R2 F' U R U R2", "F' U2 R2 F' U2 F' U R U R2"], "note": "@cll.note|k=0"}, {"name": "CLL 42", "algs": ["F' R F R U' R2 F R' U2 R", "F2 U' F' U' R U2 F2 R' U2 R", "F R2 F' R U2 F' U F U R'"], "note": "@cll.note|k=0"}]}]}}
+{
+  "puzzle": "2x2",
+  "levels": {
+    "basic": [
+      {
+        "id": "notation",
+        "title": "@c0",
+        "desc": "@d.2x2.notation",
+        "diagram": "3d",
+        "cases": [
+          { "name": "@n1", "algs": ["R"] },
+          { "name": "@n2", "algs": ["R'"] },
+          { "name": "@n3", "algs": ["U"] },
+          { "name": "@n4", "algs": ["U'"] },
+          { "name": "@n5", "algs": ["F"] },
+          { "name": "@n6", "algs": ["F'"] },
+          { "name": "@n7", "algs": ["R2"] }
+        ]
+      },
+      {
+        "id": "begin",
+        "title": "@c8",
+        "desc": "@d.2x2.begin",
+        "diagram": "3d",
+        "cases": [
+          { "name": "@n9", "algs": ["R U R' U'"], "note": "@n10" },
+          { "name": "@n11", "algs": ["R' D' R D"] },
+          { "name": "@n12", "algs": ["R' D' R D"], "note": "@n13" }
+        ]
+      },
+      {
+        "id": "oll",
+        "title": "@c14",
+        "desc": "@d.2x2.oll",
+        "diagram": "top",
+        "mode": "orient",
+        "cases": [
+          { "name": "Sune", "algs": ["R U R' U R U2 R'"] },
+          { "name": "Anti-Sune", "algs": ["R U2 R' U' R U' R'"] },
+          { "name": "H", "algs": ["R2 U2 R U2 R2"] },
+          { "name": "Pi", "algs": ["R U2 R2 U' R2 U' R2 U2 R"] },
+          { "name": "U", "algs": ["F R U R' U' F'"] },
+          { "name": "L", "algs": ["F R' F' R U R U' R'"] },
+          { "name": "T", "algs": ["R U R' U' R' F R F'"] }
+        ]
+      },
+      {
+        "id": "pbl",
+        "title": "@c15",
+        "desc": "@d.2x2.pbl",
+        "diagram": "top",
+        "mode": "color",
+        "cases": [
+          { "name": "@n16", "algs": ["R U2 R' U' R U2 L' U R' U' L"] },
+          { "name": "@n17", "algs": ["F R U' R' U' R U R' F' R U R' U' R' F R F'"] }
+        ]
+      }
+    ],
+    "advanced": [
+      {
+        "id": "cll-4",
+        "title": "@c18",
+        "desc": "@d.2x2.cll-4",
+        "diagram": "top",
+        "mode": "color",
+        "cases": [
+          { "name": "CLL 1", "algs": ["R2 F2 R' U' R F2 R' U R'"], "note": "@cll.note|k=4" },
+          { "name": "CLL 2", "algs": ["R U' R' U' F2 U' R U R' U F2"], "note": "@cll.note|k=4" }
+        ]
+      },
+      {
+        "id": "cll-1",
+        "title": "@c19",
+        "desc": "@d.2x2.cll-1",
+        "diagram": "top",
+        "mode": "color",
+        "cases": [
+          { "name": "CLL 3", "algs": ["R U2 R' U' R U' R'"], "note": "@cll.note|k=1" },
+          { "name": "CLL 4", "algs": ["R U R' U R U2 R'"], "note": "@cll.note|k=1" },
+          { "name": "CLL 5", "algs": ["R' F R F' R U R'"], "note": "@cll.note|k=1" },
+          { "name": "CLL 6", "algs": ["R U' R' F R' F' R"], "note": "@cll.note|k=1" },
+          { "name": "CLL 7", "algs": ["F R2 F' U2 F' U F R'"], "note": "@cll.note|k=1" },
+          { "name": "CLL 8", "algs": ["F R' F' R U2 R U2 R'"], "note": "@cll.note|k=1" },
+          { "name": "CLL 9", "algs": ["F' U F R' U2 R' U2 R"], "note": "@cll.note|k=1" },
+          { "name": "CLL 10", "algs": ["R' F2 R U2 R U' R' F"], "note": "@cll.note|k=1" },
+          { "name": "CLL 11", "algs": ["F2 R U F2 R' F2 U' R' F2"], "note": "@cll.note|k=1" },
+          { "name": "CLL 12", "algs": ["F2 U R U2 R' U F2 U' F"], "note": "@cll.note|k=1" },
+          { "name": "CLL 13", "algs": ["R2 F R U2 F U2 R' F' R2"], "note": "@cll.note|k=1" },
+          { "name": "CLL 14", "algs": ["F' R U2 R' F U2 F' U' F2"], "note": "@cll.note|k=1" }
+        ]
+      },
+      {
+        "id": "cll-2",
+        "title": "@c20",
+        "desc": "@d.2x2.cll-2",
+        "diagram": "top",
+        "mode": "color",
+        "cases": [
+          { "name": "CLL 15", "algs": ["F U R U' R' F'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 16", "algs": ["R' U' R U F R F'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 17", "algs": ["R F2 U R U' F2 R'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 18", "algs": ["F' U F U R U' R'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 19", "algs": ["F R' F' U' R' U R"], "note": "@cll.note|k=2" },
+          { "name": "CLL 20", "algs": ["R' F2 U2 R U R' U F' R"], "note": "@cll.note|k=2" },
+          { "name": "CLL 21", "algs": ["R2 U R' U2 R U2 R' U R2"], "note": "@cll.note|k=2" },
+          { "name": "CLL 22", "algs": ["F2 U R U' F2 U R' U R"], "note": "@cll.note|k=2" },
+          { "name": "CLL 23", "algs": ["R' U F' R U' R' F2 U2 R"], "note": "@cll.note|k=2" },
+          { "name": "CLL 24", "algs": ["R F' R' U F' U' R U' F"], "note": "@cll.note|k=2" },
+          { "name": "CLL 25", "algs": ["R2 U' R U R2 U F R2 F'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 26", "algs": ["R U2 R U F' U2 F U' R2"], "note": "@cll.note|k=2" },
+          { "name": "CLL 27", "algs": ["R2 U R' U' R2 U' F' U2 F"], "note": "@cll.note|k=2" },
+          { "name": "CLL 28", "algs": ["R2 F2 R' U2 R F2 R' U2 R'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 29", "algs": ["R F2 R' F' R2 F' R' U F2"], "note": "@cll.note|k=2" },
+          { "name": "CLL 30", "algs": ["R U2 R' F R' F' R2 U2 R'"], "note": "@cll.note|k=2" },
+          { "name": "CLL 31", "algs": ["R2 U2 R U F R F' R' U R2"], "note": "@cll.note|k=2" },
+          { "name": "CLL 32", "algs": ["F2 U' R U R' U F2 R U' R'"], "note": "@cll.note|k=2" }
+        ]
+      },
+      {
+        "id": "cll-0",
+        "title": "@c21",
+        "desc": "@d.2x2.cll-0",
+        "diagram": "top",
+        "mode": "color",
+        "cases": [
+          { "name": "CLL 33", "algs": ["R2 U2 R' U2 R2"], "note": "@cll.note|k=0" },
+          { "name": "CLL 34", "algs": ["R2 F' R2 F2 U2 F' R2"], "note": "@cll.note|k=0" },
+          { "name": "CLL 35", "algs": ["R U' R2 U R2 U R2 U' R"], "note": "@cll.note|k=0" },
+          { "name": "CLL 36", "algs": ["R U2 F' R2 F' R2 F U2 R'"], "note": "@cll.note|k=0" },
+          { "name": "CLL 37", "algs": ["R U2 F2 U R2 U' F2 U' R'"], "note": "@cll.note|k=0" },
+          { "name": "CLL 38", "algs": ["R2 U F2 R' U2 R F2 U' R2"], "note": "@cll.note|k=0" },
+          { "name": "CLL 39", "algs": ["R U' R F U2 R2 F R' U' R"], "note": "@cll.note|k=0" },
+          { "name": "CLL 40", "algs": ["R2 U R U F' R2 U2 R F' R"], "note": "@cll.note|k=0" },
+          { "name": "CLL 41", "algs": ["F' R2 F U2 R' U R2 U' F' R"], "note": "@cll.note|k=0" },
+          { "name": "CLL 42", "algs": ["F' R F R U' R2 F R' U2 R"], "note": "@cll.note|k=0" }
+        ]
+      }
+    ]
+  }
+}
