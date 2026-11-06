@@ -66,7 +66,12 @@ English · 简体中文 · Español · Português (Brasil) · Русский · 
 🔒 RIÊNG TƯ & GỌN NHẸ
 Hoạt động ngoại tuyến hoàn toàn. Không quảng cáo, không đăng nhập, không thu thập dữ liệu cá nhân. Tự động nhắc cập nhật khi có phiên bản mới.
 
-Giao diện tối dịu mắt, tối ưu cho điện thoại và máy tính bảng (dọc & ngang). Dù bạn mới biết xoay Rubik hay đang luyện tốc độ thi đấu, Cube All In One đều đồng hành cùng bạn!
+✨ GIAO DIỆN TINH TẾ, SÁNG & TỐI
+• Hai giao diện sang trọng: tối dịu mắt và sáng thanh lịch, tự theo hệ thống hoặc đổi nhanh bằng biểu tượng mặt trời / mặt trăng.
+• Tối ưu cho điện thoại và máy tính bảng (dọc & ngang).
+• Có mục Hướng dẫn sử dụng ngay trong app (biểu tượng dấu hỏi) tóm tắt cách dùng từng tính năng.
+
+Dù bạn mới biết xoay Rubik hay đang luyện tốc độ thi đấu, Cube All In One đều đồng hành cùng bạn!
 ```
 
 ---
@@ -130,13 +135,18 @@ English · 简体中文 · Español · Português (Brasil) · Русский · 
 🔒 PRIVATE & LIGHTWEIGHT
 Works completely offline. No ads, no sign-in, no personal data collected. Gets update prompts automatically when a new version is available.
 
-An eye-friendly dark theme, optimized for phones and tablets (portrait & landscape). Whether you are just learning to solve the cube or training for competition speed, Cube All In One is with you all the way!
+✨ REFINED LOOK, LIGHT & DARK
+• Two elegant themes: an eye-friendly dark mode and a clean light mode – follows your system or switch instantly with the sun / moon icon.
+• Optimized for phones and tablets (portrait & landscape).
+• A built-in How to use guide (question-mark icon) summarizes every feature.
+
+Whether you are just learning to solve the cube or training for competition speed, Cube All In One is with you all the way!
 ```
 
 ---
 
 ## Ghi chú đăng bài
 
-* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (ảnh chụp điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx`; máy tính bảng: `tablet-vi.png`).
+* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx` (sáng), `5-practice-light`, `6-sound`; máy tính bảng: `tablet-vi` (tối), `tablet-light`).
 * **Chính sách quyền riêng tư**: `docs/privacy-policy.html` (đăng qua GitHub Pages, dán đường dẫn vào Play Console).
 * **Cập nhật trong ứng dụng**: dùng Google Play In-App Updates chế độ Flexible. Mỗi bản phát hành mới cần **tăng `VERSION_CODE`** (workflow GitHub Actions đã dùng `github.run_number`). Tính năng chỉ hoạt động với bản cài từ Google Play (kiểm thử bằng Internal testing hoặc Internal app sharing).

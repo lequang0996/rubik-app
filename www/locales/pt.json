@@ -311,5 +311,22 @@
   "lv.up": "🎉 Subiu de nível! Você chegou ao Lv {n}.",
   "lv.unlocked": "Desbloqueado: {x}",
   "update.ready": "Atualização baixada",
-  "update.restart": "Reiniciar"
+  "update.restart": "Reiniciar",
+  "theme.toLight": "Mudar para o modo claro",
+  "theme.toDark": "Mudar para o modo escuro",
+  "help.title": "Como usar",
+  "help.s1t": "Escolha um puzzle",
+  "help.s1b": "Toque no botão do puzzle no canto superior esquerdo (ou no painel lateral no tablet) para alternar entre 3×3, 2×2, 4×4, 5×5, Pyraminx e Skewb.",
+  "help.s2t": "Guia: aprenda algoritmos",
+  "help.s2b": "Escolha um nível e um conjunto e toque em um algoritmo. Use reproduzir, pausar, voltar/avançar um movimento e reiniciar abaixo do cubo; o movimento destacado é o que está girando.",
+  "help.s3t": "Prática: memorize",
+  "help.s3b": "Clique em “Caso aleatório”, resolva por conta própria e use “Ocultar algoritmo” para lembrar de cabeça. Cada rodada passa por todos os casos antes de repetir.",
+  "help.s4t": "Jogar: embaralhe e cronometre",
+  "help.s4b": "Clique em “Embaralhar”; o cronômetro começa no primeiro movimento e para ao resolver. Arraste uma peça colorida para girar uma camada, arraste o fundo para girar a visão e use o gesto de pinça para dar zoom. Desfazer e Refazer são ilimitados.",
+  "help.s5t": "Níveis do jogador",
+  "help.s5b": "Você ganha 1 exp por segundo no app. O Lv 10 libera Prática e Jogar, o Lv 15 os níveis avançados e o Lv 20 os conjuntos de Competição do 3×3. Toque no selo de nível para ver o progresso.",
+  "help.s6t": "Legenda de cores",
+  "help.s6b": "Toque no botão ? do cubo para ver o significado de cada cor e letra do puzzle atual.",
+  "help.s7t": "Som, tema e idioma",
+  "help.s7b": "Ícone de nota: música de fundo, som de giro e faixa. Sol/lua: modo claro ou escuro. Globo: idioma."
 }

@@ -311,5 +311,22 @@
   "lv.up": "🎉 Level up! You reached Lv {n}.",
   "lv.unlocked": "Unlocked: {x}",
   "update.ready": "Update downloaded",
-  "update.restart": "Restart"
+  "update.restart": "Restart",
+  "theme.toLight": "Switch to light mode",
+  "theme.toDark": "Switch to dark mode",
+  "help.title": "How to use",
+  "help.s1t": "Choose a puzzle",
+  "help.s1b": "Tap the puzzle button at the top left (or pick from the side panel on a tablet) to switch between 3×3, 2×2, 4×4, 5×5, Pyraminx and Skewb.",
+  "help.s2t": "Guide: learn algorithms",
+  "help.s2b": "Pick a level and a set, then tap an algorithm. Use play, pause, step back/forward and restart under the cube; the highlighted move is the one being turned.",
+  "help.s3t": "Practice: remember them",
+  "help.s3b": "Tap “Random case”, solve it yourself, and use “Hide algorithm” to recall it from memory. Each round covers every case before repeating.",
+  "help.s4t": "Play: scramble and time",
+  "help.s4b": "Press “Scramble”; the timer starts on your first move and stops when solved. Drag a sticker to turn a layer, drag the background to rotate the view, pinch to zoom. Undo and Redo are unlimited.",
+  "help.s5t": "Player levels",
+  "help.s5b": "You earn 1 exp for every second in the app. Lv 10 unlocks Practice and Play, Lv 15 the advanced levels, Lv 20 the 3×3 Competition sets. Tap the level badge to see your progress.",
+  "help.s6t": "Color legend",
+  "help.s6b": "Tap the ? button on the cube to see what each color and letter means for the current puzzle.",
+  "help.s7t": "Sound, theme, language",
+  "help.s7b": "Music-note icon: background music, turn sound and track. Sun/moon icon: light or dark mode. Globe icon: language."
 }

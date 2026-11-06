@@ -311,5 +311,22 @@
   "lv.up": "🎉 Lên cấp! Bạn đã đạt Lv {n}.",
   "lv.unlocked": "Đã mở khoá: {x}",
   "update.ready": "Đã tải xong bản cập nhật",
-  "update.restart": "Khởi động lại"
+  "update.restart": "Khởi động lại",
+  "theme.toLight": "Chuyển sang giao diện sáng",
+  "theme.toDark": "Chuyển sang giao diện tối",
+  "help.title": "Hướng dẫn sử dụng",
+  "help.s1t": "Chọn khối",
+  "help.s1b": "Bấm nút khối ở góc trái phía trên (hoặc chọn ở bảng bên trái trên máy tính bảng) để đổi giữa 3×3, 2×2, 4×4, 5×5, Pyraminx và Skewb.",
+  "help.s2t": "Hướng dẫn: học công thức",
+  "help.s2b": "Chọn cấp độ và nhóm, rồi bấm vào một công thức. Dùng các nút phát, tạm dừng, lùi/tiến từng nước và về đầu bên dưới khối; nước đang xoay được tô sáng.",
+  "help.s3t": "Luyện tập: ghi nhớ",
+  "help.s3b": "Bấm “Ca ngẫu nhiên”, tự giải, và dùng “Ẩn công thức” để nhớ lại. Mỗi vòng đi qua mọi ca rồi mới lặp lại.",
+  "help.s4t": "Chơi: xáo trộn và bấm giờ",
+  "help.s4b": "Bấm “Xáo trộn”; đồng hồ chạy từ nước đi đầu tiên và dừng khi giải xong. Kéo trên miếng màu để xoay lớp, kéo nền để xoay góc nhìn, chụm hai ngón để phóng to/thu nhỏ. Hoàn tác và Làm lại không giới hạn.",
+  "help.s5t": "Cấp độ người chơi",
+  "help.s5b": "Mỗi giây dùng app bạn nhận 1 exp. Lv 10 mở Luyện tập và Chơi, Lv 15 mở các cấp nâng cao, Lv 20 mở bộ Thi đấu của 3×3. Bấm nhãn cấp độ để xem tiến độ.",
+  "help.s6t": "Chú giải màu",
+  "help.s6b": "Bấm nút ? trên khối để xem ý nghĩa từng màu và chữ cái của khối hiện tại.",
+  "help.s7t": "Âm thanh, giao diện, ngôn ngữ",
+  "help.s7b": "Biểu tượng nốt nhạc: nhạc nền, tiếng xoay và chọn bài. Mặt trời/mặt trăng: giao diện sáng hoặc tối. Quả địa cầu: ngôn ngữ."
 }

@@ -22,7 +22,7 @@ function topDiagram(p, mode, size) {
   const cs = (size - 2 * margin - 2 * t - 2 * 3) / n;
   const ox = margin + t + 3, off = (n - 1) / 2;
   const fill = (ci) => (mode === 'orient' ? (ci === 0 ? '#FFD23F' : '#3B4160') : cols[ci]);
-  q.fillStyle = '#0E1120';
+  q.fillStyle = '#151927';
   roundRect(q, 0, 0, size, size, size * 0.12);
   const gap = Math.max(1.5, cs * 0.06);
   for (let i = 0; i < col.length; i++) {

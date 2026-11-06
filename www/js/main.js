@@ -13,6 +13,10 @@ import { progress, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js
 import { LevelPill, toast } from './levelui.js';
 import { sound } from './audio.js';
 import { SoundButton } from './soundui.js';
+import { ThemeButton } from './themeui.js';
+import { HelpButton } from './helpui.js';
+import { icon } from './icons.js';
+import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
 
 const MODE_GUIDE = 0, MODE_PRACTICE = 1, MODE_PLAY = 2;
@@ -62,27 +66,27 @@ function build() {
   });
   const langPick = h('button', { type: 'button', class: 'langpick', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal },
     h('span', { class: 'lpname' }, i18n.langLabel(i18n.language())), h('span', { class: 'chev' }, '▾'));
-  const langRow = h('div', { class: 'sndrow' }, langPick, SoundButton());   // ngôn ngữ + âm thanh cùng một hàng
-  side.append(h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle')),
+  const langRow = h('div', { class: 'sndrow' }, langPick, SoundButton(), HelpButton());   // ngôn ngữ + âm thanh cùng một hàng
+  side.append(h('div', { class: 'brandrow' }, h('div', {}, h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle'))), ThemeButton()),
     h('div', { class: 'section' }, t('sidebar.section')), grid, h('div', { class: 'grow' }),
-    sidePill.el, h('div', { class: 'brandsub' }, '🌐  ' + t('sidebar.language')), langRow, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
+    sidePill.el, h('div', { class: 'brandsub' }, t('sidebar.language')), langRow, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
 
   // thanh trên (điện thoại): nút puzzle (mở danh sách) + cấp độ + ngôn ngữ
   const top = $('#topbar'); clear(top);
   const pIcon = h('span', { class: 'picon' }), pName = h('span', { class: 'pname' });
   const pBtn = h('button', { type: 'button', class: 'pbtn', 'aria-haspopup': 'dialog', onClick: openPuzzleModal }, pIcon, pName, h('span', { class: 'chev' }, '▾'));
-  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), SoundButton(),
-    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal }, '🌐'));
+  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), SoundButton(), HelpButton(), ThemeButton(),
+    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal }, icon('globe')));
 
   // chế độ
-  const labels = ['📘  ' + t('mode.guide'), '🎯  ' + t('mode.practice'), '🎮  ' + t('mode.play')];
+  const labels = [t('mode.guide'), t('mode.practice'), t('mode.play')];
+  const NAV_ICONS = ['guide', 'practice', 'play'];
   const seg = new Segmented(labels, (i) => requestMode(i));
   seg.setLocks(MODE_REQ, () => progress.level, (req) => toast(t('lv.locked', { n: req })));
   const modeHost = $('#modeseg'); clear(modeHost); modeHost.append(seg.el);
   const nav = $('#nav'); clear(nav);
   const navBtns = labels.map((l, i) => {
-    const [emo, ...rest] = l.split('  ');
-    const b = h('button', { type: 'button', class: 'navbtn', onClick: () => requestMode(i) }, h('span', { class: 'emo' }, emo), h('span', {}, rest.join(' ')));
+    const b = h('button', { type: 'button', class: 'navbtn', onClick: () => requestMode(i) }, icon(NAV_ICONS[i]), h('span', {}, l));
     nav.append(b);
     return b;
   });
@@ -105,7 +109,7 @@ function refreshLocks() {
   ui.navBtns.forEach((b, i) => {
     const lk = MODE_REQ[i] > progress.level, ic = b.querySelector('.lockic');
     b.classList.toggle('locked', lk);
-    if (lk && !ic) b.querySelector('.emo').after(h('span', { class: 'lockic' }, '🔒'));
+    if (lk && !ic) b.querySelector('.ic').after(h('span', { class: 'lockic' }, icon('lock', 11)));
     else if (!lk && ic) ic.remove();
   });
   ui.guide.refreshLocks();
@@ -224,6 +228,7 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
 
 // ------------------------------------------------------------------ khởi động
 document.addEventListener('visibilitychange', () => sound.setHidden(document.hidden));
+theme.onChange(() => view.update());            // đổi sáng/tối: vẽ lại bóng sàn của khối
 sound.armUnlock();                              // trình duyệt/WebView chỉ cho phát âm thanh sau lần chạm đầu tiên
 
 (async function init() {

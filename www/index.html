@@ -4,9 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <meta name="theme-color" content="#0C0E16">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
   <title>Cube All In One</title>
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <script>/* áp theme trước khi vẽ để không bị nháy */
+    (function () { try { var p = JSON.parse(localStorage.getItem('rubik_studio_settings') || '{}').theme;
+      var light = p === 'light' || (p !== 'dark' && window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches);
+      document.documentElement.dataset.theme = light ? 'light' : 'dark'; } catch (e) {} })();
+  </script>
 </head>
 <body>
   <div id="app" data-mode="0">

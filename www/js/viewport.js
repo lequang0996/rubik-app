@@ -268,9 +268,6 @@ export class PuzzleView extends Emitter {
     const { ctx, w, h } = this;
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, w, h);
-    const g = ctx.createRadialGradient(w / 2, h * 0.46, 0, w / 2, h * 0.46, Math.max(w, h) * 0.75);
-    g.addColorStop(0, '#1D2236'); g.addColorStop(0.55, '#131624'); g.addColorStop(1, '#0C0E16');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
     if (!this.puzzle) return;
     const anims = [];
     if (this.anim) {

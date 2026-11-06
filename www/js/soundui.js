@@ -2,10 +2,11 @@
 import { h, clear } from './dom.js';
 import { t } from './i18n.js';
 import { sound, TRACKS } from './audio.js';
+import { icon } from './icons.js';
 
 // Nút 🎵 duy nhất cạnh nút ngôn ngữ: bấm mở bảng bật/tắt nhạc nền, tiếng xoay và chọn bài
 export function SoundButton() {
-  const btn = h('button', { type: 'button', class: 'iconbtn sndbtn', 'aria-haspopup': 'dialog', onClick: openSoundSheet }, '🎵');
+  const btn = h('button', { type: 'button', class: 'iconbtn sndbtn', 'aria-haspopup': 'dialog', onClick: openSoundSheet }, icon('music'));
   const update = () => {
     const label = t('snd.settings');
     btn.setAttribute('aria-label', label); btn.title = label;

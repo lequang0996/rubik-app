@@ -1,3 +1,4 @@
+import { palette as themePalette } from './theme.js';
 // Bộ vẽ 3D bằng Canvas 2D: thuật toán painter + khử mặt khuất + đổ bóng (port từ gui/render3d.py)
 const BODY = [22, 24, 32];
 const INNER = [12, 13, 18];
@@ -105,7 +106,7 @@ export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1
     const ry = rad * 0.13 * f / D, rx = rad * 0.95 * f / D;
     const yy = cy + rad * 1.18 * f / D * (0.55 + 0.45 * Math.cos(pitch * Math.PI / 180));
     const g = ctx.createRadialGradient(cx, yy, 0, cx, yy, rx);
-    g.addColorStop(0, 'rgba(0,0,0,0.51)');
+    g.addColorStop(0, `rgba(0,0,0,${themePalette.floor})`);
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
     ctx.translate(cx, yy); ctx.scale(1, ry / rx); ctx.translate(-cx, -yy);
