@@ -1,9 +1,9 @@
 {
-  "name": "rubik-studio",
+  "name": "cube-all-in-one",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Rubik Studio – học xoay và chơi puzzle 3D (Android, Capacitor)",
+  "description": "Cube All In One – học xoay và chơi puzzle 3D (Android, Capacitor)",
   "scripts": {
     "test": "node tools/test_engine.mjs",
     "sync": "cap sync android",

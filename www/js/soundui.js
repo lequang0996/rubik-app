@@ -1,0 +1,41 @@
+// Giao diện âm thanh: nút 🔊/🔇 (bật/tắt tất cả) + nút 🎵 mở bảng chọn nhạc nền / hiệu ứng
+import { h, clear } from './dom.js';
+import { t } from './i18n.js';
+import { sound, TRACKS } from './audio.js';
+
+// Nút 🎵 duy nhất cạnh nút ngôn ngữ: bấm mở bảng bật/tắt nhạc nền, tiếng xoay và chọn bài
+export function SoundButton() {
+  const btn = h('button', { type: 'button', class: 'iconbtn sndbtn', 'aria-haspopup': 'dialog', onClick: openSoundSheet }, '🎵');
+  const update = () => {
+    const label = t('snd.settings');
+    btn.setAttribute('aria-label', label); btn.title = label;
+    btn.classList.toggle('off', !sound.on);          // tắt hết → nút mờ đi
+  };
+  update();
+  const off = sound.onChange(() => { if (!btn.isConnected) off(); else update(); });
+  return btn;
+}
+
+export function openSoundSheet() {
+  const root = document.getElementById('modal-root');
+  const sheet = h('div', { class: 'sheet', role: 'dialog' });
+  const row = (label, on, fn) => h('button', { type: 'button', class: 'switchrow', role: 'switch', 'aria-checked': String(on), onClick: fn },
+    h('span', { class: 'steptitle' }, label), h('span', { class: 'sw' + (on ? ' on' : '') }, h('i')));
+  const render = () => {
+    clear(sheet);
+    sheet.append(
+      h('div', { class: 'sheet-title' }, '🎵  ' + t('snd.title')),
+      h('div', { class: 'langlist' },
+        row('🎶  ' + t('snd.music'), sound.music, () => sound.setMusic(!sound.music)),
+        row('🧊  ' + t('snd.sfx'), sound.sfx, () => sound.setSfx(!sound.sfx))),
+      h('div', { class: 'section' }, t('snd.track')),
+      h('div', { class: 'langlist' }, TRACKS.map(([id]) =>
+        h('button', { type: 'button', class: 'langbtn trackbtn' + (sound.track === id ? ' on' : ''), onClick: () => sound.setTrack(id) },
+          h('span', { class: 'trkname' }, h('b', {}, t('snd.t.' + id)), h('small', {}, t('snd.d.' + id))),
+          sound.track === id ? h('span', {}, sound.music ? '♪' : '✓') : null))));
+  };
+  render();
+  const off = sound.onChange(() => { if (!sheet.isConnected) off(); else render(); });
+  clear(root);
+  root.append(h('div', { class: 'backdrop', onClick: (e) => { if (e.target === e.currentTarget) clear(root); } }, sheet));
+}

@@ -1,7 +1,8 @@
 // Đa ngôn ngữ: mỗi ngôn ngữ là một file JSON phẳng trong locales/ (port từ gui/i18n.py)
+// [mã, tên bản ngữ, cờ quốc gia]
 export const LANGS = [
-  ['en', 'English'], ['zh', '简体中文'], ['es', 'Español'], ['pt', 'Português (Brasil)'],
-  ['ru', 'Русский'], ['ja', '日本語'], ['ko', '한국어'], ['vi', 'Tiếng Việt'],
+  ['en', 'English', '🇬🇧'], ['zh', '简体中文', '🇨🇳'], ['es', 'Español', '🇪🇸'], ['pt', 'Português (Brasil)', '🇧🇷'],
+  ['ru', 'Русский', '🇷🇺'], ['ja', '日本語', '🇯🇵'], ['ko', '한국어', '🇰🇷'], ['vi', 'Tiếng Việt', '🇻🇳'],
 ];
 export const CODES = LANGS.map((l) => l[0]);
 const DEFAULT = 'en';
@@ -35,6 +36,13 @@ export function t(key, kw) {
   return s;
 }
 
+// Nhãn trong menu ngôn ngữ: "🇬🇧 - English (Tiếng Anh)" = cờ - tên bản ngữ (tên theo ngôn ngữ đang dùng)
+export function langLabel(code) {
+  const [, native, flag] = LANGS.find((l) => l[0] === code);
+  const local = t('lang.' + code);
+  return `${flag} - ${native}` + (local && local !== native ? ` (${local})` : '');
+}
+
 // Biến thể cho màn hình cảm ứng: ưu tiên khoá "<khoá>.m" nếu có
 export const isTouch = () => matchMedia('(pointer: coarse)').matches;
 export function tm(key, kw) { return isTouch() && has(key + '.m') ? t(key + '.m', kw) : t(key, kw); }
@@ -59,12 +67,12 @@ export function td(text) {
 }
 
 export function loadSaved() {
-  let code = DEFAULT;
-  try { code = JSON.parse(localStorage.getItem(SETTINGS) || '{}').lang || DEFAULT; } catch { /* mặc định */ }
-  if (code === DEFAULT && !localStorage.getItem(SETTINGS)) {
-    // lần đầu: theo ngôn ngữ của máy nếu app hỗ trợ
+  let code = null;
+  try { const l = JSON.parse(localStorage.getItem(SETTINGS) || '{}').lang; if (CODES.includes(l)) code = l; } catch { /* chưa lưu */ }
+  if (!code) {
+    // chưa từng chọn ngôn ngữ: theo ngôn ngữ của máy nếu app hỗ trợ (file cài đặt có thể đã tồn tại vì lưu âm thanh)
     const nav = (navigator.language || 'en').toLowerCase().slice(0, 2);
-    if (CODES.includes(nav)) code = nav;
+    code = CODES.includes(nav) ? nav : DEFAULT;
   }
   return setLanguage(code);
 }

@@ -34,7 +34,7 @@ export class Emitter {
 }
 
 export class PuzzleView extends Emitter {
-  // events: progress(i, n), playingChanged(bool), userMoved(n), puzzleChanged()
+  // events: progress(i, n), playingChanged(bool), userMoved(n), puzzleChanged(), turn(durMs)
   constructor(canvas) {
     super();
     this.canvas = canvas;
@@ -109,6 +109,7 @@ export class PuzzleView extends Emitter {
     const big = Math.max(...items.map(([m]) => Math.abs(m.angle)));
     const dur = 330 * (0.62 + 0.38 * Math.min(1.0, big / (Math.PI / 2))) / (this.speed * fast);
     this.anim = { items, t0: performance.now(), dur, done };
+    this.emit('turn', dur);                       // → phát tiếng xoay (cả Hướng dẫn, Luyện tập, Chơi)
     this._loop();
     return true;
   }

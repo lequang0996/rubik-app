@@ -93,8 +93,9 @@ def font(size, bold=True):
     for p in ('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if bold else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',):
         if os.path.exists(p): return ImageFont.truetype(p, size)
     return ImageFont.load_default()
-dr.text((56, 170), 'Rubik Studio', font=font(66), fill=(233, 236, 245))
-dr.text((58, 262), 'Learn algorithms', font=font(30, False), fill=(142, 150, 179))
-dr.text((58, 304), '& play 3D puzzles', font=font(30, False), fill=(142, 150, 179))
+dr.text((50, 150), 'Cube All', font=font(56), fill=(233, 236, 245))
+dr.text((50, 214), 'In One', font=font(56), fill=(233, 236, 245))
+dr.text((52, 300), 'Learn algorithms', font=font(28, False), fill=(142, 150, 179))
+dr.text((52, 340), '& play 3D puzzles', font=font(28, False), fill=(142, 150, 179))
 fg.convert('RGB').save(f'{STORE}/feature-graphic-1024x500.png')
 print('Đã tạo icon, splash và ảnh Play Store →', STORE)

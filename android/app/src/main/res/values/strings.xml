@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Rubik Studio</string>
-    <string name="title_activity_main">Rubik Studio</string>
+    <string name="app_name">Cube All In One</string>
+    <string name="title_activity_main">Cube All In One</string>
     <string name="package_name">com.tenban.cubeallinone</string>
     <string name="custom_url_scheme">com.tenban.cubeallinone</string>
 </resources>

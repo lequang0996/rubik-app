@@ -1,5 +1,5 @@
 """Đổi ID gói (applicationId) TRƯỚC khi đăng lên Google Play lần đầu — sau đó không thể đổi nữa.
-Chạy:  python tools/set_app_id.py com.tencuaban.rubikstudio"""
+Chạy:  python tools/set_app_id.py com.tenban.cubeallinone"""
 import os, re, sys, json, shutil
 if len(sys.argv) != 2 or not re.fullmatch(r'[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+', sys.argv[1]):
     sys.exit('Dùng: python tools/set_app_id.py com.ten.cuaban  (chữ thường, số, dấu chấm, gạch dưới; ≥2 đoạn)')

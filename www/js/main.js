@@ -1,4 +1,4 @@
-// Rubik Studio – điểm vào ứng dụng: dựng bố cục, nối các panel (port gui/main_window.py + Sidebar)
+// Cube All In One – điểm vào ứng dụng: dựng bố cục, nối các panel (port gui/main_window.py + Sidebar)
 import { h, clear, $ } from './dom.js';
 import * as i18n from './i18n.js';
 import { t, tm } from './i18n.js';
@@ -11,6 +11,9 @@ import { PracticePanel } from './practice.js';
 import { PlayPanel } from './play.js';
 import { progress, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
 import { LevelPill, toast } from './levelui.js';
+import { sound } from './audio.js';
+import { SoundButton } from './soundui.js';
+import { initInAppUpdate } from './updates.js';
 
 const MODE_GUIDE = 0, MODE_PRACTICE = 1, MODE_PLAY = 2;
 const view = new PuzzleView($('#view'));
@@ -29,6 +32,7 @@ function puzzleIcon(key) {
 // ------------------------------------------------------------------ dựng giao diện
 function build() {
   view.clearHandlers();
+  view.on('turn', (ms) => sound.turn(ms));        // tiếng xoay Rubik cho cả 3 chế độ
   document.title = t('app.title');
   const legend = new LegendButton();
   const bar = new PlayerBar({
@@ -56,19 +60,19 @@ function build() {
     grid.append(b);
     return b;
   });
-  const sel = h('select', { class: 'select', 'aria-label': t('sidebar.language') },
-    i18n.LANGS.map(([c, n]) => h('option', { value: c, selected: c === i18n.language() }, n)));
-  sel.addEventListener('change', () => changeLanguage(sel.value));
-  side.append(h('div', { class: 'brand' }, 'Rubik Studio'), h('div', { class: 'brandsub' }, t('app.subtitle')),
+  const langPick = h('button', { type: 'button', class: 'langpick', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal },
+    h('span', { class: 'lpname' }, i18n.langLabel(i18n.language())), h('span', { class: 'chev' }, '▾'));
+  const langRow = h('div', { class: 'sndrow' }, langPick, SoundButton());   // ngôn ngữ + âm thanh cùng một hàng
+  side.append(h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle')),
     h('div', { class: 'section' }, t('sidebar.section')), grid, h('div', { class: 'grow' }),
-    sidePill.el, h('div', { class: 'brandsub' }, '🌐  ' + t('sidebar.language')), sel, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
+    sidePill.el, h('div', { class: 'brandsub' }, '🌐  ' + t('sidebar.language')), langRow, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
 
   // thanh trên (điện thoại): nút puzzle (mở danh sách) + cấp độ + ngôn ngữ
   const top = $('#topbar'); clear(top);
   const pIcon = h('span', { class: 'picon' }), pName = h('span', { class: 'pname' });
   const pBtn = h('button', { type: 'button', class: 'pbtn', 'aria-haspopup': 'dialog', onClick: openPuzzleModal }, pIcon, pName, h('span', { class: 'chev' }, '▾'));
-  top.append(pBtn, topPill.el, h('span', { class: 'grow' }),
-    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), onClick: openLanguageModal }, '🌐'));
+  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), SoundButton(),
+    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal }, '🌐'));
 
   // chế độ
   const labels = ['📘  ' + t('mode.guide'), '🎯  ' + t('mode.practice'), '🎮  ' + t('mode.play')];
@@ -139,7 +143,7 @@ function setMode(i) {
   [ui.guide, ui.practice, ui.play].forEach((p, k) => { p.el.style.display = k === i ? '' : 'none'; });
   ui.panes.scrollTop = 0;
   view.setPlayMode(i === MODE_PLAY);
-  view.setSpeed(i === MODE_PLAY ? ui.play.speed : 1);   // Hướng dẫn / Luyện tập luôn 1x
+  view.setSpeed(1);   // cả 3 chế độ luôn xoay ở tốc độ 1x
   ui.bar.setFormulaHidden(i === MODE_PRACTICE && ui.practice.formulaHidden);
   requestAnimationFrame(() => view.resize());
   if (i === MODE_PLAY) { ui.play.refreshHelp(); return; }
@@ -177,9 +181,10 @@ function openPuzzleModal() {
 function closeModal() { clear($('#modal-root')); }
 const modalOpen = () => $('#modal-root').childElementCount > 0;
 function openLanguageModal() {
-  const list = h('div', { class: 'langlist' }, i18n.LANGS.map(([c, n]) =>
+  // mỗi dòng: cờ - tên bản ngữ (tên theo ngôn ngữ đang dùng), ví dụ "🇬🇧 - English (Tiếng Anh)"
+  const list = h('div', { class: 'langlist' }, i18n.LANGS.map(([c]) =>
     h('button', { type: 'button', class: 'langbtn' + (c === i18n.language() ? ' on' : ''), onClick: () => changeLanguage(c) },
-      h('span', {}, n), c === i18n.language() ? h('span', {}, '✓') : null)));
+      h('span', { class: 'lpname' }, i18n.langLabel(c)), c === i18n.language() ? h('span', {}, '✓') : null)));
   const sheet = h('div', { class: 'sheet', role: 'dialog' },
     h('div', { class: 'sheet-title' }, '🌐  ' + t('sidebar.language')), list, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
   const root = $('#modal-root');
@@ -208,6 +213,7 @@ document.addEventListener('keydown', (e) => {
 const Cap = window.Capacitor;
 if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
   const App = Cap.registerPlugin('App');
+  App.addListener('appStateChange', ({ isActive }) => sound.setHidden(!isActive));
   App.addListener('backButton', () => {
     if (modalOpen()) closeModal();
     else if (!ui.legend.pop.hidden) ui.legend.hide();
@@ -217,6 +223,9 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
 }
 
 // ------------------------------------------------------------------ khởi động
+document.addEventListener('visibilitychange', () => sound.setHidden(document.hidden));
+sound.armUnlock();                              // trình duyệt/WebView chỉ cho phát âm thanh sau lần chạm đầu tiên
+
 (async function init() {
   await i18n.loadSaved();
   build();
@@ -235,6 +244,7 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
   const sp = $('#splash');
   sp.classList.add('hide');
   setTimeout(() => sp.remove(), 400);
+  initInAppUpdate();                            // Google Play In-App Update (Flexible), chỉ chạy trong app Android
 })();
 
-window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, requestMode, changeLanguage, progress };   // phục vụ kiểm thử
+window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, requestMode, changeLanguage, progress, sound };   // phục vụ kiểm thử
