@@ -328,5 +328,9 @@
   "help.s6t": "Leyenda de colores",
   "help.s6b": "Toca el botón ? del cubo para ver qué significa cada color y letra del puzzle actual.",
   "help.s7t": "Sonido, tema e idioma",
-  "help.s7b": "Icono de nota: música de fondo, sonido de giro y pista. Sol/luna: modo claro u oscuro. Globo: idioma."
+  "help.s7b": "Abre el menú arriba a la derecha: Sonido (música de fondo, sonido de giro, pista), Cómo se usa, Apariencia (claro u oscuro) e Idioma.",
+  "menu.title": "Menú",
+  "theme.title": "Apariencia",
+  "theme.light": "Claro",
+  "theme.dark": "Oscuro"
 }

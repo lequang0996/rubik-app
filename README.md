@@ -49,13 +49,13 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 • Xáo trộn ngẫu nhiên, đồng hồ tự chạy từ nước đi đầu tiên và dừng khi khối được giải.
 • Lưu kỷ lục riêng cho từng loại puzzle.
 • Điều khiển tự nhiên: kéo ngón tay trên miếng màu để xoay lớp, kéo nền để xoay góc nhìn, chụm hai ngón để phóng to / thu nhỏ.
-• Bàn phím ảo theo ký hiệu chuẩn cho từng puzzle (mặt, lớp giữa, xoay rộng, xoay cả khối…), có gợi ý khi chạm.
+• Bàn phím ảo theo ký hiệu chuẩn cho từng puzzle (mặt, lớp giữa, xoay rộng, xoay cả khối…), có gợi ý khi chạm. Xoay cả khối bằng x / y / z thì mặt trước đổi theo và màu dưới các phím mặt tự cập nhật đúng hướng.
 • Hoàn tác / Làm lại không giới hạn. Hỗ trợ cả phím tắt nếu bạn dùng bàn phím.
 
 🎵 ÂM THANH SINH ĐỘNG
 • Tiếng xoay Rubik chân thật ở cả 3 chế độ Hướng dẫn, Luyện tập và Chơi.
 • 4 bản nhạc nền thư giãn để chọn: Lo-fi thư giãn, Tập trung sâu, Hộp nhạc, Nhịp sáng.
-• Nút loa bật / tắt nhanh toàn bộ âm thanh; nhạc tự dừng khi bạn thoát ra màn hình chính.
+• Mục Âm thanh trong menu: bật / tắt nhạc nền và tiếng xoay, chọn bài; nhạc tự dừng khi bạn thoát ra màn hình chính.
 
 🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 0 – 30)
 Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở khoá Luyện tập và Chơi, Lv 15 mở các cấp nâng cao, Lv 20 mở bộ công thức Thi đấu của 3x3. Bấm vào nhãn cấp độ bất cứ lúc nào để xem tiến độ.
@@ -67,9 +67,9 @@ English · 简体中文 · Español · Português (Brasil) · Русский · 
 Hoạt động ngoại tuyến hoàn toàn. Không quảng cáo, không đăng nhập, không thu thập dữ liệu cá nhân. Tự động nhắc cập nhật khi có phiên bản mới.
 
 ✨ GIAO DIỆN TINH TẾ, SÁNG & TỐI
-• Hai giao diện sang trọng: tối dịu mắt và sáng thanh lịch, tự theo hệ thống hoặc đổi nhanh bằng biểu tượng mặt trời / mặt trăng.
+• Hai giao diện sang trọng: sáng thanh lịch (mặc định) và tối dịu mắt, đổi nhanh trong menu.
 • Tối ưu cho điện thoại và máy tính bảng (dọc & ngang).
-• Có mục Hướng dẫn sử dụng ngay trong app (biểu tượng dấu hỏi) tóm tắt cách dùng từng tính năng.
+• Menu gọn ở góc phải gồm Âm thanh, Hướng dẫn sử dụng, Giao diện và Ngôn ngữ; Hướng dẫn sử dụng tóm tắt cách dùng từng tính năng ngay trong app.
 
 Dù bạn mới biết xoay Rubik hay đang luyện tốc độ thi đấu, Cube All In One đều đồng hành cùng bạn!
 ```
@@ -118,13 +118,13 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 • Random scramble; the timer starts on your first move and stops when the puzzle is solved.
 • Personal best saved separately for each puzzle.
 • Natural controls: drag on a sticker to turn a layer, drag the background to rotate the view, pinch to zoom.
-• On-screen keypad in standard notation for each puzzle (faces, slices, wide turns, whole-cube rotations…) with tap hints.
+• On-screen keypad in standard notation for each puzzle (faces, slices, wide turns, whole-cube rotations…) with tap hints. Rotate the whole cube with x / y / z and the front face changes accordingly, while the color under each face key updates to match.
 • Unlimited undo / redo. Keyboard shortcuts are supported too.
 
 🎵 IMMERSIVE SOUND
 • Realistic cube-turn sound in all 3 modes: Guide, Practice and Play.
 • 4 relaxing background tracks to choose from: Chill Lo-fi, Deep Focus, Music Box, Bright Pulse.
-• A speaker button mutes / unmutes everything instantly; music pauses automatically when you leave the app.
+• The Sound item in the menu switches music and turn sounds on / off and picks the track; music pauses automatically when you leave the app.
 
 🏆 PLAYER LEVELS (Lv 0 – 30)
 You earn +1 exp for every second you use the app. Lv 10 unlocks Practice and Play, Lv 15 unlocks the advanced levels, Lv 20 unlocks the 3x3 Competition sets. Tap the level badge any time to see your progress.
@@ -136,9 +136,9 @@ English · 简体中文 · Español · Português (Brasil) · Русский · 
 Works completely offline. No ads, no sign-in, no personal data collected. Gets update prompts automatically when a new version is available.
 
 ✨ REFINED LOOK, LIGHT & DARK
-• Two elegant themes: an eye-friendly dark mode and a clean light mode – follows your system or switch instantly with the sun / moon icon.
+• Two elegant themes: a clean light mode (default) and an eye-friendly dark mode, switchable in the menu.
 • Optimized for phones and tablets (portrait & landscape).
-• A built-in How to use guide (question-mark icon) summarizes every feature.
+• A compact menu at the top right holds Sound, How to use, Appearance and Language; the built-in How to use guide summarizes every feature.
 
 Whether you are just learning to solve the cube or training for competition speed, Cube All In One is with you all the way!
 ```
@@ -147,6 +147,6 @@ Whether you are just learning to solve the cube or training for competition spee
 
 ## Ghi chú đăng bài
 
-* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx` (sáng), `5-practice-light`, `6-sound`; máy tính bảng: `tablet-vi` (tối), `tablet-light`).
+* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx-dark`, `5-menu`, `6-help`, `7-sound-dark`; máy tính bảng: `tablet-light`, `tablet-dark-vi`).
 * **Chính sách quyền riêng tư**: `docs/privacy-policy.html` (đăng qua GitHub Pages, dán đường dẫn vào Play Console).
 * **Cập nhật trong ứng dụng**: dùng Google Play In-App Updates chế độ Flexible. Mỗi bản phát hành mới cần **tăng `VERSION_CODE`** (workflow GitHub Actions đã dùng `github.run_number`). Tính năng chỉ hoạt động với bản cài từ Google Play (kiểm thử bằng Internal testing hoặc Internal app sharing).

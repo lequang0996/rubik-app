@@ -328,5 +328,9 @@
   "help.s6t": "Color legend",
   "help.s6b": "Tap the ? button on the cube to see what each color and letter means for the current puzzle.",
   "help.s7t": "Sound, theme, language",
-  "help.s7b": "Music-note icon: background music, turn sound and track. Sun/moon icon: light or dark mode. Globe icon: language."
+  "help.s7b": "Open the menu at the top right: Sound (background music, turn sound, track), How to use, Appearance (light or dark) and Language.",
+  "menu.title": "Menu",
+  "theme.title": "Appearance",
+  "theme.light": "Light",
+  "theme.dark": "Dark"
 }

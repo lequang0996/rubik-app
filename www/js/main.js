@@ -12,9 +12,7 @@ import { PlayPanel } from './play.js';
 import { progress, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
 import { LevelPill, toast } from './levelui.js';
 import { sound } from './audio.js';
-import { SoundButton } from './soundui.js';
-import { ThemeButton } from './themeui.js';
-import { HelpButton } from './helpui.js';
+import { MenuButton } from './menuui.js';
 import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
@@ -64,25 +62,21 @@ function build() {
     grid.append(b);
     return b;
   });
-  const langPick = h('button', { type: 'button', class: 'langpick', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal },
-    h('span', { class: 'lpname' }, i18n.langLabel(i18n.language())), h('span', { class: 'chev' }, '▾'));
-  const langRow = h('div', { class: 'sndrow' }, langPick, SoundButton(), HelpButton());   // ngôn ngữ + âm thanh cùng một hàng
-  side.append(h('div', { class: 'brandrow' }, h('div', {}, h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle'))), ThemeButton()),
+  side.append(h('div', { class: 'brandrow' }, h('div', {}, h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle'))), MenuButton({ openLanguage: openLanguageModal })),
     h('div', { class: 'section' }, t('sidebar.section')), grid, h('div', { class: 'grow' }),
-    sidePill.el, h('div', { class: 'brandsub' }, t('sidebar.language')), langRow, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
+    sidePill.el, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
 
   // thanh trên (điện thoại): nút puzzle (mở danh sách) + cấp độ + ngôn ngữ
   const top = $('#topbar'); clear(top);
   const pIcon = h('span', { class: 'picon' }), pName = h('span', { class: 'pname' });
   const pBtn = h('button', { type: 'button', class: 'pbtn', 'aria-haspopup': 'dialog', onClick: openPuzzleModal }, pIcon, pName, h('span', { class: 'chev' }, '▾'));
-  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), SoundButton(), HelpButton(), ThemeButton(),
-    h('button', { type: 'button', class: 'iconbtn', 'aria-label': t('sidebar.language'), 'aria-haspopup': 'dialog', onClick: openLanguageModal }, icon('globe')));
+  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), MenuButton({ openLanguage: openLanguageModal }));
 
   // chế độ
   const labels = [t('mode.guide'), t('mode.practice'), t('mode.play')];
   const NAV_ICONS = ['guide', 'practice', 'play'];
   const seg = new Segmented(labels, (i) => requestMode(i));
-  seg.setLocks(MODE_REQ, () => progress.level, (req) => toast(t('lv.locked', { n: req })));
+  seg.setLocks(MODE_REQ, () => progress.level, (req) => toast(t('lv.locked', { n: req }), 'lock'));
   const modeHost = $('#modeseg'); clear(modeHost); modeHost.append(seg.el);
   const nav = $('#nav'); clear(nav);
   const navBtns = labels.map((l, i) => {
@@ -117,7 +111,7 @@ function refreshLocks() {
 }
 
 function requestMode(i) {
-  if (MODE_REQ[i] > progress.level) { toast(t('lv.locked', { n: MODE_REQ[i] })); return; }
+  if (MODE_REQ[i] > progress.level) { toast(t('lv.locked', { n: MODE_REQ[i] }), 'lock'); return; }
   setMode(i);
 }
 
@@ -241,7 +235,7 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
     if (old < MODE_REQ[1] && n >= MODE_REQ[1]) x.push(`${t('mode.practice')} · ${t('mode.play')}`);
     if (old < REQ_ADVANCED && n >= REQ_ADVANCED) x.push(t('lv.u15'));
     if (old < REQ_COMPETITION && n >= REQ_COMPETITION) x.push(t('lv.u20'));
-    toast(t('lv.up', { n }) + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''));
+    toast(t('lv.up', { n }) + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''), 'up');
   });
   progress.start();
   await selectPuzzle('3x3');

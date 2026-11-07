@@ -4,7 +4,7 @@
    Sáng "Porcelain" : sứ trắng xanh nhạt + mực đen + vàng đồng
    Đổi màu điểm nhấn: sửa --accent / --accent-hi / --accent-text ở 2 khối dưới.
    ===================================================================== */
-:root, :root[data-theme="dark"] {
+:root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #0A0B0F; --surface: #101218; --raised: #161922; --hover: #1D212C; --pop: #1A1D27;
   --border: #212531; --border-strong: #343a4a; --track: #2A2F3D;
@@ -19,7 +19,7 @@
   --stage-a: #1C1F29; --stage-b: #11131A; --stage-c: #0A0B0F; --floor: .6;
   --diag-bg: #0B0D12; --diag-off: #3A3F50;
 }
-:root[data-theme="light"] {
+:root, :root[data-theme="light"] {
   color-scheme: light;
   --bg: #E9ECF1; --surface: #F6F7FA; --raised: #FFFFFF; --hover: #EFF1F6; --pop: #FFFFFF;
   --border: #DCE0E8; --border-strong: #BEC4D1; --track: #CFD4DE;
@@ -148,45 +148,83 @@ html, body { background: var(--bg); color: var(--text); -webkit-font-smoothing: 
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
-/* sidebar: thương hiệu + nút đổi theme */
-.brandrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
-.brandrow .iconbtn { width: 38px; height: 38px; border-radius: 12px; }
-#topbar .iconbtn { width: 40px; }
-@media (max-width: 340px) { #topbar .iconbtn { width: 36px; } }
-
-/* hướng dẫn sử dụng */
-.helpsheet { max-height: 84vh; }
-.helplist { display: flex; flex-direction: column; }
-.helpitem { padding: 14px 2px; border-top: 1px solid var(--border); }
-.helpitem:first-child { border-top: 0; padding-top: 4px; }
-.helptitle { font-size: 14.5px; font-weight: 650; letter-spacing: -.005em; margin-bottom: 4px; color: var(--text); }
-.helpbody { font-size: 13px; line-height: 1.55; color: var(--muted); -webkit-user-select: text; user-select: text; }
-.sndrow .iconbtn { width: 42px; }
-
-/* thanh trên gọn cho điện thoại: puzzle · cấp độ · nhạc · hướng dẫn · sáng/tối · ngôn ngữ */
+/* ====================== thanh trên: puzzle · cấp độ · menu ====================== */
+#topbar { gap: 8px; }
+#topbar .iconbtn, #topbar .pbtn, #topbar .lvpill { height: 44px; }
 .pbtn { min-width: 0; flex: 0 1 auto; }
 .pname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 460px) {
-  #topbar { gap: 4px; padding-left: 8px; padding-right: 8px; }
-  #topbar .iconbtn { width: 36px; height: 42px; border-radius: 12px; }
-  #topbar .iconbtn .ic svg { width: 20px; height: 20px; }
-  #topbar .pbtn, #topbar .lvpill { height: 42px; border-radius: 12px; }
-  #topbar .pbtn { padding: 0 8px 0 4px; gap: 5px; font-size: 14.5px; }
-  #topbar .picon canvas { width: 28px; height: 28px; }
-  #topbar .lvpill { min-width: 50px; padding: 0 8px; }
-  #topbar .lvexp { display: none; }
-}
-@media (max-width: 340px) {
-  #topbar .iconbtn { width: 33px; }
-  #topbar .pbtn .chev { display: none; }
-  #topbar .lvpill { min-width: 46px; padding: 0 6px; }
-}
-.lvnum { white-space: nowrap; }
-@media (max-width: 460px) {
-  #topbar .pbtn .chev { display: none; }
-  #topbar .pbtn { padding: 0 9px 0 5px; }
-  #topbar .picon canvas { width: 24px; height: 24px; }
-  #topbar .lvpill { min-width: 58px; }
-}
-@media (max-width: 340px) { #topbar .lvpill { min-width: 52px; } }
-@media (max-width: 460px) { #topbar .pbtn { padding: 0 7px 0 4px; gap: 4px; font-size: 14px; } #topbar .picon canvas { width: 22px; height: 22px; } }
+.menubtn { width: 44px; flex: none; }
+.menubtn .ic svg { width: 22px; height: 22px; }
+.brandrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+.brandrow .menubtn { width: 40px; height: 40px; border-radius: 12px; }
+
+/* ô cấp độ: vòng tiến độ + chữ */
+.lvpill { flex-direction: row; align-items: center; gap: 9px; min-width: 0; padding: 0 13px 0 6px; border-radius: 22px; }
+.lvring { --p: 0; position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: conic-gradient(var(--accent-hi), var(--accent) calc(var(--p) * 1%), var(--track) 0); }
+.lvring::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--raised); }
+.lvring b { position: relative; font-size: 12.5px; font-weight: 700; color: var(--accent-text); letter-spacing: -.02em; }
+.lvtext { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
+.lvtext .lvnum { font-size: 13.5px; font-weight: 650; color: var(--text); white-space: nowrap; }
+.lvtext .lvexp { font-size: 11px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.lvpill.wide { padding: 9px 14px 9px 9px; }
+.lvpill.wide .lvring { width: 38px; height: 38px; }
+.lvpill.wide .lvtext { flex: 1; }
+@media (max-width: 340px) { #topbar { gap: 6px; } .lvpill { padding-right: 10px; } }
+
+/* ====================== menu thả xuống (☰) ====================== */
+.popback { position: fixed; inset: 0; z-index: 60; background: transparent; }
+.popmenu { position: fixed; min-width: 252px; max-width: calc(100vw - 20px); padding: 6px; border-radius: 20px; background: var(--pop); border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-pop); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); transform-origin: top right; animation: popin .16s ease-out; }
+@keyframes popin { from { opacity: 0; transform: translateY(-6px) scale(.96); } to { opacity: 1; transform: none; } }
+.popitem { display: flex; align-items: center; gap: 12px; width: 100%; padding: 9px 12px 9px 9px; border: 0; border-radius: 14px; background: transparent; color: var(--text); text-align: left; font-size: 14.5px; font-weight: 600; }
+.popitem:active { background: var(--hover); }
+@media (hover: hover) { .popitem:hover { background: var(--hover); } }
+.popic { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px; background: var(--accent-soft); color: var(--accent-text); }
+.poptxt { flex: 1; min-width: 0; }
+.poptrail { font-size: 12.5px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.popdot { width: 8px; height: 8px; border-radius: 50%; background: var(--track); margin-right: 4px; }
+.popdot.on { background: var(--good); box-shadow: 0 0 0 3px var(--good-soft); }
+
+/* ====================== đầu bảng (sheet) ====================== */
+.sheethead { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.sheeticon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; color: var(--on-accent);
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent)); box-shadow: var(--glow); }
+.sheettitle { flex: 1; min-width: 0; font-size: 18px; font-weight: 650; letter-spacing: -.012em; }
+.sheetclose { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--hover); color: var(--muted); }
+.sheetclose:active { background: var(--border-strong); }
+
+/* ====================== hướng dẫn sử dụng ====================== */
+.helpsheet { display: flex; flex-direction: column; max-height: 86vh; overflow: hidden; }
+.helplist { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; min-height: 0; padding: 2px 1px 6px; -webkit-overflow-scrolling: touch; }
+.helpitem { display: flex; gap: 13px; padding: 13px 14px; border-radius: 18px; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--hl); }
+.helpic { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-text); }
+.helptext { min-width: 0; }
+.helptitle { font-size: 14.5px; font-weight: 650; letter-spacing: -.005em; margin: 1px 0 4px; color: var(--text); }
+.helpbody { font-size: 13px; line-height: 1.55; color: var(--muted); }
+
+/* ====================== thông báo (toast) ====================== */
+#toast { display: flex; align-items: center; gap: 12px; padding: 9px 18px 9px 9px; border-radius: 18px; text-align: left; box-shadow: var(--shadow-pop);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+#toast .ticon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-text); }
+#toast[data-kind="up"] .ticon { background: linear-gradient(180deg, var(--accent-hi), var(--accent)); color: var(--on-accent); }
+#toast .ttext { font-size: 13.5px; font-weight: 600; line-height: 1.4; white-space: pre-line; }
+
+/* ====================== khối Giải thích ====================== */
+.descbox { position: relative; display: flex; flex-direction: column; overflow: hidden; margin: 8px 0 10px; border-radius: 18px; background: var(--raised);
+  border: 1px solid var(--border); box-shadow: var(--hl); }
+.descbox::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--accent-hi), var(--accent)); }
+.desc-toggle { display: flex; align-items: center; gap: 10px; align-self: stretch; width: 100%; padding: 11px 14px 11px 16px; border: 0; background: transparent; color: var(--text); text-align: left; font-size: 14px; font-weight: 650; }
+.desc-ic { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; background: var(--accent-soft); color: var(--accent-text); }
+.desc-title { flex: 1; }
+.desc-chev { display: grid; color: var(--muted); transition: transform .2s; }
+.descbox.closed .desc-chev { transform: rotate(-90deg); }
+.descbox .desc { margin: 0; padding: 0 16px 14px 17px; max-height: 230px; overflow-y: auto; font-size: 13.5px; line-height: 1.62; color: var(--muted); }
+.descbox .desc p { margin: 0 0 9px; }
+.descbox .desc p:last-child { margin-bottom: 0; }
+.descbox .desc b, .descbox .desc strong { color: var(--text); font-weight: 650; }
+
+/* dòng công thức khi chưa chọn: chữ thường, mờ */
+.algline.ph { font-family: var(--font); font-size: 13.5px; color: var(--muted); }
+#toast { width: max-content; max-width: min(92vw, 420px); }
+body:has(.popback) #toast { display: none; }

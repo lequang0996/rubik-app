@@ -1,4 +1,5 @@
 // Thành phần giao diện dùng chung (port từ gui/panels.py + viewport.LegendButton)
+import { icon } from './icons.js';
 import { h, clear, esc } from './dom.js';
 import { t, td } from './i18n.js';
 import { moveCount } from './data.js';
@@ -117,8 +118,10 @@ function richParagraphs(text) {
 
 export class DescBox {
   constructor() {
-    this.open = true;
-    this.toggle = h('button', { type: 'button', class: 'desc-toggle', onClick: () => { this.open = !this.open; this._sync(); } });
+    this.open = false;                                   // mặc định: ẩn
+    this.title = h('span', { class: 'desc-title' });
+    this.toggle = h('button', { type: 'button', class: 'desc-toggle', 'aria-expanded': 'false', onClick: () => { this.open = !this.open; this._sync(); } },
+      h('span', { class: 'desc-ic' }, icon('bulb', 16)), this.title, h('span', { class: 'desc-chev' }, icon('chev', 16)));
     this.body = h('div', { class: 'desc' });
     this.el = h('div', { class: 'descbox' }, this.toggle, this.body);
     this.has = false;
@@ -130,8 +133,10 @@ export class DescBox {
     this._sync();
   }
   _sync() {
-    this.toggle.textContent = (this.open ? '▾' : '▸') + '  ' + t('desc.toggle');
-    this.toggle.style.display = this.has ? '' : 'none';
+    this.title.textContent = t('desc.toggle');
+    this.toggle.setAttribute('aria-expanded', String(this.open));
+    this.el.style.display = this.has ? '' : 'none';
+    this.el.classList.toggle('closed', !this.open);
     this.body.style.display = this.has && this.open ? '' : 'none';
   }
 }
@@ -224,7 +229,7 @@ export class PlayerBar {
     this.tokens = []; this.formulaHidden = false;
     this.placeholder = t('bar.placeholder.guide');
     this._i = 0; this._n = 0;
-    this.line = h('div', { class: 'algline' }, this.placeholder);
+    this.line = h('div', { class: 'algline ph' }, this.placeholder);
     const btn = (txt, tip, fn, cls = 'ctl') => h('button', { type: 'button', class: cls, title: tip || null, 'aria-label': tip || txt, onClick: fn }, txt);
     this.bRestart = btn('', t('bar.restart'), handlers.restart); this.bRestart.innerHTML = ICON.restart;
     this.bBack = btn('', t('bar.back'), handlers.back); this.bBack.innerHTML = ICON.back;
@@ -242,7 +247,8 @@ export class PlayerBar {
   setFormulaHidden(on) { this.formulaHidden = on; this.setProgress(this._i, this._n); }
   setProgress(i, n) {
     this._i = i; this._n = n;
-    if (!this.tokens.length) { this.counter.textContent = ''; this.line.textContent = this.placeholder; return; }
+    if (!this.tokens.length) { this.counter.textContent = ''; this.line.textContent = this.placeholder; this.line.classList.add('ph'); return; }
+    this.line.classList.remove('ph');
     const parts = this.tokens.map((tk, k) => {
       const s = this.formulaHidden && k >= i ? '•' : esc(tk);
       if (k < i) return `<span class="done">${s}</span>`;

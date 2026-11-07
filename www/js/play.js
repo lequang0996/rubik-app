@@ -2,6 +2,7 @@
 import { h, clear } from './dom.js';
 import { t, tm } from './i18n.js';
 import { CUBE_COLORS, FACE_DIRS } from './cubes.js';
+import { rotMatrix } from './puzzle.js';
 import { PYRA_COLORS, PYRA_OPP } from './pyraminx.js';
 import { SKEWB_CORNER } from './skewb.js';
 
@@ -117,6 +118,46 @@ export class PlayPanel {
       return b;
     });
     this.showPad(0);
+    this.updateKeyColors();
+  }
+
+  // Màu mặt hiện đang ở các vị trí U/D/L/R/F/B (đổi khi xoay cả khối x/y/z hoặc khi tâm dịch chuyển)
+  faceColors() {
+    const p = this.view.puzzle, out = {}, LET = ['U', 'D', 'F', 'B', 'R', 'L'];
+    if (!p || !p.n) return out;
+    if (p.n % 2 === 1) {                               // 3x3, 5x5: lấy màu miếng tâm đang nằm ở từng mặt
+      const { c, n, col } = p.stickers();
+      for (const [f, d] of FACE_DIRS) {
+        let best = null, bd = 1e9;
+        for (let s = 0; s < p.nS; s++) {
+          if (n[s * 3] * d[0] + n[s * 3 + 1] * d[1] + n[s * 3 + 2] * d[2] < 0.9) continue;
+          const dot = c[s * 3] * d[0] + c[s * 3 + 1] * d[1] + c[s * 3 + 2] * d[2];
+          const dist = Math.hypot(c[s * 3] - dot * d[0], c[s * 3 + 1] - dot * d[1], c[s * 3 + 2] - dot * d[2]);
+          if (dist < bd) { bd = dist; best = col[s]; }
+        }
+        if (best !== null) out[LET[f]] = CUBE_COLORS[best];
+      }
+      return out;
+    }
+    // 2x2, 4x4: không có tâm cố định → cộng dồn các lần xoay cả khối (x/y/z) trong lịch sử thao tác
+    let M = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    for (const moves of this.view.history) for (const mv of moves) {
+      if (mv.hi - mv.lo < p.n) continue;                // chỉ tính phép xoay cả khối
+      const R = rotMatrix(mv.axis, mv.angle), N = new Array(9).fill(0);
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) for (let k = 0; k < 3; k++) N[i * 3 + j] += R[i * 3 + k] * M[k * 3 + j];
+      M = N;
+    }
+    for (const [f, d] of FACE_DIRS) {                   // mặt gốc f đang quay tới hướng M·d
+      const v = [0, 1, 2].map((i) => Math.round(M[i * 3] * d[0] + M[i * 3 + 1] * d[1] + M[i * 3 + 2] * d[2]));
+      const to = FACE_DIRS.find(([, dd]) => dd[0] === v[0] && dd[1] === v[1] && dd[2] === v[2]);
+      if (to) out[LET[to[0]]] = CUBE_COLORS[f];
+    }
+    return out;
+  }
+
+  updateKeyColors() {
+    const map = this.faceColors();
+    this.padHost.querySelectorAll('.key[data-face]').forEach((b) => { const c = map[b.dataset.face]; if (c) b.style.borderBottomColor = c; });
   }
 
   showPad(i) {
@@ -127,7 +168,7 @@ export class PlayPanel {
   keyBtn(tok, color, tip) {
     const multi = Array.isArray(color);
     const b = h('button', { type: 'button', class: 'key', title: tip, 'aria-label': tip }, tok);
-    if (color && !multi) b.style.borderBottom = `3px solid ${color}`;
+    if (color && !multi) { b.style.borderBottom = `3px solid ${color}`; const f = faceOf(tok); if (f) b.dataset.face = f; }
     if (multi && color.length >= 2) {
       const w = 100 / color.length;
       b.append(h('span', { class: 'stripes', style: { background: `linear-gradient(90deg, ${color.map((c, i) => `${c} ${i * w}% ${(i + 1) * w}%`).join(', ')})` } }));
@@ -168,6 +209,7 @@ export class PlayPanel {
   }
 
   onMoved(n) {
+    this.updateKeyColors();
     if (this.scrambled && !this.running && n > 0) {
       this.running = true;
       this.t0 = performance.now();

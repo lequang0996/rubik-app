@@ -1,17 +1,16 @@
-// Giao diện sáng / tối. Mặc định theo hệ thống; người dùng đổi tay thì lưu lại (khoá `theme` trong cài đặt chung).
+// Giao diện sáng / tối. Mặc định là SÁNG; người dùng đổi sang tối thì lưu lại (khoá `theme` trong cài đặt chung).
 const SETTINGS = 'rubik_studio_settings';
-const mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
 const handlers = [];
 
 function readPref() {
-  try { const p = JSON.parse(localStorage.getItem(SETTINGS) || '{}').theme; return p === 'light' || p === 'dark' ? p : 'auto'; } catch { return 'auto'; }
+  try { const p = JSON.parse(localStorage.getItem(SETTINGS) || '{}').theme; return p === 'dark' ? 'dark' : 'light'; } catch { return 'light'; }   // mặc định: sáng
 }
 let pref = readPref();
 
 // màu cho canvas (canvas không đọc được biến CSS trực tiếp) – cập nhật mỗi lần đổi theme
 export const palette = { floor: 0.6 };
 
-export function mode() { return pref === 'auto' ? (mq && mq.matches ? 'light' : 'dark') : pref; }
+export function mode() { return pref; }
 
 function apply() {
   const m = mode(), root = document.documentElement;
@@ -34,5 +33,4 @@ export function setPref(p) {
 export const toggle = () => setPref(mode() === 'dark' ? 'light' : 'dark');
 export const onChange = (fn) => { handlers.push(fn); return () => handlers.splice(handlers.indexOf(fn), 1); };
 
-if (mq) mq.addEventListener('change', () => { if (pref === 'auto') { apply(); handlers.slice().forEach((f) => f()); } });
 apply();

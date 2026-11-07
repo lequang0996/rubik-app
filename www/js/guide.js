@@ -56,7 +56,7 @@ export class GuidePanel {
     this.data = data;
     this.levels = levelList(data);
     this.seg.setItems(this.levels.map((l) => l[1]).length ? this.levels.map((l) => l[1]) : [t('level.basic')], this.levels.length ? this.levels.map((l) => l[2]) : null);
-    this.seg.setLocks(this.levels.map((l) => levelReq(key, l[0])), () => progress.level, (req) => toast(t('lv.locked', { n: req })));
+    this.seg.setLocks(this.levels.map((l) => levelReq(key, l[0])), () => progress.level, (req) => toast(t('lv.locked', { n: req }), 'lock'));
     this.seg.el.style.display = this.levels.length > 1 ? '' : 'none';
     this.levelId = this.levels.length ? this.levels[0][0] : 'basic';
     this.levelChanged(0);

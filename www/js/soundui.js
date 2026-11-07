@@ -1,21 +1,8 @@
-// Giao diện âm thanh: nút 🔊/🔇 (bật/tắt tất cả) + nút 🎵 mở bảng chọn nhạc nền / hiệu ứng
+// Bảng âm thanh: bật/tắt nhạc nền, tiếng xoay và chọn bài (mở từ menu ☰)
 import { h, clear } from './dom.js';
 import { t } from './i18n.js';
 import { sound, TRACKS } from './audio.js';
-import { icon } from './icons.js';
-
-// Nút 🎵 duy nhất cạnh nút ngôn ngữ: bấm mở bảng bật/tắt nhạc nền, tiếng xoay và chọn bài
-export function SoundButton() {
-  const btn = h('button', { type: 'button', class: 'iconbtn sndbtn', 'aria-haspopup': 'dialog', onClick: openSoundSheet }, icon('music'));
-  const update = () => {
-    const label = t('snd.settings');
-    btn.setAttribute('aria-label', label); btn.title = label;
-    btn.classList.toggle('off', !sound.on);          // tắt hết → nút mờ đi
-  };
-  update();
-  const off = sound.onChange(() => { if (!btn.isConnected) off(); else update(); });
-  return btn;
-}
+import { sheetHead } from './sheetui.js';
 
 export function openSoundSheet() {
   const root = document.getElementById('modal-root');
@@ -25,7 +12,7 @@ export function openSoundSheet() {
   const render = () => {
     clear(sheet);
     sheet.append(
-      h('div', { class: 'sheet-title' }, '🎵  ' + t('snd.title')),
+      sheetHead('music', t('snd.title')),
       h('div', { class: 'langlist' },
         row('🎶  ' + t('snd.music'), sound.music, () => sound.setMusic(!sound.music)),
         row('🧊  ' + t('snd.sfx'), sound.sfx, () => sound.setSfx(!sound.sfx))),

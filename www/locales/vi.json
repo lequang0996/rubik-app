@@ -328,5 +328,9 @@
   "help.s6t": "Chú giải màu",
   "help.s6b": "Bấm nút ? trên khối để xem ý nghĩa từng màu và chữ cái của khối hiện tại.",
   "help.s7t": "Âm thanh, giao diện, ngôn ngữ",
-  "help.s7b": "Biểu tượng nốt nhạc: nhạc nền, tiếng xoay và chọn bài. Mặt trời/mặt trăng: giao diện sáng hoặc tối. Quả địa cầu: ngôn ngữ."
+  "help.s7b": "Mở menu ở góc phải phía trên: Âm thanh (nhạc nền, tiếng xoay, chọn bài), Hướng dẫn sử dụng, Giao diện (sáng hoặc tối) và Ngôn ngữ.",
+  "menu.title": "Menu",
+  "theme.title": "Giao diện",
+  "theme.light": "Sáng",
+  "theme.dark": "Tối"
 }

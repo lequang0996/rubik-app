@@ -1,13 +1,17 @@
 // Giao diện cấp độ: nhãn Lv + thanh exp, bảng chi tiết, thông báo (toast)
 import { h, clear } from './dom.js';
 import { t, language } from './i18n.js';
+import { icon } from './icons.js';
 import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
 
 let toastTimer = null;
-export function toast(text) {
+// kind: 'lock' (đang khoá) · 'up' (lên cấp) · 'info'
+export function toast(text, kind = 'info') {
   let el = document.getElementById('toast');
   if (!el) { el = h('div', { id: 'toast', role: 'status' }); document.body.append(el); }
-  el.textContent = text;
+  el.dataset.kind = kind;
+  clear(el);
+  el.append(h('span', { class: 'ticon' }, icon(kind === 'lock' ? 'lock' : kind === 'up' ? 'star' : 'bulb', 19)), h('span', { class: 'ttext' }, text));
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
@@ -18,17 +22,21 @@ export const fmtNum = (n) => n.toLocaleString(language());
 // Nhãn nhỏ "Lv 7" + thanh tiến độ; bấm để mở bảng chi tiết
 export class LevelPill {
   constructor(wide = false) {
+    this.wide = wide;
+    this.digit = h('b');
+    this.ring = h('span', { class: 'lvring' }, this.digit);
     this.num = h('span', { class: 'lvnum' });
-    this.bar = h('i');
     this.exp = h('span', { class: 'lvexp' });
     this.el = h('button', { type: 'button', class: 'lvpill' + (wide ? ' wide' : ''), 'aria-label': t('lv.title'), onClick: openLevelSheet },
-      h('span', { class: 'lvtop' }, this.num, wide ? this.exp : null), h('span', { class: 'lvbar' }, this.bar));
+      this.ring, h('span', { class: 'lvtext' }, this.num, this.exp));
     this.update();
   }
   update() {
+    const f = progress.fraction();
+    this.digit.textContent = progress.level;
+    this.ring.style.setProperty('--p', (f * 100).toFixed(1));
     this.num.textContent = t('lv.short', { n: progress.level });
-    this.exp.textContent = `${fmtNum(progress.exp)} exp`;
-    this.bar.style.width = `${(progress.fraction() * 100).toFixed(1)}%`;
+    this.exp.textContent = this.wide ? `${fmtNum(progress.exp)} exp` : `${Math.floor(f * 100)}%`;
   }
 }
 
