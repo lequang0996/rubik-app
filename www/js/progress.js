@@ -5,13 +5,19 @@ const STORE = 'rubik_studio_progress';
 
 // Mốc mở khoá
 export const MODE_REQ = [0, 10, 10];      // Hướng dẫn / Luyện tập / Chơi
-export const REQ_ADVANCED = 15;           // cấp nâng cao của mọi puzzle; 3x3: Tối ưu (l3) và Roux (l4)
-export const REQ_COMPETITION = 20;        // 3x3: Thi đấu (l5)
+export const REQ_ADVANCED = 15;           // cấp nâng cao của 2x2, 4x4, 5x5
+export const REQ_OPTIMAL = 20;            // 3x3: Tối ưu (l3) và Roux (l4)
+export const REQ_STATS = 21;              // menu: Thống kê
+export const REQ_ULTIMATE = 22;           // 3x3: Tối thượng (l5)
+export const REQ_FEEDBACK = 10;           // menu: Góp ý (mở cùng Luyện tập / Chơi)
+
+// Danh sách mốc hiển thị (Lv, khoá chuỗi dịch) – dùng cho bảng cấp độ và thông báo lên cấp
+export const UNLOCKS = [[MODE_REQ[1], 'u10'], [REQ_ADVANCED, 'lv.u15'], [REQ_OPTIMAL, 'lv.u20'], [REQ_STATS, 'lv.u21'], [REQ_ULTIMATE, 'lv.u22']];
 
 // Cấp độ nội dung (basic/advanced/l3/l4/l5) cần người chơi đạt Lv bao nhiêu
 export function levelReq(puzzleKey, levelId) {
   if (levelId === 'basic') return 0;
-  if (puzzleKey === '3x3' && levelId === 'l5') return REQ_COMPETITION;
+  if (puzzleKey === '3x3') return levelId === 'l5' ? REQ_ULTIMATE : REQ_OPTIMAL;
   return REQ_ADVANCED;
 }
 

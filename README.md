@@ -58,11 +58,11 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 • Mục Âm thanh trong menu: bật / tắt nhạc nền và tiếng xoay, chọn bài; nhạc tự dừng khi bạn thoát ra màn hình chính.
 
 🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 0 – 30)
-Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở Luyện tập và Chơi · Lv 15 mở cấp nâng cao của 2x2, 4x4, 5x5 · Lv 20 mở 3x3 Tối ưu và Roux · Lv 21 mở Thống kê · Lv 22 mở 3x3 Tối thượng · Lv 23 mở Góp ý.
+Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở Luyện tập, Chơi và Góp ý · Lv 15 mở cấp nâng cao của 2x2, 4x4, 5x5 · Lv 20 mở 3x3 Tối ưu và Roux · Lv 21 mở Thống kê · Lv 22 mở 3x3 Tối thượng.
 
 📊 THỐNG KÊ & GÓP Ý
 • Thống kê (Lv 21): xem thời gian bạn đã dùng cho từng puzzle trong 6 puzzle; bấm vào một puzzle để xem chi tiết từng mục như Cross, F2L, OLL, PLL.
-• Góp ý (Lv 23): nhập ý kiến rồi bấm Gửi, nội dung được gửi thẳng đến nhà phát triển qua email.
+• Góp ý (Lv 10): nhập ý kiến rồi bấm Gửi, nội dung được gửi thẳng đến nhà phát triển qua email.
 • Tự động lưu: mở lại app là quay về đúng puzzle, tab, cấp độ, mục và công thức bạn đang xem dở.
 
 🌍 8 NGÔN NGỮ
@@ -132,11 +132,11 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 • The Sound item in the menu switches music and turn sounds on / off and picks the track; music pauses automatically when you leave the app.
 
 🏆 PLAYER LEVELS (Lv 0 – 30)
-You earn +1 exp for every second you use the app. Lv 10 unlocks Practice and Play · Lv 15 the advanced levels of 2x2, 4x4 and 5x5 · Lv 20 3x3 Optimal and Roux · Lv 21 Statistics · Lv 22 3x3 Ultimate · Lv 23 Feedback.
+You earn +1 exp for every second you use the app. Lv 10 unlocks Practice, Play and Feedback · Lv 15 the advanced levels of 2x2, 4x4 and 5x5 · Lv 20 3x3 Optimal and Roux · Lv 21 Statistics · Lv 22 3x3 Ultimate.
 
 📊 STATISTICS & FEEDBACK
 • Statistics (Lv 21): see how long you have spent on each of the 6 puzzles; tap a puzzle for the time of every section such as Cross, F2L, OLL, PLL.
-• Feedback (Lv 23): write your thoughts and press Send – your message goes straight to the developer by email.
+• Feedback (Lv 10): write your thoughts and press Send – your message goes straight to the developer by email.
 • Auto-save: reopen the app and you are right back at the puzzle, tab, level, section and algorithm you were viewing.
 
 🌍 8 LANGUAGES

@@ -25,8 +25,9 @@ export function levelList(data, practice = false) {
 }
 
 export class GuidePanel {
-  constructor(onAlg) {
-    this.onAlg = onAlg;
+  constructor(onAlg, onSelect = null) {
+    this.onAlg = onAlg; this.onSelect = onSelect;     // onSelect({level, cat, name, alg}) – để lưu lại vị trí đang xem
+    this.sel = null; this.want = null;
     this.PAGE = 20;
     this.key = null; this.data = null; this.levels = []; this.levelId = 'basic';
     this.gen = 0; this.activeRow = null; this.cases = []; this.filtered = []; this.page = 0; this.cat = null;
@@ -71,6 +72,37 @@ export class GuidePanel {
     return [this.levelId, i >= 0 && i < cats.length ? cats[i].id : null];
   }
 
+  // vị trí đang xem: cấp + mục + (công thức đã chọn)
+  snapshot() {
+    const [level, cat] = this.selection();
+    return { level, cat, name: this.sel ? this.sel.name : null, alg: this.sel ? this.sel.alg : null };
+  }
+  emitSel() { if (this.onSelect && this.data) this.onSelect(this.snapshot()); }
+
+  // Khôi phục vị trí đã lưu; load=true thì chọn luôn công thức (nạp lên khối). Trả về true nếu khôi phục được cấp/mục.
+  restore(s, load) {
+    if (!s || !this.data) return false;
+    const li = this.levels.findIndex((l) => l[0] === s.level);
+    if (li < 0 || levelReq(this.key, s.level) > progress.level) return false;
+    if (li > 0 || this.levelId !== s.level) { this.seg.setIndex(li); this.levelChanged(li); }
+    const ci = this.cats().findIndex((c) => c.id === s.cat);
+    if (ci < 0) return true;
+    if (ci !== this.combo.selectedIndex) { this.combo.selectedIndex = ci; this.categoryChanged(ci); }
+    if (s.name) {
+      const idx = this.filtered.findIndex((c) => c.name === s.name);
+      if (idx >= 0) {
+        this.want = { ...s, load: !!load };                // load=false: chỉ đánh dấu hàng đã chọn, không nạp lên khối
+        this.sel = { name: s.name, alg: s.alg };
+        this.page = Math.floor(idx / this.PAGE); this.showPage();
+        this.emitSel();
+      }
+    }
+    return true;
+  }
+
+  // Quay lại tab Hướng dẫn: nạp lại công thức đang chọn lên khối
+  reloadSelected() { if (this.activeRow) this.activeRow.el.click(); }
+
   levelChanged(i) {
     if (this.levels.length) {
       const lv = this.levels[Math.min(i, this.levels.length - 1)];
@@ -90,6 +122,7 @@ export class GuidePanel {
 
   categoryChanged(i) {
     const cats = this.cats();
+    this.sel = null; this.want = null;
     this.clearList();
     this.search.value = '';
     if (!cats.length || i < 0 || i >= cats.length) {
@@ -97,6 +130,7 @@ export class GuidePanel {
       this.count.textContent = t('count.zero');
       this.cases = []; this.filtered = [];
       this.pager.hidden = true; this.search.style.display = 'none';
+      this.emitSel();
       return;
     }
     this.cat = cats[i];
@@ -107,6 +141,7 @@ export class GuidePanel {
     this.page = 0;
     this.updateCount();
     this.showPage();
+    this.emitSel();
   }
 
   filterChanged(text) {
@@ -147,7 +182,16 @@ export class GuidePanel {
   build(gen) {
     if (gen !== this.gen) return;
     for (let k = 0; k < 5 && this.pending.length; k++) {
-      this.list.append(new CaseCard(this.key, this.pending.shift(), this.cat, (c, r, a, cs) => this.pick(c, r, a, cs)).el);
+      const cs = this.pending.shift();
+      const card = new CaseCard(this.key, cs, this.cat, (c, r, a, cs2) => this.pick(c, r, a, cs2));
+      this.list.append(card.el);
+      if (this.want && cs.name === this.want.name) {            // đang khôi phục: chọn lại đúng công thức đã xem
+        const w = this.want; this.want = null;
+        const row = card.rows[Math.max(0, cs.algs.indexOf(w.alg))];
+        if (row && w.load) row.el.click();
+        else if (row) { row.setActive(true); this.activeRow = row; }
+        requestAnimationFrame(() => card.el.scrollIntoView({ block: 'center' }));
+      }
     }
     if (this.pending.length) setTimeout(() => this.build(gen), 0);
   }
@@ -156,6 +200,8 @@ export class GuidePanel {
     if (this.activeRow) this.activeRow.setActive(false);
     row.setActive(true);
     this.activeRow = row;
+    this.sel = { name: cs.name, alg };
+    this.emitSel();
     const setup = cs.setup || getPuzzle(this.key).invertAlg(alg);
     this.onAlg(setup, alg, '');
   }

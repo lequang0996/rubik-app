@@ -4,7 +4,7 @@ import { t } from './i18n.js';
 import { icon } from './icons.js';
 import { sheetHead } from './sheetui.js';
 
-const ICONS = ['cube', 'guide', 'practice', 'play', 'star', 'palette', 'menu'];
+const ICONS = ['cube', 'guide', 'practice', 'play', 'star', 'palette', 'menu', 'chart', 'mail', 'save'];
 
 export function openHelpSheet() {
   const root = document.getElementById('modal-root');

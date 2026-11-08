@@ -9,10 +9,13 @@ import { thumb, Segmented, PlayerBar, LegendButton } from './components.js';
 import { GuidePanel } from './guide.js';
 import { PracticePanel } from './practice.js';
 import { PlayPanel } from './play.js';
-import { progress, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
-import { LevelPill, toast } from './levelui.js';
+import { progress, MODE_REQ, UNLOCKS } from './progress.js';
+import { LevelPill, toast, unlockText } from './levelui.js';
 import { sound } from './audio.js';
 import { MenuButton } from './menuui.js';
+import { openStatsSheet } from './statsui.js';
+import { openFeedbackSheet } from './feedbackui.js';
+import { stats } from './stats.js';
 import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
@@ -41,7 +44,7 @@ function build() {
     play: () => view.togglePlay(), forward: () => view.stepForward(), back: () => view.stepBack(),
     restart: () => view.restart(),
   });
-  const guide = new GuidePanel((setup, alg) => onAlg(setup, alg));
+  const guide = new GuidePanel((setup, alg) => onAlg(setup, alg), (sel) => { session.sel[state.key] = sel; saveSession(); });
   const practice = new PracticePanel({
     onAlg: (setup, alg) => onAlg(setup, alg),
     onCleared: () => {
@@ -62,7 +65,7 @@ function build() {
     grid.append(b);
     return b;
   });
-  side.append(h('div', { class: 'brandrow' }, h('div', {}, h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle'))), MenuButton({ openLanguage: openLanguageModal })),
+  side.append(h('div', { class: 'brandrow' }, h('div', {}, h('div', { class: 'brand' }, 'Cube All In One'), h('div', { class: 'brandsub' }, t('app.subtitle'))), MenuButton(menuActions)),
     h('div', { class: 'section' }, t('sidebar.section')), grid, h('div', { class: 'grow' }),
     sidePill.el, h('div', { class: 'brandsub tip' }, tm('sidebar.tip')));
 
@@ -70,7 +73,7 @@ function build() {
   const top = $('#topbar'); clear(top);
   const pIcon = h('span', { class: 'picon' }), pName = h('span', { class: 'pname' });
   const pBtn = h('button', { type: 'button', class: 'pbtn', 'aria-haspopup': 'dialog', onClick: openPuzzleModal }, pIcon, pName, h('span', { class: 'chev' }, '▾'));
-  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), MenuButton({ openLanguage: openLanguageModal }));
+  top.append(pBtn, topPill.el, h('span', { class: 'grow' }), MenuButton(menuActions));
 
   // chế độ
   const labels = [t('mode.guide'), t('mode.practice'), t('mode.play')];
@@ -120,8 +123,18 @@ function onAlg(setup, alg) {
   ui.bar.setAlg(view.steps.map((s) => s.label));   // chỉ hiện trạng thái, bấm ▶ mới xoay
 }
 
+// ------------------------------------------------------------------ lưu / khôi phục trạng thái đang xem
+const SESSION = 'rubik_studio_session';
+const session = (() => {
+  let d = {};
+  try { d = JSON.parse(localStorage.getItem(SESSION) || '{}') || {}; } catch { d = {}; }
+  return { puzzle: d.puzzle || '3x3', mode: Number.isInteger(d.mode) ? d.mode : 0, sel: d.sel && typeof d.sel === 'object' ? d.sel : {} };
+})();
+function saveSession() { try { localStorage.setItem(SESSION, JSON.stringify(session)); } catch { /* bỏ qua */ } }
+
 async function selectPuzzle(key) {
-  state.key = key;
+  const saved = session.sel[key];          // đọc trước: guide.setPuzzle() sẽ ghi đè bằng vị trí mặc định
+  state.key = key; session.puzzle = key; saveSession();
   view.setPuzzle(key);
   ui.legend.setKey(key);
   ui.cards.forEach((b, i) => b.classList.toggle('on', PUZZLES[i][0] === key));
@@ -131,10 +144,11 @@ async function selectPuzzle(key) {
   if (state.key !== key) return;
   ui.bar.setAlg([]);
   if (state.mode === MODE_PLAY) ui.play.refreshHelp();
+  ui.guide.restore(saved, state.mode === MODE_GUIDE);   // quay lại đúng cấp / mục / công thức đã xem
 }
 
-function setMode(i) {
-  state.mode = i;
+function setMode(i, keep = false) {
+  state.mode = i; session.mode = i; saveSession();
   $('#app').dataset.mode = String(i);
   ui.seg.setIndex(i);
   ui.navBtns.forEach((b, k) => b.classList.toggle('on', k === i));
@@ -145,13 +159,15 @@ function setMode(i) {
   ui.bar.setFormulaHidden(i === MODE_PRACTICE && ui.practice.formulaHidden);
   requestAnimationFrame(() => view.resize());
   if (i === MODE_PLAY) { ui.play.refreshHelp(); return; }
-  view.resetPuzzle();
-  ui.bar.setAlg([]);
+  if (!(keep && i === MODE_GUIDE)) { view.resetPuzzle(); ui.bar.setAlg([]); }   // keep: giữ công thức vừa khôi phục
   if (i === MODE_PRACTICE) {
     ui.bar.setPlaceholder(tm('bar.placeholder.practice'));
     const [levelId, catId] = ui.guide.selection();
     if (!ui.practice.sync(levelId, catId)) ui.practice.reloadCurrent();   // quay lại: hiện lại ca đang luyện
-  } else ui.bar.setPlaceholder(tm('bar.placeholder.guide'));
+  } else {
+    ui.bar.setPlaceholder(tm('bar.placeholder.guide'));
+    if (!keep) ui.guide.reloadSelected();         // từ tab khác quay lại: nạp lại công thức đang chọn
+  }
 }
 
 async function changeLanguage(code) {
@@ -162,8 +178,10 @@ async function changeLanguage(code) {
   closeModal();
   build();
   await selectPuzzle(key);
-  setMode(mode);
+  setMode(mode, true);
 }
+
+const menuActions = { openLanguage: () => openLanguageModal(), openStats: () => openStatsSheet({ puzzles: PUZZLES, puzzleIcon }), openFeedback: () => openFeedbackSheet() };
 
 // ------------------------------------------------------------------ hộp thoại chọn puzzle / ngôn ngữ (điện thoại)
 function openPuzzleModal() {
@@ -221,7 +239,8 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
 }
 
 // ------------------------------------------------------------------ khởi động
-document.addEventListener('visibilitychange', () => sound.setHidden(document.hidden));
+document.addEventListener('visibilitychange', () => { sound.setHidden(document.hidden); if (document.hidden) saveSession(); });
+addEventListener('pagehide', saveSession);
 theme.onChange(() => view.update());            // đổi sáng/tối: vẽ lại bóng sàn của khối
 sound.armUnlock();                              // trình duyệt/WebView chỉ cho phát âm thanh sau lần chạm đầu tiên
 
@@ -231,15 +250,20 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   progress.on('change', () => ui.pills.forEach((p) => p.update()));
   progress.on('levelup', (n, old) => {
     refreshLocks();
-    const x = [];
-    if (old < MODE_REQ[1] && n >= MODE_REQ[1]) x.push(`${t('mode.practice')} · ${t('mode.play')}`);
-    if (old < REQ_ADVANCED && n >= REQ_ADVANCED) x.push(t('lv.u15'));
-    if (old < REQ_COMPETITION && n >= REQ_COMPETITION) x.push(t('lv.u20'));
+    const x = UNLOCKS.filter(([req]) => old < req && n >= req).map(([, k]) => unlockText(k));
     toast(t('lv.up', { n }) + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''), 'up');
   });
   progress.start();
-  await selectPuzzle('3x3');
-  setMode(MODE_GUIDE);
+  stats.start(() => {                              // mỗi giây: cộng thời gian cho puzzle + mục đang xem
+    const p = state.key;
+    if (state.mode === MODE_PLAY) return { puzzle: p, bucket: 'play' };
+    if (state.mode === MODE_PRACTICE) return { puzzle: p, bucket: `${ui.practice.levelId || '-'}/${ui.practice.poolId || '-'}` };
+    const [l, c] = ui.guide.selection();
+    return { puzzle: p, bucket: `${l}/${c || '-'}` };
+  });
+  const startMode = session.mode >= 0 && session.mode <= MODE_PLAY && MODE_REQ[session.mode] <= progress.level ? session.mode : MODE_GUIDE;
+  await selectPuzzle(PUZZLES.some((p) => p[0] === session.puzzle) ? session.puzzle : '3x3');
+  setMode(startMode, true);
   const sp = $('#splash');
   sp.classList.add('hide');
   setTimeout(() => sp.remove(), 400);

@@ -2,9 +2,12 @@
 import { h, clear } from './dom.js';
 import { t, language } from './i18n.js';
 import { icon } from './icons.js';
-import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, MODE_REQ, REQ_ADVANCED, REQ_COMPETITION } from './progress.js';
+import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, UNLOCKS } from './progress.js';
 
 let toastTimer = null;
+// Nhãn của một mốc mở khoá: 'u10' = Luyện tập · Chơi, còn lại là khoá chuỗi dịch
+export const unlockText = (k) => (k === 'u10' ? `${t('mode.practice')} · ${t('mode.play')} · ${t('lv.u23')}` : t(k));
+
 // kind: 'lock' (đang khoá) · 'up' (lên cấp) · 'info'
 export function toast(text, kind = 'info') {
   let el = document.getElementById('toast');
@@ -46,7 +49,7 @@ export function openLevelSheet() {
   const expLine = h('div', { class: 'lvline' });
   const bar = h('span', { class: 'lvbar big' }, h('i'));
   const next = h('div', { class: 'lvline muted' });
-  const rows = [[MODE_REQ[1], `${t('mode.practice')} · ${t('mode.play')}`], [REQ_ADVANCED, t('lv.u15')], [REQ_COMPETITION, t('lv.u20')]]
+  const rows = UNLOCKS.map(([req, k]) => [req, unlockText(k)])
     .map(([req, text]) => ({
       req,
       el: h('div', { class: 'unlockrow' },
