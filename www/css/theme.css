@@ -228,3 +228,55 @@ html, body { background: var(--bg); color: var(--text); -webkit-font-smoothing: 
 .algline.ph { font-family: var(--font); font-size: 13.5px; color: var(--muted); }
 #toast { width: max-content; max-width: min(92vw, 420px); }
 body:has(.popback) #toast { display: none; }
+
+/* ====================== menu: mục bị khoá ====================== */
+.popitem.locked { color: var(--muted); }
+.popitem.locked .popic { background: var(--hover); color: var(--faint); }
+.lockedtrail { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px 3px 7px; border-radius: 999px; background: var(--hover); font-size: 12px; font-weight: 600; color: var(--muted); }
+
+/* ====================== thống kê ====================== */
+.statsheet { display: flex; flex-direction: column; max-height: 88vh; overflow: hidden; }
+.stattotal { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; margin-bottom: 12px; border-radius: 18px; border: 1px solid var(--accent-line);
+  background: linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--raised); }
+.statlabel { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.statbig { font-size: 26px; font-weight: 650; letter-spacing: -.015em; color: var(--accent-text); }
+.statlist { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; min-height: 0; padding: 1px; }
+.statitem { border-radius: 16px; background: var(--raised); border: 1px solid var(--border); box-shadow: var(--hl); overflow: hidden; }
+.statitem.open { border-color: var(--accent-line); }
+.statpuz { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 12px; border: 0; background: transparent; color: var(--text); text-align: left; }
+.statpuz:active { background: var(--hover); }
+.statmain { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.statname { font-size: 14.5px; font-weight: 650; display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.statname small { font-size: 11.5px; font-weight: 500; color: var(--muted); }
+.stattime { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.stattime.strong { color: var(--text); font-size: 14px; }
+.statbar { display: block; height: 5px; border-radius: 3px; background: var(--track); overflow: hidden; }
+.statbar i { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-hi)); }
+.statbar.big { height: 6px; }
+.statchev { display: grid; color: var(--muted); transition: transform .2s; }
+.statitem.open .statchev { transform: rotate(180deg); }
+.statdetail { display: flex; flex-direction: column; gap: 11px; padding: 4px 14px 14px 64px; }
+.statrow { display: flex; flex-direction: column; gap: 5px; }
+.statrowtop { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.statrow .statname { font-size: 13.5px; font-weight: 600; }
+.statempty { font-size: 13px; color: var(--muted); }
+.statnote { margin-top: 12px; font-size: 12px; line-height: 1.5; color: var(--faint); }
+
+/* ====================== góp ý ====================== */
+.fbform { display: flex; flex-direction: column; gap: 10px; }
+.fbintro { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+.fbarea { width: 100%; min-height: 140px; padding: 13px 14px; resize: vertical; border-radius: 16px; border: 1px solid var(--border-strong); background: var(--raised);
+  color: var(--text); font: inherit; font-size: 14.5px; line-height: 1.5; box-shadow: var(--hl); }
+.fbarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.fbarea::placeholder { color: var(--faint); }
+.fbrow { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 20px; }
+.fbmsg { flex: 1; font-size: 12.5px; font-weight: 500; color: var(--muted); }
+.fbmsg[data-kind="err"] { color: #D9534F; }
+:root[data-theme="dark"] .fbmsg[data-kind="err"] { color: #FF8A80; }
+.fbcount { font-size: 12px; color: var(--faint); white-space: nowrap; }
+.fbsend { width: 100%; padding: 14px; font-size: 15px; }
+.fbdone { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 18px 6px 6px; }
+.fbcheck { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; color: var(--on-accent); background: linear-gradient(180deg, var(--accent-hi), var(--accent)); box-shadow: var(--glow); }
+.fbthanks { font-size: 19px; font-weight: 650; letter-spacing: -.012em; }
+.fbdone .action { margin-top: 8px; min-width: 120px; }
+.statitem { flex: none; }

@@ -33,7 +33,7 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 📘 HƯỚNG DẪN – hơn 5.900 trường hợp, hơn 6.000 công thức
 • Xem khối xoay từng bước theo công thức: ▶ phát / ⏸ tạm dừng, tiến – lùi từng nước, về đầu; nước đang xoay được đánh dấu ngay trên công thức.
 • Mỗi nhóm có phần giải thích dễ hiểu, ảnh 3D và sơ đồ nhìn từ trên cho từng trường hợp, tìm kiếm nhanh và phân trang gọn gàng.
-• Rubik 3x3 có 4 cấp độ: CFOP (Cross, F2L, OLL, PLL) · Tối ưu (F2L nâng cao, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Nhánh Roux (SBLS, CMLL, EO4A) · Thi đấu (VLS, OLLCP, ZBLL, 1LLL – hơn 5.000 công thức).
+• Rubik 3x3 có 4 cấp độ: CFOP (Cross, F2L, OLL, PLL) · Tối ưu (F2L nâng cao, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Nhánh Roux (SBLS, CMLL, EO4A) · Tối thượng (VLS, OLLCP, ZBLL, 1LLL – hơn 5.000 công thức).
 • 2x2: ký hiệu, tầng đầu, OLL, PBL và bộ CLL nâng cao.
 • 4x4: phương pháp giảm khối (tâm → cạnh → 3x3), xử lý parity, OLL/PLL Parity.
 • 5x5: giảm khối, ghép cạnh, hoàn thiện nhanh 2 tâm cuối (L2C) và 2 cạnh cuối (L2E).
@@ -58,18 +58,23 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 • Mục Âm thanh trong menu: bật / tắt nhạc nền và tiếng xoay, chọn bài; nhạc tự dừng khi bạn thoát ra màn hình chính.
 
 🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 0 – 30)
-Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở khoá Luyện tập và Chơi, Lv 15 mở các cấp nâng cao, Lv 20 mở bộ công thức Thi đấu của 3x3. Bấm vào nhãn cấp độ bất cứ lúc nào để xem tiến độ.
+Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở Luyện tập và Chơi · Lv 15 mở cấp nâng cao của 2x2, 4x4, 5x5 · Lv 20 mở 3x3 Tối ưu và Roux · Lv 21 mở Thống kê · Lv 22 mở 3x3 Tối thượng · Lv 23 mở Góp ý.
+
+📊 THỐNG KÊ & GÓP Ý
+• Thống kê (Lv 21): xem thời gian bạn đã dùng cho từng puzzle trong 6 puzzle; bấm vào một puzzle để xem chi tiết từng mục như Cross, F2L, OLL, PLL.
+• Góp ý (Lv 23): nhập ý kiến rồi bấm Gửi, nội dung được gửi thẳng đến nhà phát triển qua email.
+• Tự động lưu: mở lại app là quay về đúng puzzle, tab, cấp độ, mục và công thức bạn đang xem dở.
 
 🌍 8 NGÔN NGỮ
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – tự chọn theo ngôn ngữ máy, đổi bất cứ lúc nào bằng biểu tượng quả địa cầu.
 
 🔒 RIÊNG TƯ & GỌN NHẸ
-Hoạt động ngoại tuyến hoàn toàn. Không quảng cáo, không đăng nhập, không thu thập dữ liệu cá nhân. Tự động nhắc cập nhật khi có phiên bản mới.
+Hoạt động ngoại tuyến (chỉ Góp ý cần Internet). Không quảng cáo, không đăng nhập, không thu thập dữ liệu cá nhân; góp ý chỉ được gửi khi bạn chủ động bấm Gửi. Tự động nhắc cập nhật khi có phiên bản mới.
 
 ✨ GIAO DIỆN TINH TẾ, SÁNG & TỐI
 • Hai giao diện sang trọng: sáng thanh lịch (mặc định) và tối dịu mắt, đổi nhanh trong menu.
 • Tối ưu cho điện thoại và máy tính bảng (dọc & ngang).
-• Menu gọn ở góc phải gồm Âm thanh, Hướng dẫn sử dụng, Giao diện và Ngôn ngữ; Hướng dẫn sử dụng tóm tắt cách dùng từng tính năng ngay trong app.
+• Menu gọn ở góc phải gồm Ngôn ngữ, Giao diện, Âm thanh, Thống kê, Góp ý và Hướng dẫn sử dụng; Hướng dẫn sử dụng tóm tắt cách dùng từng tính năng ngay trong app.
 
 Dù bạn mới biết xoay Rubik hay đang luyện tốc độ thi đấu, Cube All In One đều đồng hành cùng bạn!
 ```
@@ -102,7 +107,7 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 📘 GUIDE – 5,900+ cases, 6,000+ algorithms
 • Watch the puzzle turn step by step: ▶ play / ⏸ pause, step forward and back, jump to the start; the current move is highlighted in the algorithm.
 • Every set comes with a clear explanation, a 3D picture and a top-view diagram for each case, quick search and tidy paging.
-• 3x3 has 4 levels: CFOP (Cross, F2L, OLL, PLL) · Optimal (Advanced F2L, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Roux branch (SBLS, CMLL, EO4A) · Competition (VLS, OLLCP, ZBLL, 1LLL – 5,000+ algorithms).
+• 3x3 has 4 levels: CFOP (Cross, F2L, OLL, PLL) · Optimal (Advanced F2L, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Roux branch (SBLS, CMLL, EO4A) · Ultimate (VLS, OLLCP, ZBLL, 1LLL – 5,000+ algorithms).
 • 2x2: notation, first layer, OLL, PBL and the advanced CLL set.
 • 4x4: reduction method (centers → edges → 3x3), parity fixes, OLL/PLL Parity.
 • 5x5: reduction, edge pairing, plus fast finishing of the last 2 centers (L2C) and last 2 edges (L2E).
@@ -127,26 +132,31 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 • The Sound item in the menu switches music and turn sounds on / off and picks the track; music pauses automatically when you leave the app.
 
 🏆 PLAYER LEVELS (Lv 0 – 30)
-You earn +1 exp for every second you use the app. Lv 10 unlocks Practice and Play, Lv 15 unlocks the advanced levels, Lv 20 unlocks the 3x3 Competition sets. Tap the level badge any time to see your progress.
+You earn +1 exp for every second you use the app. Lv 10 unlocks Practice and Play · Lv 15 the advanced levels of 2x2, 4x4 and 5x5 · Lv 20 3x3 Optimal and Roux · Lv 21 Statistics · Lv 22 3x3 Ultimate · Lv 23 Feedback.
+
+📊 STATISTICS & FEEDBACK
+• Statistics (Lv 21): see how long you have spent on each of the 6 puzzles; tap a puzzle for the time of every section such as Cross, F2L, OLL, PLL.
+• Feedback (Lv 23): write your thoughts and press Send – your message goes straight to the developer by email.
+• Auto-save: reopen the app and you are right back at the puzzle, tab, level, section and algorithm you were viewing.
 
 🌍 8 LANGUAGES
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – picked automatically from your device language, switch any time with the globe icon.
 
 🔒 PRIVATE & LIGHTWEIGHT
-Works completely offline. No ads, no sign-in, no personal data collected. Gets update prompts automatically when a new version is available.
+Works offline (only Feedback needs the Internet). No ads, no sign-in, no personal data collected; feedback is sent only when you press Send. Gets update prompts automatically when a new version is available.
 
 ✨ REFINED LOOK, LIGHT & DARK
 • Two elegant themes: a clean light mode (default) and an eye-friendly dark mode, switchable in the menu.
 • Optimized for phones and tablets (portrait & landscape).
-• A compact menu at the top right holds Sound, How to use, Appearance and Language; the built-in How to use guide summarizes every feature.
-
-Whether you are just learning to solve the cube or training for competition speed, Cube All In One is with you all the way!
+• A compact menu at the top right holds Language, Appearance, Sound, Statistics, Feedback and How to use; the built-in How to use guide summarizes every feature.
 ```
 
 ---
 
 ## Ghi chú đăng bài
 
-* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx-dark`, `5-menu`, `6-help`, `7-sound-dark`; máy tính bảng: `tablet-light`, `tablet-dark-vi`).
+* **Ảnh Store** nằm trong thư mục `store/`: `icon-512.png` (biểu tượng), `feature-graphic-1024x500.png` (ảnh bìa), `screenshots/` (điện thoại: `1-guide`, `2-practice`, `3-play`, `4-pyraminx-dark`, `5-menu`, `6-stats`, `7-feedback`, `8-help`; máy tính bảng: `tablet-light`, `tablet-dark-vi`).
 * **Chính sách quyền riêng tư**: `docs/privacy-policy.html` (đăng qua GitHub Pages, dán đường dẫn vào Play Console).
+* **Góp ý trong app**: cần triển khai `tools/feedback-apps-script.gs` (làm theo hướng dẫn ở đầu file) rồi dán URL vào `FEEDBACK_ENDPOINT` trong `www/js/config.js`. Email người nhận không nằm trong app, nó lấy từ tài khoản Google đã triển khai script.
+* **Data safety**: khai báo theo `store/DATA_SAFETY.md`.
 * **Cập nhật trong ứng dụng**: dùng Google Play In-App Updates chế độ Flexible. Mỗi bản phát hành mới cần **tăng `VERSION_CODE`** (workflow GitHub Actions đã dùng `github.run_number`). Tính năng chỉ hoạt động với bản cài từ Google Play (kiểm thử bằng Internal testing hoặc Internal app sharing).
