@@ -9,7 +9,7 @@ import { FEEDBACK_ENDPOINT, FEEDBACK_MIN, FEEDBACK_MAX, FEEDBACK_COOLDOWN_MS } f
 const LAST = 'rubik_studio_fb_last';
 
 async function send(message) {
-  if (!FEEDBACK_ENDPOINT) return false;                           // chưa cấu hình URL Apps Script (config.js)
+  if (!FEEDBACK_ENDPOINT) { console.warn('[Góp ý] FEEDBACK_ENDPOINT trống – hãy dán URL Apps Script vào www/js/config.js (xem tools/feedback-apps-script.gs)'); return false; }
   const native = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
   const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);
   try {

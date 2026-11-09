@@ -1,5 +1,6 @@
 // Hệ thống cấp độ người chơi: +1 exp mỗi giây mở app; cấp n cần 2^(n-1) exp (Lv1 = 2^0 … Lv30 = 2^29)
 export const EXP_PER_SECOND = 1;          // đặt số lớn (vd 1000) khi muốn thử nhanh các mốc mở khoá
+export const REWARD_EXP = 100;           // mỗi lần xem hết quảng cáo có thưởng: +100 exp
 export const MAX_LEVEL = 30;
 const STORE = 'rubik_studio_progress';
 

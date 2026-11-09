@@ -15,7 +15,7 @@
  * Giới hạn: Gmail miễn phí gửi tối đa khoảng 100 email/ngày qua MailApp; script này còn tự giới hạn PER_HOUR thư/giờ.
  */
 const MIN_LEN = 10;
-const MAX_LEN = 2000;
+const MAX_LEN = 5000;
 const PER_HOUR = 30;   // tối đa số góp ý nhận mỗi giờ (chống spam)
 
 function doPost(e) {

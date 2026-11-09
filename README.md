@@ -24,7 +24,7 @@ Học công thức, luyện tập & chơi Rubik 3D: 3x3, 2x2, 4x4, 5x5, Pyraminx
 ### Mô tả đầy đủ
 
 ```
-Cube All In One là ứng dụng 3-trong-1 dành cho người yêu Rubik: HỌC công thức, LUYỆN TẬP theo từng trường hợp và CHƠI giải khối 3D ngay trên điện thoại – hoàn toàn ngoại tuyến, không quảng cáo, không cần tài khoản.
+Cube All In One là ứng dụng 3-trong-1 dành cho người yêu Rubik: HỌC công thức, LUYỆN TẬP theo từng trường hợp và CHƠI giải khối 3D ngay trên điện thoại – phần lớn hoạt động ngoại tuyến, không cần tài khoản (có quảng cáo).
 
 🧩 6 KHỐI PUZZLE TRONG MỘT ỨNG DỤNG
 • Rubik 3x3 • 2x2 • 4x4 • 5x5 • Pyraminx • Skewb
@@ -69,7 +69,7 @@ Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở Luyện tập, Ch
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – tự chọn theo ngôn ngữ máy, đổi bất cứ lúc nào bằng biểu tượng quả địa cầu.
 
 🔒 RIÊNG TƯ & GỌN NHẸ
-Hoạt động ngoại tuyến (chỉ Góp ý cần Internet). Không quảng cáo, không đăng nhập, không thu thập dữ liệu cá nhân; góp ý chỉ được gửi khi bạn chủ động bấm Gửi. Tự động nhắc cập nhật khi có phiên bản mới.
+Hoạt động ngoại tuyến (Góp ý và quảng cáo cần Internet). Không đăng nhập; có quảng cáo Google AdMob (có thể xem quảng cáo tự nguyện để nhận +100 exp); góp ý chỉ được gửi khi bạn chủ động bấm Gửi. Tự động nhắc cập nhật khi có phiên bản mới.
 
 ✨ GIAO DIỆN TINH TẾ, SÁNG & TỐI
 • Hai giao diện sang trọng: sáng thanh lịch (mặc định) và tối dịu mắt, đổi nhanh trong menu.
@@ -98,7 +98,7 @@ Learn algorithms, practice & play 3D cubes: 3x3, 2x2, 4x4, 5x5, Pyraminx, Skewb
 ### Full description
 
 ```
-Cube All In One is a 3-in-1 app for twisty-puzzle fans: LEARN algorithms, PRACTICE case by case and PLAY 3D puzzles right on your phone – fully offline, no ads, no account needed.
+Cube All In One is a 3-in-1 app for twisty-puzzle fans: LEARN algorithms, PRACTICE case by case and PLAY 3D puzzles right on your phone – mostly offline, no account needed (contains ads).
 
 🧩 6 PUZZLES IN ONE APP
 • Rubik's Cube 3x3 • 2x2 • 4x4 • 5x5 • Pyraminx • Skewb
@@ -143,7 +143,7 @@ You earn +1 exp for every second you use the app. Lv 10 unlocks Practice, Play a
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – picked automatically from your device language, switch any time with the globe icon.
 
 🔒 PRIVATE & LIGHTWEIGHT
-Works offline (only Feedback needs the Internet). No ads, no sign-in, no personal data collected; feedback is sent only when you press Send. Gets update prompts automatically when a new version is available.
+Works offline (Feedback and ads need the Internet). No sign-in; contains Google AdMob ads (optionally watch a rewarded ad for +100 exp); feedback is sent only when you press Send. Gets update prompts automatically when a new version is available.
 
 ✨ REFINED LOOK, LIGHT & DARK
 • Two elegant themes: a clean light mode (default) and an eye-friendly dark mode, switchable in the menu.

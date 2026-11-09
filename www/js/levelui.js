@@ -2,7 +2,8 @@
 import { h, clear } from './dom.js';
 import { t, language } from './i18n.js';
 import { icon } from './icons.js';
-import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, UNLOCKS } from './progress.js';
+import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, UNLOCKS, REWARD_EXP } from './progress.js';
+import { watchRewardedAd } from './ads.js';
 
 let toastTimer = null;
 // Nhãn của một mốc mở khoá: 'u10' = Luyện tập · Chơi, còn lại là khoá chuỗi dịch
@@ -57,7 +58,8 @@ export function openLevelSheet() {
         h('span', { class: 'steptitle' }, text),
         h('span', { class: 'ustate' })),
     }));
-  const sheet = h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('lv.title')), head, bar, expLine, next,
+  const adBtn = h('button', { type: 'button', class: 'action primary adbtn', onClick: watchRewardedAd }, icon('gift', 18), h('span', {}, t('ads.watch', { n: REWARD_EXP })));
+  const sheet = h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('lv.title')), head, bar, expLine, next, adBtn,
     h('div', { class: 'lvline muted' }, t('lv.rule')), h('div', { class: 'section' }, t('lv.unlocks')), h('div', { class: 'steplist' }, rows.map((r) => r.el)));
   const refresh = () => {
     head.textContent = t('lv.short', { n: progress.level });

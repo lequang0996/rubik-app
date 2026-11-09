@@ -4,6 +4,7 @@
   --sb: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
   --sl: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
   --sr: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
+  --ad-h: 0px;   /* chiều cao banner quảng cáo native (gồm cả thanh điều hướng) – do ads.js đặt */
   --font: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Noto Sans CJK SC", sans-serif;
   --mono: "Cascadia Mono", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
 }
@@ -22,7 +23,7 @@ p { margin: 0 0 7px; }
 #splash.hide { opacity: 0; pointer-events: none; }
 
 /* ---------------- bố cục (điện thoại, dọc) ---------------- */
-#app { position: fixed; inset: 0; display: grid; grid-template-rows: auto minmax(0, auto) minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr);
+#app { position: fixed; inset: 0 0 var(--ad-h) 0; display: grid; grid-template-rows: auto minmax(0, auto) minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr);
   padding-left: var(--sl); padding-right: var(--sr); }
 #topbar { grid-row: 1; display: flex; align-items: center; gap: 8px; padding: calc(var(--st) + 6px) 10px 6px 10px; background: var(--surface); border-bottom: 1px solid var(--border); }
 #sidebar { display: none; }
@@ -184,7 +185,7 @@ p { margin: 0 0 7px; }
 .navbtn.on span:last-child { color: var(--accent-text); }
 
 /* ---------------- hộp thoại ngôn ngữ ---------------- */
-.backdrop { position: fixed; inset: 0; background: var(--scrim); display: flex; align-items: flex-end; z-index: 50; }
+.backdrop { position: fixed; inset: 0 0 var(--ad-h) 0; background: var(--scrim); display: flex; align-items: flex-end; z-index: 50; }
 .sheet { width: 100%; max-height: 80vh; overflow-y: auto; background: var(--surface); border-top: 1px solid var(--border); border-radius: 18px 18px 0 0; padding: 16px 16px calc(16px + var(--sb)); }
 @media (min-width: 700px) { .backdrop { align-items: center; justify-content: center; } .sheet { width: 420px; border-radius: 18px; border: 1px solid var(--border); } }
 .sheet-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
@@ -225,7 +226,7 @@ p { margin: 0 0 7px; }
 .navbtn { position: relative; }
 .puzzlebtn { align-items: center; gap: 12px; padding: 8px 14px 8px 10px; }
 .puzzlebtn canvas { display: block; border-radius: 10px; flex: none; }
-#toast { position: fixed; left: 50%; bottom: calc(var(--sb) + 84px); transform: translate(-50%, 12px); max-width: min(92vw, 420px); padding: 11px 16px; background: var(--pop); border: 1px solid var(--border-strong); border-radius: 14px; box-shadow: var(--shadow-pop); font-size: 13.5px; font-weight: 600; line-height: 1.4; text-align: center; white-space: pre-line; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 80; }
+#toast { position: fixed; left: 50%; bottom: calc(var(--sb) + var(--ad-h) + 84px); transform: translate(-50%, 12px); max-width: min(92vw, 420px); padding: 11px 16px; background: var(--pop); border: 1px solid var(--border-strong); border-radius: 14px; box-shadow: var(--shadow-pop); font-size: 13.5px; font-weight: 600; line-height: 1.4; text-align: center; white-space: pre-line; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; z-index: 80; }
 #toast.show { opacity: 1; transform: translate(-50%, 0); }
 @media (min-width: 900px) and (min-height: 520px) { #toast { bottom: 28px; } }
 .puzzlebtn .steptitle { text-align: left; font-size: 16px; }
@@ -255,7 +256,7 @@ body:has(#modal-root > *) #toast.show { transform: translate(-50%, 0); }
 .sheet .section { margin-top: 16px; }
 
 /* ---------------- thanh thông báo cập nhật (In-App Update) ---------------- */
-#updatebar { position: fixed; left: calc(12px + var(--sl)); right: calc(12px + var(--sr)); bottom: calc(var(--sb) + 68px); z-index: 60;
+#updatebar { position: fixed; left: calc(12px + var(--sl)); right: calc(12px + var(--sr)); bottom: calc(var(--sb) + var(--ad-h) + 68px); z-index: 60;
   display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 14px; background: var(--pop); border: 1px solid var(--border-strong);
   border-radius: 14px; box-shadow: var(--shadow-pop); }
 #updatebar .ubtxt { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; }
@@ -269,3 +270,10 @@ body:has(#modal-root > *) #toast.show { transform: translate(-50%, 0); }
   #topbar .pbtn { padding: 0 8px 0 4px; gap: 5px; font-size: 14px; }
   #topbar .lvpill { min-width: 62px; padding: 0 8px; }
 }
+
+/* ---------------- quảng cáo (AdMob) ---------------- */
+/* Có banner ở đáy: banner đã chiếm phần thanh điều hướng hệ thống nên bỏ đệm an toàn phía dưới của giao diện */
+html.has-banner { --sb: 0px; }
+.adbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; flex: none; margin: 10px 0 6px; }
+.adbtn:disabled { opacity: .6; }
+@media (min-width: 900px) and (min-height: 520px) { #toast { bottom: calc(var(--ad-h) + 28px); } }

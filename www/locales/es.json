@@ -361,5 +361,12 @@
   "help.s9t": "Comentarios (Lv 10)",
   "help.s9b": "Escribe lo que piensas y pulsa Enviar: tu mensaje llega directamente al desarrollador por correo. Se necesita conexión a Internet.",
   "help.s10t": "Guardado automático",
-  "help.s10b": "La app recuerda dónde lo dejaste: el puzzle, la pestaña y el nivel, la sección y el algoritmo que estabas viendo, incluso tras cerrarla."
+  "help.s10b": "La app recuerda dónde lo dejaste: el puzzle, la pestaña y el nivel, la sección y el algoritmo que estabas viendo, incluso tras cerrarla.",
+  "ads.menu": "Ver un anuncio y ganar +{n} exp",
+  "ads.watch": "Ver un anuncio y ganar +{n} exp",
+  "ads.loading": "Cargando anuncio…",
+  "ads.earned": "🎁 ¡+{n} exp! Gracias por tu apoyo.",
+  "ads.dismissed": "Mira el anuncio completo para recibir la recompensa.",
+  "ads.unavailable": "Aún no hay anuncio disponible, inténtalo de nuevo en unos segundos.",
+  "ads.error": "No se pudo reproducir el anuncio, inténtalo más tarde."
 }

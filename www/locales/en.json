@@ -361,5 +361,12 @@
   "help.s9t": "Feedback (Lv 10)",
   "help.s9b": "Write what you think and press Send – your message goes straight to the developer by email. An internet connection is needed.",
   "help.s10t": "Auto-save",
-  "help.s10b": "The app remembers where you left off: the puzzle, the tab, and the level, section and algorithm you were viewing, even after you close it."
+  "help.s10b": "The app remembers where you left off: the puzzle, the tab, and the level, section and algorithm you were viewing, even after you close it.",
+  "ads.menu": "Watch an ad for +{n} exp",
+  "ads.watch": "Watch an ad for +{n} exp",
+  "ads.loading": "Loading ad…",
+  "ads.earned": "🎁 +{n} exp! Thanks for your support.",
+  "ads.dismissed": "Watch the whole ad to get the reward.",
+  "ads.unavailable": "No ad available yet, please try again in a few seconds.",
+  "ads.error": "Couldn't play the ad, please try again later."
 }

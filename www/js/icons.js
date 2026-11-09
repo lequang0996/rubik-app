@@ -18,6 +18,7 @@ const P = {
   chart: '<path d="M4 20V11M10 20V4M16 20v-6M22 20H2"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5l8.5 6 8.5-6"/>',
   save: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+  gift: '<rect x="3.5" y="8.5" width="17" height="4" rx="1.2"/><path d="M5 12.5V20h14v-7.5M12 8.5V20"/><path d="M12 8.5C10 8.5 7.5 7.8 7.5 6a2 2 0 0 1 3.6-1.2C11.6 5.5 12 7 12 8.5zM12 8.5c2 0 4.5-.7 4.5-2.5a2 2 0 0 0-3.6-1.2C12.4 5.5 12 7 12 8.5z"/>',
   lock: '<rect x="5" y="11" width="14" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
 };
 export function icon(name, size = 22) {

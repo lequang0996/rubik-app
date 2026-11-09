@@ -19,6 +19,7 @@ import { stats } from './stats.js';
 import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
+import { initAds } from './ads.js';
 
 const MODE_GUIDE = 0, MODE_PRACTICE = 1, MODE_PLAY = 2;
 const view = new PuzzleView($('#view'));
@@ -267,6 +268,7 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   const sp = $('#splash');
   sp.classList.add('hide');
   setTimeout(() => sp.remove(), 400);
+  initAds();                                    // AdMob thử nghiệm: banner + App Open (Android)
   initInAppUpdate();                            // Google Play In-App Update (Flexible), chỉ chạy trong app Android
 })();
 

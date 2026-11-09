@@ -361,5 +361,12 @@
   "help.s9t": "Góp ý (Lv 10)",
   "help.s9b": "Nhập ý kiến của bạn rồi bấm Gửi – nội dung được gửi thẳng đến nhà phát triển qua email. Cần có kết nối Internet.",
   "help.s10t": "Tự động lưu",
-  "help.s10b": "App nhớ nơi bạn đang xem dở: puzzle, tab, cấp độ, mục và công thức, kể cả khi bạn đã tắt app."
+  "help.s10b": "App nhớ nơi bạn đang xem dở: puzzle, tab, cấp độ, mục và công thức, kể cả khi bạn đã tắt app.",
+  "ads.menu": "Xem quảng cáo nhận +{n} exp",
+  "ads.watch": "Xem quảng cáo nhận +{n} exp",
+  "ads.loading": "Đang tải quảng cáo…",
+  "ads.earned": "🎁 +{n} exp! Cảm ơn bạn đã ủng hộ.",
+  "ads.dismissed": "Hãy xem hết quảng cáo để nhận thưởng.",
+  "ads.unavailable": "Chưa có quảng cáo, hãy thử lại sau ít giây.",
+  "ads.error": "Không phát được quảng cáo, hãy thử lại sau."
 }

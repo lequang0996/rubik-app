@@ -1,8 +1,8 @@
 # Data safety (Google Play Console) – Cube All In One
 
 Khai báo tại **Play Console → Policy and programs → App content → Data safety**.
-Nội dung dưới đây khớp với `docs/privacy-policy.html` và bản app hiện tại (**chưa có quảng cáo**).
-Nếu sau này đổi cách gửi góp ý, thêm AdMob hoặc thêm bất kỳ SDK nào, phải sửa lại cả chính sách và mẫu khai báo này.
+Nội dung dưới đây khớp với `docs/privacy-policy.html` và bản app hiện tại (**có quảng cáo AdMob thử nghiệm: banner, mở app, xem có thưởng**; xem mục 5, phải làm trước khi phát hành).
+Nếu sau này đổi cách gửi góp ý hoặc thêm bất kỳ SDK nào, phải sửa lại cả chính sách và mẫu khai báo này.
 
 ## 1. Thu thập và bảo mật dữ liệu
 
@@ -42,11 +42,14 @@ Ghi chú:
 | Mục | Trả lời |
 |---|---|
 | Privacy policy URL | Đường dẫn GitHub Pages của `docs/privacy-policy.html` |
-| Ads | **Không** có quảng cáo (khi tích hợp AdMob phải đổi thành "Có", xem mục 5) |
+| Ads | **Có** quảng cáo (AdMob) – xem mục 5 |
 | App access | Không cần đăng nhập; tính năng mở khoá theo cấp độ dùng app, không cần hướng dẫn truy cập đặc biệt |
 | Target audience | Không nhắm tới trẻ em |
 
-## 5. Khi tích hợp Google AdMob sau này
+## 5. Google AdMob (đã tích hợp ở chế độ thử nghiệm – làm các mục dưới trước khi phát hành)
+
+- Thay ID thử nghiệm bằng ID thật: đặt biến môi trường / `-P` `ADMOB_APP_ID`, `ADMOB_BANNER_ID`, `ADMOB_APPOPEN_ID`, `ADMOB_REWARDED_ID` khi build (mặc định là ID thử nghiệm của Google).
+- Không bấm quảng cáo thật của chính mình (vi phạm chính sách AdMob); dùng thiết bị thử nghiệm đã đăng ký.
 
 - Data safety: thêm **Device or other IDs** (Advertising ID) và dữ liệu mà AdMob thu thập (thường gồm vị trí gần đúng, App interactions, Diagnostics), đánh dấu **chia sẻ = Có** với mục đích **Advertising or marketing**; kiểm tra danh sách SDK của AdMob phiên bản đang dùng.
 - Ads: chuyển sang **Có quảng cáo**; khai báo quyền ID quảng cáo (Advertising ID).
