@@ -44,9 +44,25 @@ export class LevelPill {
   }
 }
 
+// ===== DEV_CHEAT (TẠM THỜI – XOÁ SAU KHI TEST XONG) =====================================================
+// Mở bảng cấp độ rồi chạm 30 lần liên tiếp vào chữ "Lv X" ở đầu bảng → tự lên Lv 30 để thử các chức năng bị khoá.
+// Để gỡ: xoá khối này + dòng `head.addEventListener('click', devTap)` trong openLevelSheet().
+const DEV_TAPS = 30, DEV_GAP_MS = 3000;       // 30 lần, mỗi lần cách nhau tối đa 3 giây
+let devCount = 0, devLast = 0;
+function devTap() {
+  const now = Date.now();
+  devCount = now - devLast > DEV_GAP_MS ? 1 : devCount + 1;
+  devLast = now;
+  if (devCount < DEV_TAPS) return;
+  devCount = 0;
+  if (progress.level < MAX_LEVEL) { progress.setExp(levelExp(MAX_LEVEL)); progress.save(); }
+}
+// =====================================================================================================
+
 export function openLevelSheet() {
   const root = document.getElementById('modal-root');
-  const head = h('div', { class: 'lvhead' });
+  const head = h('div', { class: 'lvhead', style: { userSelect: 'none', webkitUserSelect: 'none' } });
+  head.addEventListener('click', devTap);   // DEV_CHEAT – xoá khi test xong
   const expLine = h('div', { class: 'lvline' });
   const bar = h('span', { class: 'lvbar big' }, h('i'));
   const next = h('div', { class: 'lvline muted' });

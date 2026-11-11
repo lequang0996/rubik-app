@@ -196,6 +196,24 @@ function openPuzzleModal() {
 }
 
 function closeModal() { clear($('#modal-root')); }
+// Popup chọn ngôn ngữ ở lần mở app đầu tiên: bắt buộc chọn (không đóng bằng chạm nền hay nút Back)
+let langGate = false;
+async function pickFirstLanguage(code) {
+  langGate = false;
+  i18n.saveLanguage(code);                        // lưu ngay để các lần sau không hỏi lại
+  if (code !== i18n.language()) await changeLanguage(code);
+  else closeModal();
+}
+function openFirstLanguageModal() {
+  langGate = true;
+  const list = h('div', { class: 'langlist' }, i18n.LANGS.map(([c]) =>
+    h('button', { type: 'button', class: 'langbtn' + (c === i18n.language() ? ' on' : ''), onClick: () => pickFirstLanguage(c) },
+      h('span', { class: 'lpname' }, i18n.langLabel(c)))));
+  const root = $('#modal-root');
+  clear(root);
+  root.append(h('div', { class: 'backdrop' },
+    h('div', { class: 'sheet', role: 'dialog', 'aria-modal': 'true' }, h('div', { class: 'sheet-title' }, '🌐  ' + t('lang.first')), list)));
+}
 const modalOpen = () => $('#modal-root').childElementCount > 0;
 function openLanguageModal() {
   // mỗi dòng: cờ - tên bản ngữ (tên theo ngôn ngữ đang dùng), ví dụ "🇬🇧 - English (Tiếng Anh)"
@@ -232,6 +250,7 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
   const App = Cap.registerPlugin('App');
   App.addListener('appStateChange', ({ isActive }) => sound.setHidden(!isActive));
   App.addListener('backButton', () => {
+    if (langGate) return;                          // popup chọn ngôn ngữ lần đầu: phải chọn mới đi tiếp
     if (modalOpen()) closeModal();
     else if (!ui.legend.pop.hidden) ui.legend.hide();
     else if (state.mode !== MODE_GUIDE) setMode(MODE_GUIDE);
@@ -268,6 +287,7 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   const sp = $('#splash');
   sp.classList.add('hide');
   setTimeout(() => sp.remove(), 400);
+  if (!i18n.hasSavedLanguage()) openFirstLanguageModal();   // lần đầu mở app: chọn ngôn ngữ
   initAds();                                    // AdMob thử nghiệm: banner + App Open (Android)
   initInAppUpdate();                            // Google Play In-App Update (Flexible), chỉ chạy trong app Android
 })();

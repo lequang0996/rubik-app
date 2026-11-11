@@ -76,6 +76,10 @@ export function loadSaved() {
   }
   return setLanguage(code);
 }
+// true nếu người dùng đã từng chọn ngôn ngữ (lần đầu mở app thì false → hiện popup chọn ngôn ngữ)
+export function hasSavedLanguage() {
+  try { return CODES.includes(JSON.parse(localStorage.getItem(SETTINGS) || '{}').lang); } catch { return false; }
+}
 export function saveLanguage(code) {
   let data = {};
   try { data = JSON.parse(localStorage.getItem(SETTINGS) || '{}'); } catch { /* bỏ qua */ }
