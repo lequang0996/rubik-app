@@ -42,10 +42,12 @@ export function fmtDuration(sec) {
 
 class Progress {
   constructor() {
-    this.exp = 0; this._h = {}; this._timer = null; this._ticks = 0;
+    this.exp = 0; this.celebrated = false; this._h = {}; this._timer = null; this._ticks = 0;
     try {
-      const v = Number(JSON.parse(localStorage.getItem(STORE) || '{}').exp);
+      const d = JSON.parse(localStorage.getItem(STORE) || '{}') || {};
+      const v = Number(d.exp);
       if (Number.isFinite(v) && v >= 0) this.exp = Math.floor(v);
+      this.celebrated = d.celebrated === true;
     } catch { /* bắt đầu từ 0 */ }
     this.level = levelOf(this.exp);
   }
@@ -60,7 +62,7 @@ class Progress {
   }
   expToNext() { return this.level >= MAX_LEVEL ? 0 : levelExp(this.level + 1) - this.exp; }
 
-  add(n) { this.setExp(this.exp + n); }
+  add(n) { if (this.level >= MAX_LEVEL) return; this.setExp(this.exp + n); }   // đạt Lv tối đa: dừng cộng exp
   setExp(v) {
     this.exp = Math.max(0, Math.floor(v));
     const old = this.level;
@@ -69,7 +71,8 @@ class Progress {
     if (this.level > old) this.emit('levelup', this.level, old);
   }
 
-  save() { try { localStorage.setItem(STORE, JSON.stringify({ exp: this.exp })); } catch { /* bỏ qua */ } }
+  save() { try { localStorage.setItem(STORE, JSON.stringify({ exp: this.exp, celebrated: this.celebrated })); } catch { /* bỏ qua */ } }
+  markCelebrated() { this.celebrated = true; this.save(); }       // đã chiếu màn chúc mừng Lv 30 (chỉ tự chiếu một lần)
 
   // Mỗi giây app đang mở (màn hình hiển thị) cộng exp
   start() {

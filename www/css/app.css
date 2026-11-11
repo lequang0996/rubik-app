@@ -277,3 +277,51 @@ html.has-banner { --sb: 0px; }
 .adbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; flex: none; margin: 10px 0 6px; }
 .adbtn:disabled { opacity: .6; }
 @media (min-width: 900px) and (min-height: 520px) { #toast { bottom: calc(var(--ad-h) + 28px); } }
+
+/* ====================== huy hiệu Lv 22–30 ====================== */
+.badge { display: inline-flex; flex: none; line-height: 0; }
+.badge svg { display: block; overflow: visible; }
+.lvring .badge { position: relative; }
+.badge.b30 { filter: drop-shadow(0 0 5px rgba(255, 201, 51, .85)); animation: bdGlow 2.6s ease-in-out infinite; }
+.badge.b29 { filter: drop-shadow(0 0 4px rgba(142, 228, 255, .7)); }
+.bd-core { animation: bdCore 1.8s ease-in-out infinite; }
+.bd-spark { transform-box: fill-box; transform-origin: center; animation: bdTwinkle 2.4s ease-in-out infinite; }
+@keyframes bdGlow { 0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 201, 51, .6)); } 50% { filter: drop-shadow(0 0 8px rgba(255, 214, 90, 1)); } }
+@keyframes bdCore { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes bdTwinkle { 0%, 100% { opacity: .15; transform: scale(.4); } 50% { opacity: 1; transform: scale(1); } }
+.lvbadgerow { display: flex; align-items: center; gap: 14px; }
+.lvbadgerow .lvbadgehost { flex: none; }
+.lvbadgehost.tap { cursor: pointer; }
+.lvbadgetext { min-width: 0; }
+.lvrank { margin-top: 3px; font-size: 15px; font-weight: 700; color: var(--muted); }
+.rowbadge { display: inline-flex; flex: none; min-width: 20px; justify-content: center; }
+.unlockrow:not(.done) .rowbadge .badge { opacity: .4; filter: grayscale(.7); animation: none; }
+
+/* ====================== khối Rubik vàng (quà Lv 30) ====================== */
+#viewwrap.gold::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 46%, rgba(255, 200, 70, .30), rgba(255, 190, 60, .10) 38%, transparent 62%); animation: goldPulse 3.2s ease-in-out infinite; }
+@keyframes goldPulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* ====================== màn hình chúc mừng Lv 30 ====================== */
+#celebrate { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; overflow-y: auto;
+  background: radial-gradient(ellipse at 50% 40%, rgba(40, 30, 8, .90), rgba(6, 7, 14, .96)); opacity: 0; transition: opacity .35s; }
+#celebrate.show { opacity: 1; }
+.cel-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cel-card { position: relative; width: min(100%, 380px); margin: auto; text-align: center; color: #FFF6DC; }
+.cel-badge { display: flex; justify-content: center; margin-bottom: 8px; animation: celPop .9s cubic-bezier(.2, 1.4, .4, 1) both; }
+.cel-badge .badge { filter: drop-shadow(0 0 18px rgba(255, 201, 51, .9)); animation: none; }
+.cel-card h2 { margin: 6px 0 4px; font-size: 30px; font-weight: 800; letter-spacing: -.01em; color: #FFD54A; text-shadow: 0 0 22px rgba(255, 201, 51, .55); animation: celFade .8s .3s both; }
+.cel-sub { margin: 0; font-size: 16px; font-weight: 650; color: #FFF6DC; animation: celFade .8s .5s both; }
+.cel-gift { margin-top: 22px; padding: 16px 16px 18px; border-radius: 20px; border: 1px solid rgba(255, 213, 74, .45); background: rgba(255, 213, 74, .08);
+  opacity: 0; transform: translateY(14px) scale(.96); visibility: hidden; transition: opacity .6s, transform .6s, visibility 0s .6s; }
+.cel-gift.show { opacity: 1; transform: none; visibility: visible; transition: opacity .6s, transform .6s; }
+.cel-gifttitle { font-size: 15px; font-weight: 800; color: #FFD54A; }
+.cel-cube { display: block; width: 130px; height: 130px; margin: 6px auto 0; }
+.cel-giftname { font-size: 16px; font-weight: 700; }
+.cel-note { margin: 6px 0 14px; font-size: 12.5px; color: rgba(255, 246, 220, .7); }
+.cel-ok { width: 100%; }
+@keyframes celPop { 0% { transform: scale(.2) rotate(-12deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes celFade { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .badge.b30, .bd-core, .bd-spark, #viewwrap.gold::before, .cel-badge, .cel-card h2, .cel-sub { animation: none; }
+}

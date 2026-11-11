@@ -5,8 +5,9 @@ import { t, LANGS, language } from './i18n.js';
 import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { sound } from './audio.js';
-import { progress, REQ_STATS, REQ_FEEDBACK, REWARD_EXP } from './progress.js';
+import { progress, MAX_LEVEL, REQ_STATS, REQ_FEEDBACK, REWARD_EXP } from './progress.js';
 import { toast } from './levelui.js';
+import { look } from './look.js';
 import { openSoundSheet } from './soundui.js';
 import { openHelpSheet } from './helpui.js';
 import { watchRewardedAd } from './ads.js';
@@ -33,10 +34,11 @@ function openMenu(anchor, a) {
   const menu = h('div', { class: 'popmenu', role: 'menu' },
     item('globe', t('sidebar.language'), h('span', { class: 'poptrail' }, `${lang[2]} ${lang[1]}`), a.openLanguage),
     item(dark ? 'moon' : 'sun', t('theme.title'), h('span', { class: 'poptrail' }, t(dark ? 'theme.dark' : 'theme.light')), () => theme.toggle()),
+    progress.level >= MAX_LEVEL ? item('star', t('menu.gold'), h('span', { class: 'popdot' + (look.pref ? ' on' : '') }), () => look.toggle()) : null,
     item('music', t('snd.title'), h('span', { class: 'popdot' + (sound.on ? ' on' : '') }), openSoundSheet),
     item('chart', t('stats.title'), null, a.openStats, REQ_STATS),
     item('mail', t('fb.title'), null, a.openFeedback, REQ_FEEDBACK),
-    item('gift', t('ads.menu', { n: REWARD_EXP }), null, watchRewardedAd),
+    item('gift', progress.level >= MAX_LEVEL ? t('ads.support') : t('ads.menu', { n: REWARD_EXP }), null, watchRewardedAd),
     item('help', t('help.title'), null, openHelpSheet));
   root.append(h('div', { class: 'popback', onClick: (e) => { if (e.target === e.currentTarget) clear(root); } }, menu));
   const r = anchor.getBoundingClientRect(), w = menu.offsetWidth;

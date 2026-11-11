@@ -2,6 +2,7 @@ import { palette as themePalette } from './theme.js';
 // Bộ vẽ 3D bằng Canvas 2D: thuật toán painter + khử mặt khuất + đổ bóng (port từ gui/render3d.py)
 const BODY = [22, 24, 32];
 const INNER = [12, 13, 18];
+const GOLD = [255, 200, 60];                    // khung khối khi mở "Khối Rubik vàng" (Lv 30)
 const unit3 = (v) => { const l = Math.hypot(...v); return v.map((x) => x / l); };
 const LIGHT = unit3([-0.2, 0.72, 0.66]);
 const HALF = unit3([LIGHT[0], LIGHT[1], LIGHT[2] + 1.0]);
@@ -39,7 +40,7 @@ const palette = (cols) => {
 };
 
 // anims: [[indices[], Float64Array(9) matrix]]
-export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1.0, shadow = true, offsetY = 0) {
+export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1.0, shadow = true, offsetY = 0, gold = false) {
   let Rall = P.R;
   if (anims.length) {
     Rall = P.R.slice();
@@ -114,6 +115,12 @@ export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1
     ctx.restore();
   }
 
+  if (gold) {                                    // vầng sáng vàng sau khối
+    const gr = rad * 1.55 * f / D;
+    const g2 = ctx.createRadialGradient(cx, cy, gr * 0.15, cx, cy, gr);
+    g2.addColorStop(0, 'rgba(255,210,90,0.62)'); g2.addColorStop(0.5, 'rgba(255,195,70,0.26)'); g2.addColorStop(1, 'rgba(255,180,50,0)');
+    ctx.save(); ctx.fillStyle = g2; ctx.fillRect(cx - gr, cy - gr, gr * 2, gr * 2); ctx.restore();
+  }
   const pal = palette(P.colors);
   const fr = new Frame();
   fr.rc = rc; fr.cx = cx; fr.cy = cy; fr.f = f; fr.D = D;
@@ -129,7 +136,10 @@ export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1
     const sticker = P.fSticker[fi];
     if (sticker) {
       const base = pal[P.fColor[fi]], shade = 0.66 + 0.40 * diff;
-      rgb = base.map((v) => clamp(v * shade + 255 * spec * 0.22));
+      rgb = base.map((v) => clamp(v * shade + 255 * spec * (gold ? 0.36 : 0.22)));
+    } else if (gold && !P.fInternal[fi]) {         // khung vàng ánh kim: mặt hướng lên phản chiếu sáng hơn + điểm bóng gắt
+      const k = 0.7 + 0.45 * diff + 0.3 * (0.5 + 0.5 * Nv[i3 + 1]);
+      rgb = GOLD.map((v, j) => clamp(v * k + (j === 2 ? 170 : 255) * spec * 0.8));
     } else {
       const base = P.fInternal[fi] ? INNER : BODY;
       rgb = base.map((v) => clamp(v * (0.8 + 0.5 * diff) + 40 * spec * 0.2));
@@ -156,9 +166,9 @@ export function render(ctx, w, h, P, yaw = -35, pitch = 28, anims = [], zoom = 1
 }
 
 // Vẽ puzzle vào một canvas riêng (dùng làm ảnh thu nhỏ)
-export function renderImage(P, size, yaw = -35, pitch = 28, zoom = 1.0, anims = [], shadow = false) {
+export function renderImage(P, size, yaw = -35, pitch = 28, zoom = 1.0, anims = [], shadow = false, gold = false) {
   const cv = document.createElement('canvas');
   cv.width = cv.height = size;
-  render(cv.getContext('2d'), size, size, P, yaw, pitch, anims, zoom, shadow);
+  render(cv.getContext('2d'), size, size, P, yaw, pitch, anims, zoom, shadow, 0, gold);
   return cv;
 }

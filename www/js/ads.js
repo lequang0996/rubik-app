@@ -2,7 +2,7 @@
 // Cầu nối native: android/.../AdsPlugin.java. Chạy ngoài Android (trình duyệt) thì banner / App Open bỏ qua,
 // còn "xem có thưởng" được mô phỏng để thử luồng cộng exp.
 import { t } from './i18n.js';
-import { progress, REWARD_EXP } from './progress.js';
+import { progress, REWARD_EXP, MAX_LEVEL } from './progress.js';
 import { toast, fmtNum } from './levelui.js';
 
 const Cap = window.Capacitor;
@@ -41,6 +41,10 @@ export async function watchRewardedAd() {
       res = { status: 'earned', rewarded: true };
     }
     if (res && res.rewarded) {
+      if (progress.level >= MAX_LEVEL) {         // Lv tối đa: xem quảng cáo chỉ để ủng hộ admin, không cộng exp
+        toast(t('ads.thanks'), 'up');
+        return true;
+      }
       progress.add(REWARD_EXP);                 // tự phát sự kiện 'change' / 'levelup' (thông báo lên cấp, mở khoá…)
       progress.save();
       toast(t('ads.earned', { n: fmtNum(REWARD_EXP) }), 'up');

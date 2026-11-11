@@ -3,6 +3,7 @@ import { rotMatrix, Move } from './puzzle.js';
 import { getPuzzle } from './registry.js';
 import { randomScramble } from './scramble.js';
 import { render } from './render3d.js';
+import { look } from './look.js';
 
 export const VIEWS = {
   '3x3': [-35, 28], '2x2': [-35, 28], '4x4': [-35, 28], '5x5': [-35, 28],
@@ -275,7 +276,7 @@ export class PuzzleView extends Emitter {
       const e = ease(Math.min(1.0, (performance.now() - a.t0) / a.dur));
       for (const [m, idx] of a.items) anims.push([idx, rotMatrix(m.axis, m.angle * e)]);
     }
-    this.frame = render(ctx, w, h, this.puzzle, this.yaw, this.pitch, anims, this.zoom * this._baseScale(), true, -8);
+    this.frame = render(ctx, w, h, this.puzzle, this.yaw, this.pitch, anims, this.zoom * this._baseScale(), true, -8, look.gold);
   }
 
   // ---------- chuột / cảm ứng ----------

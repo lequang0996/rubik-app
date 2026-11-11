@@ -220,6 +220,67 @@ class Sound {
     o.start(when); o.stop(when + 0.09);
     src.onended = () => { try { src.disconnect(); bp.disconnect(); g.disconnect(); } catch { /* bỏ qua */ } };
   }
+
+  // ---- lễ kỷ niệm Lv 30: pháo hoa + kèn chúc mừng (tổng hợp tại chỗ, tuân theo công tắc hiệu ứng) ----
+  _can() { const c = this.ctx; return !!c && this.sfx && !this.hidden && c.state === 'running' && !!this.noise; }
+
+  _tone(f, when, dur, vol, type = 'triangle') {
+    const c = this.ctx, o = c.createOscillator(), g = c.createGain();
+    o.type = type; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.linearRampToValueAtTime(vol, when + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    o.connect(g); g.connect(this.sfxGain);
+    o.start(when); o.stop(when + dur + 0.05);
+    o.onended = () => { try { o.disconnect(); g.disconnect(); } catch { /* bỏ qua */ } };
+  }
+
+  launch() {                                                          // "vút" khi quả pháo bay lên
+    if (!this._can()) return;
+    const c = this.ctx, t = c.currentTime;
+    const src = this._noiseSrc(Math.random(), t);
+    const bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 3;
+    bp.frequency.setValueAtTime(600, t); bp.frequency.exponentialRampToValueAtTime(3200, t + 0.6);
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.16, t + 0.06); g.gain.exponentialRampToValueAtTime(0.001, t + 0.65);
+    src.connect(bp); bp.connect(g); g.connect(this.sfxGain);
+    src.stop(t + 0.7);
+    src.onended = () => { try { src.disconnect(); bp.disconnect(); g.disconnect(); } catch { /* bỏ qua */ } };
+  }
+
+  boom(size = 1) {                                                    // "bùm" + lách tách khi nổ
+    if (!this._can()) return;
+    const c = this.ctx, t = c.currentTime, r = Math.random;
+    const src = this._noiseSrc(r(), t);
+    const lp = c.createBiquadFilter(); lp.type = 'lowpass';
+    lp.frequency.setValueAtTime(2800, t); lp.frequency.exponentialRampToValueAtTime(220, t + 0.5);
+    const g = c.createGain();
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.5 * size, t + 0.006); g.gain.exponentialRampToValueAtTime(0.001, t + 0.7);
+    src.connect(lp); lp.connect(g); g.connect(this.sfxGain);
+    src.stop(t + 0.75);
+    src.onended = () => { try { src.disconnect(); lp.disconnect(); g.disconnect(); } catch { /* bỏ qua */ } };
+    const o = c.createOscillator(), og = c.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(130, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.3);
+    og.gain.setValueAtTime(0, t); og.gain.linearRampToValueAtTime(0.55 * size, t + 0.01); og.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+    o.connect(og); og.connect(this.sfxGain); o.start(t); o.stop(t + 0.45);
+    o.onended = () => { try { o.disconnect(); og.disconnect(); } catch { /* bỏ qua */ } };
+    for (let i = 0; i < 6; i++) this._click(t + 0.12 + r() * 0.5, 0.18 + r() * 0.2);
+  }
+
+  fanfare() {                                                         // kèn chúc mừng: C–E–G–C rồi hợp âm
+    if (!this._can()) return;
+    const t0 = this.ctx.currentTime + 0.02;
+    for (const [f, w, d] of [[523.25, 0, 0.22], [659.25, 0.15, 0.22], [783.99, 0.3, 0.22], [1046.5, 0.45, 0.5]]) {
+      this._tone(f, t0 + w, d, 0.2); this._tone(f * 1.003, t0 + w, d, 0.036, 'square');
+    }
+    for (const f of [523.25, 659.25, 783.99, 1046.5]) { this._tone(f, t0 + 0.75, 1.6, 0.14); this._tone(f * 1.003, t0 + 0.75, 1.6, 0.025, 'square'); }
+  }
+
+  sparkle() {                                                         // lấp lánh khi lộ món quà
+    if (!this._can()) return;
+    const t0 = this.ctx.currentTime + 0.02;
+    [1318.5, 1568, 2093, 2637].forEach((f, i) => this._tone(f, t0 + i * 0.09, 0.55, 0.12, 'sine'));
+  }
 }
 
 export const sound = new Sound();

@@ -9,7 +9,7 @@ import { thumb, Segmented, PlayerBar, LegendButton } from './components.js';
 import { GuidePanel } from './guide.js';
 import { PracticePanel } from './practice.js';
 import { PlayPanel } from './play.js';
-import { progress, MODE_REQ, UNLOCKS } from './progress.js';
+import { progress, MODE_REQ, UNLOCKS, MAX_LEVEL } from './progress.js';
 import { LevelPill, toast, unlockText } from './levelui.js';
 import { sound } from './audio.js';
 import { MenuButton } from './menuui.js';
@@ -20,6 +20,9 @@ import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
 import { initAds } from './ads.js';
+import { rankOf } from './badges.js';
+import { look } from './look.js';
+import { showCelebration, closeCelebration, isCelebrating } from './celebrate.js';
 
 const MODE_GUIDE = 0, MODE_PRACTICE = 1, MODE_PLAY = 2;
 const view = new PuzzleView($('#view'));
@@ -182,6 +185,10 @@ async function changeLanguage(code) {
   setMode(mode, true);
 }
 
+// Khối Rubik vàng (quà Lv 30): bật class cho vầng sáng CSS + vẽ lại khối
+function syncGold() { $('#viewwrap').classList.toggle('gold', look.gold); view.update(); }
+function celebrate() { progress.markCelebrated(); look.refresh(); showCelebration(); }
+
 const menuActions = { openLanguage: () => openLanguageModal(), openStats: () => openStatsSheet({ puzzles: PUZZLES, puzzleIcon }), openFeedback: () => openFeedbackSheet() };
 
 // ------------------------------------------------------------------ hộp thoại chọn puzzle / ngôn ngữ (điện thoại)
@@ -250,6 +257,7 @@ if (Cap && Cap.isNativePlatform && Cap.isNativePlatform()) {
   const App = Cap.registerPlugin('App');
   App.addListener('appStateChange', ({ isActive }) => sound.setHidden(!isActive));
   App.addListener('backButton', () => {
+    if (isCelebrating()) { closeCelebration(); return; }
     if (langGate) return;                          // popup chọn ngôn ngữ lần đầu: phải chọn mới đi tiếp
     if (modalOpen()) closeModal();
     else if (!ui.legend.pop.hidden) ui.legend.hide();
@@ -268,10 +276,14 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   await i18n.loadSaved();
   build();
   progress.on('change', () => ui.pills.forEach((p) => p.update()));
+  look.onChange(syncGold);
   progress.on('levelup', (n, old) => {
     refreshLocks();
+    syncGold();
+    if (n >= MAX_LEVEL && !progress.celebrated) { celebrate(); return; }     // Lv 30: pháo hoa + màn chúc mừng thay cho toast
     const x = UNLOCKS.filter(([req]) => old < req && n >= req).map(([, k]) => unlockText(k));
-    toast(t('lv.up', { n }) + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''), 'up');
+    const r = rankOf(n);
+    toast(t('lv.up', { n }) + (r ? '\n' + t(r.key) : '') + (x.length ? '\n' + t('lv.unlocked', { x: x.join(' · ') }) : ''), 'up');
   });
   progress.start();
   stats.start(() => {                              // mỗi giây: cộng thời gian cho puzzle + mục đang xem
@@ -288,8 +300,10 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   sp.classList.add('hide');
   setTimeout(() => sp.remove(), 400);
   if (!i18n.hasSavedLanguage()) openFirstLanguageModal();   // lần đầu mở app: chọn ngôn ngữ
+  syncGold();
+  if (progress.level >= MAX_LEVEL && !progress.celebrated) celebrate();   // đã đạt Lv 30 từ trước nhưng chưa xem màn chúc mừng
   initAds();                                    // AdMob thử nghiệm: banner + App Open (Android)
   initInAppUpdate();                            // Google Play In-App Update (Flexible), chỉ chạy trong app Android
 })();
 
-window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, requestMode, changeLanguage, progress, sound };   // phục vụ kiểm thử
+window.__rubik = { view, state, get ui() { return ui; }, selectPuzzle, setMode, requestMode, changeLanguage, progress, sound, look, showCelebration };   // phục vụ kiểm thử
