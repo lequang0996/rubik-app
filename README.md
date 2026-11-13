@@ -57,19 +57,27 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 • 4 bản nhạc nền thư giãn để chọn: Lo-fi thư giãn, Tập trung sâu, Hộp nhạc, Nhịp sáng.
 • Mục Âm thanh trong menu: bật / tắt nhạc nền và tiếng xoay, chọn bài; nhạc tự dừng khi bạn thoát ra màn hình chính.
 
-🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 0 – 30)
-Mỗi giây dùng ứng dụng bạn nhận +1 exp. Lv 10 mở Luyện tập, Chơi và Góp ý · Lv 15 mở cấp nâng cao của 2x2, 4x4, 5x5 · Lv 20 mở 3x3 Tối ưu và Roux · Lv 21 mở Thống kê · Lv 22 mở 3x3 Tối thượng.
+🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 1 – 30)
+Mỗi giây dùng ứng dụng bạn nhận +1 exp (gói thành viên nhận nhiều hơn). Lên Lv 2–10 mỗi cấp cần 512 exp; lên Lv 11–30 cần 2^(n−1) exp cho cấp n. Lv 10 mở Luyện tập và Chơi · Lv 18 mở Thống kê · Lv 19 / 20 / 21 mở cấp nâng cao của 2x2 / 4x4 / 5x5 · Lv 22 mở 3x3 Tối ưu · Lv 23 mở 3x3 Roux · Lv 24 mở 3x3 Tối thượng · Lv 25 mở Góp ý. Màn hình luôn sáng khi đang mở app.
+
+💎 GÓI THÀNH VIÊN & MUA EXP (Google Play)
+• Gói $1/tháng: bỏ quảng cáo mở app và biểu ngữ (vẫn còn quảng cáo xem nhận thưởng) · +10 exp mỗi giây.
+• Gói $5/tháng: quyền lợi gói $1 · +50 exp mỗi giây · +5.000 exp lần đầu đăng ký, +5.000 exp mỗi đầu tháng.
+• Gói $10/tháng: quyền lợi gói $1 · +150 exp mỗi giây · +15.000 exp lần đầu đăng ký, +15.000 exp mỗi đầu tháng.
+• Gói $15/tháng: quyền lợi gói $1 · +300 exp mỗi giây · +30.000 exp lần đầu đăng ký, +30.000 exp mỗi đầu tháng.
+• Mua lẻ: $1 = 1.000 exp · $10 = 10.000 exp · $100 = 100.000 exp · $1.000 = 1.000.000 exp.
+• Các gói tháng tự động gia hạn, huỷ bất cứ lúc nào trong Google Play.
 
 📊 THỐNG KÊ & GÓP Ý
-• Thống kê (Lv 21): xem thời gian bạn đã dùng cho từng puzzle trong 6 puzzle; bấm vào một puzzle để xem chi tiết từng mục như Cross, F2L, OLL, PLL.
-• Góp ý (Lv 10): nhập ý kiến rồi bấm Gửi, nội dung được gửi thẳng đến nhà phát triển qua email.
+• Thống kê (Lv 18): xem thời gian bạn đã dùng cho từng puzzle trong 6 puzzle; bấm vào một puzzle để xem chi tiết từng mục như Cross, F2L, OLL, PLL.
+• Góp ý (Lv 25): nhập ý kiến rồi bấm Gửi, nội dung được gửi thẳng đến nhà phát triển qua email.
 • Tự động lưu: mở lại app là quay về đúng puzzle, tab, cấp độ, mục và công thức bạn đang xem dở.
 
 🌍 8 NGÔN NGỮ
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – tự chọn theo ngôn ngữ máy, đổi bất cứ lúc nào bằng biểu tượng quả địa cầu.
 
 🔒 RIÊNG TƯ & GỌN NHẸ
-Hoạt động ngoại tuyến (Góp ý và quảng cáo cần Internet). Không đăng nhập; có quảng cáo Google AdMob (có thể xem quảng cáo tự nguyện để nhận +100 exp); góp ý chỉ được gửi khi bạn chủ động bấm Gửi. Tự động nhắc cập nhật khi có phiên bản mới.
+Hoạt động ngoại tuyến (Góp ý và quảng cáo cần Internet). Không đăng nhập; có quảng cáo Google AdMob (có thể xem quảng cáo tự nguyện để nhận +100 exp; gói thành viên bỏ quảng cáo mở app và biểu ngữ); thanh toán do Google Play xử lý; góp ý chỉ được gửi khi bạn chủ động bấm Gửi. Tự động nhắc cập nhật khi có phiên bản mới.
 
 ✨ GIAO DIỆN TINH TẾ, SÁNG & TỐI
 • Hai giao diện sang trọng: sáng thanh lịch (mặc định) và tối dịu mắt, đổi nhanh trong menu.
@@ -131,19 +139,27 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 • 4 relaxing background tracks to choose from: Chill Lo-fi, Deep Focus, Music Box, Bright Pulse.
 • The Sound item in the menu switches music and turn sounds on / off and picks the track; music pauses automatically when you leave the app.
 
-🏆 PLAYER LEVELS (Lv 0 – 30)
-You earn +1 exp for every second you use the app. Lv 10 unlocks Practice, Play and Feedback · Lv 15 the advanced levels of 2x2, 4x4 and 5x5 · Lv 20 3x3 Optimal and Roux · Lv 21 Statistics · Lv 22 3x3 Ultimate.
+🏆 PLAYER LEVELS (Lv 1 – 30)
+You earn +1 exp for every second you use the app (membership plans earn more). Reaching Lv 2–10 costs 512 exp per level; reaching Lv 11–30 costs 2^(n−1) exp for level n. Lv 10 unlocks Practice and Play · Lv 18 Statistics · Lv 19 / 20 / 21 the advanced levels of 2x2 / 4x4 / 5x5 · Lv 22 3x3 Optimal · Lv 23 3x3 Roux · Lv 24 3x3 Ultimate · Lv 25 Feedback. The screen stays on while the app is open.
+
+💎 MEMBERSHIP & EXP PACKS (Google Play)
+• $1/month: no app-open or banner ads (rewarded ads remain) · +10 exp per second.
+• $5/month: everything in $1 · +50 exp per second · +5,000 exp the first time you subscribe, +5,000 exp at the start of every month.
+• $10/month: everything in $1 · +150 exp per second · +15,000 exp the first time you subscribe, +15,000 exp at the start of every month.
+• $15/month: everything in $1 · +300 exp per second · +30,000 exp the first time you subscribe, +30,000 exp at the start of every month.
+• One-off packs: $1 = 1,000 exp · $10 = 10,000 exp · $100 = 100,000 exp · $1,000 = 1,000,000 exp.
+• Monthly plans renew automatically; cancel any time in Google Play.
 
 📊 STATISTICS & FEEDBACK
-• Statistics (Lv 21): see how long you have spent on each of the 6 puzzles; tap a puzzle for the time of every section such as Cross, F2L, OLL, PLL.
-• Feedback (Lv 10): write your thoughts and press Send – your message goes straight to the developer by email.
+• Statistics (Lv 18): see how long you have spent on each of the 6 puzzles; tap a puzzle for the time of every section such as Cross, F2L, OLL, PLL.
+• Feedback (Lv 25): write your thoughts and press Send – your message goes straight to the developer by email.
 • Auto-save: reopen the app and you are right back at the puzzle, tab, level, section and algorithm you were viewing.
 
 🌍 8 LANGUAGES
 English · 简体中文 · Español · Português (Brasil) · Русский · 日本語 · 한국어 · Tiếng Việt – picked automatically from your device language, switch any time with the globe icon.
 
 🔒 PRIVATE & LIGHTWEIGHT
-Works offline (Feedback and ads need the Internet). No sign-in; contains Google AdMob ads (optionally watch a rewarded ad for +100 exp); feedback is sent only when you press Send. Gets update prompts automatically when a new version is available.
+Works offline (Feedback and ads need the Internet). No sign-in; contains Google AdMob ads (optionally watch a rewarded ad for +100 exp; membership removes app-open and banner ads); payments are handled by Google Play; feedback is sent only when you press Send. Gets update prompts automatically when a new version is available.
 
 ✨ REFINED LOOK, LIGHT & DARK
 • Two elegant themes: a clean light mode (default) and an eye-friendly dark mode, switchable in the menu.
@@ -160,3 +176,29 @@ Works offline (Feedback and ads need the Internet). No sign-in; contains Google 
 * **Góp ý trong app**: cần triển khai `tools/feedback-apps-script.gs` (làm theo hướng dẫn ở đầu file) rồi dán URL vào `FEEDBACK_ENDPOINT` trong `www/js/config.js`. Email người nhận không nằm trong app, nó lấy từ tài khoản Google đã triển khai script.
 * **Data safety**: khai báo theo `store/DATA_SAFETY.md`.
 * **Cập nhật trong ứng dụng**: dùng Google Play In-App Updates chế độ Flexible. Mỗi bản phát hành mới cần **tăng `VERSION_CODE`** (workflow GitHub Actions đã dùng `github.run_number`). Tính năng chỉ hoạt động với bản cài từ Google Play (kiểm thử bằng Internal testing hoặc Internal app sharing).
+
+
+---
+
+## Cấu hình Google Play Billing (dành cho nhà phát triển)
+
+App dùng thư viện `com.android.billingclient:billing:8.3.0` (khai báo trong `android/variables.gradle` + `android/app/build.gradle`, quyền `com.android.vending.BILLING` đã có trong `AndroidManifest.xml`). Cầu nối native: `BillingPlugin.java`; logic JS: `www/js/billing.js`, `www/js/plans.js`, giao diện `www/js/shopui.js`.
+
+**Tạo sản phẩm trong Play Console → Monetize with Play → Products** (ID phải khớp đúng, xem `www/js/plans.js` và `BillingPlugin.java`):
+
+| Loại | Product ID | Base plan / giá |
+|---|---|---|
+| Subscription | `cube_sub_1` | base plan ID `monthly`, tự động gia hạn, 1 tháng, $1 |
+| Subscription | `cube_sub_5` | base plan ID `monthly`, 1 tháng, $5 |
+| Subscription | `cube_sub_10` | base plan ID `monthly`, 1 tháng, $10 |
+| Subscription | `cube_sub_15` | base plan ID `monthly`, 1 tháng, $15 |
+| One-time product | `exp_pack_1` | $1 (+1.000 exp) |
+| One-time product | `exp_pack_10` | $10 (+10.000 exp) |
+| One-time product | `exp_pack_100` | $100 (+100.000 exp) |
+| One-time product | `exp_pack_1000` | $1.000 (+1.000.000 exp) |
+
+Lưu ý khi cấu hình và thử nghiệm:
+- Phải **kích hoạt** từng subscription / base plan và từng sản phẩm. Phải tải một bản `.aab` có quyền Billing lên (internal testing là đủ) thì Play mới cho tạo sản phẩm, và chỉ bản cài từ Play (internal / closed / production) mới mua được; APK cài tay không mua được.
+- Thêm tài khoản thử nghiệm ở **Play Console → Settings → License testing** để mua thử không bị trừ tiền (gói tháng thử sẽ gia hạn nhanh hơn).
+- Giá hiển thị trong app lấy từ Google Play theo tiền tệ / quốc gia của người dùng; $1.000 cần Play cho phép mức giá này ở quốc gia bán.
+- Quyền lợi luôn đọc lại từ Google Play mỗi lần mở app và khi quay lại app; không cần máy chủ riêng. Nếu muốn chống gian lận kỹ hơn (exp lưu trên máy nên người dùng root có thể sửa), cần xác minh purchase token bằng Google Play Developer API từ máy chủ của bạn.

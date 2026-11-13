@@ -20,6 +20,7 @@ import { icon } from './icons.js';
 import * as theme from './theme.js';
 import { initInAppUpdate } from './updates.js';
 import { initAds } from './ads.js';
+import { initBilling } from './billing.js';
 import { rankOf } from './badges.js';
 import { look } from './look.js';
 import { showCelebration, closeCelebration, isCelebrating } from './celebrate.js';
@@ -276,6 +277,7 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   await i18n.loadSaved();
   build();
   progress.on('change', () => ui.pills.forEach((p) => p.update()));
+  progress.on('rate', () => ui.pills.forEach((p) => p.update()));
   look.onChange(syncGold);
   progress.on('levelup', (n, old) => {
     refreshLocks();
@@ -302,7 +304,8 @@ sound.armUnlock();                              // trình duyệt/WebView chỉ 
   if (!i18n.hasSavedLanguage()) openFirstLanguageModal();   // lần đầu mở app: chọn ngôn ngữ
   syncGold();
   if (progress.level >= MAX_LEVEL && !progress.celebrated) celebrate();   // đã đạt Lv 30 từ trước nhưng chưa xem màn chúc mừng
-  initAds();                                    // AdMob thử nghiệm: banner + App Open (Android)
+  initAds();                                    // AdMob: banner + App Open (Android); gói trả phí sẽ tắt hai loại này
+  initBilling();                                // Google Play Billing: gói tháng + mua lẻ (Android); áp tốc độ exp + bỏ quảng cáo
   initInAppUpdate();                            // Google Play In-App Update (Flexible), chỉ chạy trong app Android
 })();
 

@@ -1,4 +1,4 @@
-// Quảng cáo THỬ NGHIỆM (Google AdMob): banner · mở app (App Open) · xem có thưởng (Rewarded, +100 exp mỗi lần)
+// Quảng cáo (Google AdMob): banner · mở app (App Open) · xem có thưởng (Rewarded, +100 exp mỗi lần). Gói trả phí tắt banner + App Open.
 // Cầu nối native: android/.../AdsPlugin.java. Chạy ngoài Android (trình duyệt) thì banner / App Open bỏ qua,
 // còn "xem có thưởng" được mô phỏng để thử luồng cộng exp.
 import { t } from './i18n.js';
@@ -25,6 +25,12 @@ export async function initAds() {
     await plugin.addListener('bannerLayout', applyBannerLayout);
     await plugin.start();                       // bật banner + App Open (ID thử nghiệm đặt trong android/app/build.gradle)
   } catch { /* thiết bị không có Google Play services → bỏ qua, app vẫn dùng bình thường */ }
+}
+
+// Gói trả phí: bỏ banner + quảng cáo mở app (quảng cáo xem có thưởng vẫn còn). Native lưu cờ này để lần mở sau không hiện App Open.
+export async function setAdFree(on) {
+  if (!plugin) return;
+  try { await plugin.setAdFree({ value: !!on }); } catch { /* bỏ qua */ }
 }
 
 // Xem quảng cáo có thưởng → xem đủ thì +REWARD_EXP exp. Trả về true nếu đã được thưởng.

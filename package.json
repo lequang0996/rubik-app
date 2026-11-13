@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Cube All In One – học xoay và chơi puzzle 3D (Android, Capacitor)",
   "scripts": {
-    "test": "node tools/test_engine.mjs",
+    "test": "node tools/test_engine.mjs && node tools/test_progress.mjs",
     "sync": "cap sync android",
     "build:debug": "cap sync android && cd android && ./gradlew assembleDebug",
     "build:release": "cap sync android && cd android && ./gradlew bundleRelease",

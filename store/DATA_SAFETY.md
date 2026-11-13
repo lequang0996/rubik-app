@@ -27,6 +27,7 @@ Ghi chú:
 - Không khai báo: vị trí, thông tin cá nhân (tên, email, số điện thoại…), tài chính, sức khoẻ, tin nhắn, ảnh/video, âm thanh, tệp, lịch, danh bạ, duyệt web, ID thiết bị, nhật ký sự cố.
 - **Dữ liệu chỉ lưu trên máy** (ngôn ngữ, cấp độ, kỷ lục, thống kê thời gian, vị trí đang xem, giao diện/âm thanh) không được gửi đi nên **không phải khai báo**.
 - Cập nhật trong ứng dụng do Google Play xử lý, app không gửi dữ liệu nên không khai báo.
+- **Giao dịch mua trong ứng dụng (gói tháng + mua lẻ exp)** do Google Play Billing xử lý; app không thu thập thông tin thanh toán và không gửi lịch sử mua tới máy chủ riêng nên không khai báo "Purchase history" / "Payment info". Trong mục **App content → Ads** vẫn chọn **Có quảng cáo** (gói tháng chỉ bỏ banner + mở app, còn quảng cáo xem có thưởng). Trong mục giá / **Monetize** khai báo ứng dụng có giao dịch trong ứng dụng.
 
 ## 3. Thực hành bảo mật
 

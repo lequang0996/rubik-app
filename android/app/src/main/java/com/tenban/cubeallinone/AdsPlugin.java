@@ -1,6 +1,7 @@
 package com.tenban.cubeallinone;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Handler;
@@ -50,7 +51,9 @@ public class AdsPlugin extends Plugin {
     private static final long COLD_START_WINDOW_MS = 5_000;               // mở app lạnh: chỉ chờ ad tối đa 5 giây
 
     private final Handler main = new Handler(Looper.getMainLooper());
+    private static final String PREFS = "cube_prefs", PREF_ADFREE = "adfree";
     private boolean initialized = false;
+    private boolean adFree = false;          // có gói trả phí: không banner, không App Open (vẫn còn quảng cáo xem có thưởng)
     private long createdAt = System.currentTimeMillis();
 
     // ---- Banner ----
@@ -75,9 +78,12 @@ public class AdsPlugin extends Plugin {
     public void load() {
         final Activity a = getActivity();
         if (a == null) return;
+        // đọc cờ "bỏ quảng cáo" đã lưu từ lần trước để lần mở lạnh không kịp hiện App Open trước khi JS xác minh gói
+        adFree = prefs().getBoolean(PREF_ADFREE, false);
+        if (adFree) appOpenEnabled = false;
         MobileAds.initialize(a, status -> main.post(() -> {
             initialized = true;
-            loadAppOpen();
+            if (!adFree) loadAppOpen();
             loadRewarded();
             if (bannerWanted) showBannerInternal();
         }));
@@ -88,12 +94,37 @@ public class AdsPlugin extends Plugin {
     /** JS gọi khi app đã sẵn sàng: bật banner + App Open. */
     @PluginMethod
     public void start(final PluginCall call) {
-        bannerWanted = true;
-        appOpenEnabled = true;
+        bannerWanted = !adFree;
+        appOpenEnabled = !adFree;
         main.post(() -> {
             if (initialized) showBannerInternal();
             call.resolve();
         });
+    }
+
+    /** Gói trả phí bật/tắt: {value:true} → gỡ banner + tắt App Open; false → bật lại. Cờ được lưu lại cho lần mở sau. */
+    @PluginMethod
+    public void setAdFree(final PluginCall call) {
+        final boolean on = Boolean.TRUE.equals(call.getBoolean("value", false));
+        main.post(() -> {
+            adFree = on;
+            prefs().edit().putBoolean(PREF_ADFREE, on).apply();
+            if (on) {
+                bannerWanted = false;
+                appOpenEnabled = false;
+                appOpenAd = null;
+                removeBanner();
+            } else {
+                bannerWanted = true;
+                appOpenEnabled = true;
+                if (initialized) { showBannerInternal(); loadAppOpen(); }
+            }
+            call.resolve();
+        });
+    }
+
+    private SharedPreferences prefs() {
+        return getContext().getSharedPreferences(PREFS, android.content.Context.MODE_PRIVATE);
     }
 
     @PluginMethod

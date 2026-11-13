@@ -325,3 +325,15 @@ html.has-banner { --sb: 0px; }
 @media (prefers-reduced-motion: reduce) {
   .badge.b30, .bd-core, .bd-spark, #viewwrap.gold::before, .cel-badge, .cel-card h2, .cel-sub { animation: none; }
 }
+
+/* ---------------- Gói thành viên & mua exp ---------------- */
+.shopbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 8px; }
+.sheet.shop .planlist { display: flex; flex-direction: column; gap: 8px; }
+.plancard { display: flex; flex-direction: column; gap: 8px; padding: 12px; background: var(--raised); border: 1px solid var(--border); border-radius: 12px; }
+.plancard.on { border-color: var(--accent); background: var(--accent-soft); }
+.planhead { display: flex; align-items: center; justify-content: space-between; font-size: 15px; }
+.planfeat { margin: 0; padding-left: 18px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.plancard .action { flex: none; width: 100%; }
+.packbtn { width: 100%; }
+.packbtn:disabled { opacity: .55; }
+.shopnote { margin-top: 12px; }

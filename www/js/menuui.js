@@ -1,5 +1,5 @@
 // Nút menu (☰) ở góc phải thanh trên: dropdown "icon – chữ"
-// Thứ tự: Ngôn ngữ · Giao diện · Âm thanh · Thống kê (Lv 21) · Góp ý (Lv 10) · Xem quảng cáo nhận exp · Hướng dẫn sử dụng
+// Thứ tự: Ngôn ngữ · Giao diện · Âm thanh · Thống kê (Lv 18) · Góp ý (Lv 25) · Gói thành viên · Xem quảng cáo nhận exp · Hướng dẫn sử dụng
 import { h, clear } from './dom.js';
 import { t, LANGS, language } from './i18n.js';
 import { icon } from './icons.js';
@@ -11,6 +11,7 @@ import { look } from './look.js';
 import { openSoundSheet } from './soundui.js';
 import { openHelpSheet } from './helpui.js';
 import { watchRewardedAd } from './ads.js';
+import { openShopSheet } from './shopui.js';
 
 export function MenuButton({ openLanguage, openStats, openFeedback }) {
   const btn = h('button', { type: 'button', class: 'iconbtn menubtn', 'aria-haspopup': 'menu', 'aria-label': t('menu.title'), title: t('menu.title') }, icon('menu'));
@@ -38,6 +39,7 @@ function openMenu(anchor, a) {
     item('music', t('snd.title'), h('span', { class: 'popdot' + (sound.on ? ' on' : '') }), openSoundSheet),
     item('chart', t('stats.title'), null, a.openStats, REQ_STATS),
     item('mail', t('fb.title'), null, a.openFeedback, REQ_FEEDBACK),
+    item('star', t('shop.menu'), null, openShopSheet),
     item('gift', progress.level >= MAX_LEVEL ? t('ads.support') : t('ads.menu', { n: REWARD_EXP }), null, watchRewardedAd),
     item('help', t('help.title'), null, openHelpSheet));
   root.append(h('div', { class: 'popback', onClick: (e) => { if (e.target === e.currentTarget) clear(root); } }, menu));

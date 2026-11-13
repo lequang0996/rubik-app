@@ -43,4 +43,6 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Google Play Billing (thư viện billing cũng tự thêm quyền này khi build; khai báo rõ để dễ kiểm tra trong .aab) -->
+    <uses-permission android:name="com.android.vending.BILLING" />
 </manifest>

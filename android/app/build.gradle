@@ -67,6 +67,7 @@ dependencies {
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
     implementation "com.google.android.play:app-update:$playAppUpdateVersion"   // In-App Updates (Flexible)
     implementation "com.google.android.gms:play-services-ads:$playServicesAdsVersion"   // Google AdMob (banner / app open / rewarded)
+    implementation "com.android.billingclient:billing:$playBillingVersion"   // Google Play Billing (gói tháng + mua lẻ)
     implementation project(':capacitor-android')
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"

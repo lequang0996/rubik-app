@@ -2,14 +2,15 @@
 import { h, clear } from './dom.js';
 import { t, language } from './i18n.js';
 import { icon } from './icons.js';
-import { progress, MAX_LEVEL, levelExp, fmtDuration, EXP_PER_SECOND, UNLOCKS, REWARD_EXP } from './progress.js';
+import { progress, MAX_LEVEL, levelExp, fmtDuration, UNLOCKS, REWARD_EXP } from './progress.js';
 import { watchRewardedAd } from './ads.js';
 import { badge, rankOf, RANKS, RANK_LAST } from './badges.js';
 import { showCelebration } from './celebrate.js';
+import { openShopSheet } from './shopui.js';
 
 let toastTimer = null;
 // Nhãn của một mốc mở khoá: 'u10' = Luyện tập · Chơi, còn lại là khoá chuỗi dịch
-export const unlockText = (k) => (k === 'u10' ? `${t('mode.practice')} · ${t('mode.play')} · ${t('lv.u23')}` : t(k));
+export const unlockText = (k) => (k === 'u10' ? `${t('mode.practice')} · ${t('mode.play')}` : t(k));
 
 // kind: 'lock' (đang khoá) · 'up' (lên cấp) · 'info'
 export function toast(text, kind = 'info') {
@@ -51,25 +52,9 @@ export class LevelPill {
   }
 }
 
-// ===== DEV_CHEAT (TẠM THỜI – XOÁ SAU KHI TEST XONG) =====================================================
-// Mở bảng cấp độ rồi chạm 30 lần liên tiếp vào chữ "Lv X" ở đầu bảng → tự lên Lv 30 để thử các chức năng bị khoá.
-// Để gỡ: xoá khối này + dòng `head.addEventListener('click', devTap)` trong openLevelSheet().
-const DEV_TAPS = 30, DEV_GAP_MS = 3000;       // 30 lần, mỗi lần cách nhau tối đa 3 giây
-let devCount = 0, devLast = 0;
-function devTap() {
-  const now = Date.now();
-  devCount = now - devLast > DEV_GAP_MS ? 1 : devCount + 1;
-  devLast = now;
-  if (devCount < DEV_TAPS) return;
-  devCount = 0;
-  if (progress.level < MAX_LEVEL) { progress.setExp(levelExp(MAX_LEVEL)); progress.save(); }
-}
-// =====================================================================================================
-
 export function openLevelSheet() {
   const root = document.getElementById('modal-root');
   const head = h('div', { class: 'lvhead', style: { userSelect: 'none', webkitUserSelect: 'none' } });
-  head.addEventListener('click', devTap);   // DEV_CHEAT – xoá khi test xong
   const rankLine = h('div', { class: 'lvrank' });
   const badgeHost = h('span', { class: 'lvbadgehost' });
   badgeHost.addEventListener('click', () => { if (progress.level >= MAX_LEVEL) showCelebration(); });   // Lv 30: chạm huy hiệu để xem lại màn chúc mừng
@@ -90,9 +75,10 @@ export function openLevelSheet() {
   });
 
   const adLabel = h('span');
-  const ruleLine = h('div', { class: 'lvline muted' }, t('lv.rule'));
+  const ruleLine = h('div', { class: 'lvline muted' });
   const adBtn = h('button', { type: 'button', class: 'action primary adbtn', onClick: watchRewardedAd }, icon('gift', 18), adLabel);
-  const sheet = h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('lv.title')), top, bar, expLine, next, adBtn,
+  const shopBtn = h('button', { type: 'button', class: 'action shopbtn', onClick: openShopSheet }, icon('star', 18), h('span', {}, t('shop.menu')));
+  const sheet = h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('lv.title')), top, bar, expLine, next, adBtn, shopBtn,
     ruleLine, h('div', { class: 'section' }, t('lv.unlocks')), h('div', { class: 'steplist' }, rows.map((r) => r.el)));
 
   let shownLv = -1, shownGift = null;
@@ -111,9 +97,10 @@ export function openLevelSheet() {
     bar.firstChild.style.width = `${(progress.fraction() * 100).toFixed(1)}%`;
     expLine.textContent = t('lv.exp', { e: fmtNum(progress.exp) });
     next.textContent = lv >= MAX_LEVEL ? t('lv.max')
-      : t('lv.next', { n: lv + 1, e: fmtNum(levelExp(lv + 1)), t: fmtDuration(progress.expToNext() / EXP_PER_SECOND) });
+      : t('lv.next', { n: lv + 1, e: fmtNum(levelExp(lv + 1)), t: fmtDuration(progress.expToNext() / progress.rate) });
     const maxed = lv >= MAX_LEVEL;
     adLabel.textContent = maxed ? t('ads.support') : t('ads.watch', { n: REWARD_EXP });
+    ruleLine.textContent = t('lv.rule', { n: fmtNum(progress.rate) });
     ruleLine.style.display = maxed ? 'none' : '';
     for (const r of rows) {
       const ok = lv >= r.req;
@@ -131,4 +118,5 @@ export function openLevelSheet() {
   clear(root);
   root.append(h('div', { class: 'backdrop', onClick: (e) => { if (e.target === e.currentTarget) clear(root); } }, sheet));
   const off = progress.on('change', () => { if (!document.body.contains(sheet)) off(); else refresh(); });
+  const offRate = progress.on('rate', () => { if (!document.body.contains(sheet)) offRate(); else refresh(); });
 }
