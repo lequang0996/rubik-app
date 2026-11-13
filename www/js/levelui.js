@@ -64,12 +64,18 @@ export function openLevelSheet() {
   const next = h('div', { class: 'lvline muted' });
 
   // mốc mở khoá chức năng + danh hiệu Lv 22–30 (Lv 30 là món quà bí mật, chỉ lộ khi đã đạt)
-  const items = [...UNLOCKS.map(([req, k]) => ({ req, text: unlockText(k) })), ...RANKS.map((r) => ({ req: r.lv, rank: r }))].sort((a, b) => a.req - b.req);
+  // các mốc cùng một Lv gộp thành MỘT dòng: tên mở khoá + huy hiệu/danh hiệu của Lv đó
+  const byLv = new Map();
+  for (const [req, k] of UNLOCKS) (byLv.get(req) || byLv.set(req, { req }).get(req)).text = unlockText(k);
+  for (const r of RANKS) (byLv.get(r.lv) || byLv.set(r.lv, { req: r.lv }).get(r.lv)).rank = r;
+  const items = [...byLv.values()].sort((a, b) => a.req - b.req);
   const rows = items.map((it) => {
     const slot = h('span', { class: 'rowbadge' });
-    const title = h('span', { class: 'steptitle' }, it.text || '');
+    const title = h('span', { class: 'steptitle' });
     const state = h('span', { class: 'ustate' });
-    if (it.rank && it.req < RANK_LAST) { slot.append(badge(it.req, 26)); title.textContent = t(it.rank.key); }
+    if (it.rank && it.req < RANK_LAST) slot.append(badge(it.req, 26));
+    if (it.text && it.rank && it.req < RANK_LAST) title.append(h('span', { class: 'untext' }, it.text), h('small', { class: 'ranksub' }, t(it.rank.key)));
+    else title.textContent = it.rank && it.req < RANK_LAST ? t(it.rank.key) : (it.text || '');
     const el = h('div', { class: 'unlockrow' + (it.rank ? ' rankrow' : '') }, h('span', { class: 'stepidx wide' }, t('lv.short', { n: it.req })), it.rank ? slot : null, title, state);
     return { ...it, el, slot, title, state, secret: it.req === RANK_LAST };
   });

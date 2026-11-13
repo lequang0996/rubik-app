@@ -337,3 +337,8 @@ html.has-banner { --sb: 0px; }
 .packbtn { width: 100%; }
 .packbtn:disabled { opacity: .55; }
 .shopnote { margin-top: 12px; }
+
+/* dòng mốc gộp: tên mở khoá + danh hiệu bên dưới */
+.unlockrow .steptitle { min-width: 0; }
+.unlockrow .untext { display: block; }
+.unlockrow .ranksub { display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--muted); }

@@ -33,7 +33,7 @@ export async function openShopSheet() {
   const render = () => {
     const cur = currentPlan();
     clear(sheet);
-    sheet.append(
+    sheet.append(...[
       sheetHead('star', t('shop.title')),
       h('div', { class: 'lvline' }, cur ? t('shop.current', { p: t('shop.plan', { n: cur.usd }) }) : t('shop.none')),
       !billingAvailable() ? h('div', { class: 'lvline muted' }, t('shop.native'))
@@ -43,7 +43,7 @@ export async function openShopSheet() {
       cur && billingAvailable() ? h('button', { type: 'button', class: 'action', onClick: manageSubscription }, t('shop.manage')) : null,
       h('div', { class: 'section' }, t('shop.packs')),
       h('div', { class: 'langlist' }, PACKS.map(packRow)),
-      h('div', { class: 'lvline muted shopnote' }, t('shop.note')));
+      h('div', { class: 'lvline muted shopnote' }, t('shop.note'))].filter(Boolean));   // append(null) sẽ in chữ "null" → lọc bỏ
   };
   render();
   clear(root);
