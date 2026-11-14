@@ -19,7 +19,6 @@ export async function openShopSheet() {
     const feats = [feat(t('shop.f.noads')), feat(t('shop.f.rate', { n: p.rate }))];
     if (p.first) feats.push(feat(t('shop.f.first', { n: fmtNum(p.first) })));
     if (p.monthly) feats.push(feat(t('shop.f.monthly', { n: fmtNum(p.monthly) })));
-    if (p.usd > SUBS[0].usd) feats.unshift(feat(t('shop.f.incl1')));
     return h('div', { class: 'plancard' + (mine ? ' on' : '') },
       h('div', { class: 'planhead' }, h('b', {}, t('shop.plan', { n: p.usd })), mine ? h('span', { class: 'ustate' }, '✓') : null),
       h('ul', { class: 'planfeat' }, feats), btn);

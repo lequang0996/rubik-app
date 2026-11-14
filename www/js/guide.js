@@ -6,7 +6,7 @@ import { getPuzzle } from './registry.js';
 import { progress, levelReq } from './progress.js';
 import { toast } from './levelui.js';
 import { icon } from './icons.js';
-import { caseKey, getCustom } from './customalgs.js';
+import { caseKey } from './customalgs.js';
 import { Segmented, DescBox, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 
 // Tính danh sách cấp độ từ dữ liệu: [[id, nhãn, tiêu đề]]
@@ -40,9 +40,6 @@ export class GuidePanel {
     this.desc = new DescBox();
     this.count = h('span', { class: 'counttext' });
     this.countChip = h('div', { class: 'countchip' }, icon('list', 16), this.count);
-    this.search = h('input', { type: 'search', class: 'searchinput', placeholder: t('search.placeholder'), enterkeyhint: 'search', 'aria-label': t('search.placeholder') });
-    this.searchBox = h('label', { class: 'searchbox' }, icon('search', 17), this.search);
-    this.search.addEventListener('input', () => this.filterChanged(this.search.value));
     this.list = h('div', { class: 'cases' });
     this.bPrev = h('button', { type: 'button', class: 'ctl', onClick: () => this.goto(this.page - 1) }, '◀');
     this.bNext = h('button', { type: 'button', class: 'ctl', onClick: () => this.goto(this.page + 1) }, '▶');
@@ -51,7 +48,7 @@ export class GuidePanel {
     this.pageTotal = h('span', { class: 'muted' }, '/ 1');
     this.pager = h('div', { class: 'pager', hidden: true }, this.bPrev, h('span', { class: 'muted' }, t('pager.page')), this.pageIn, this.pageTotal, this.bNext);
     this.el = h('div', { class: 'pane guide' }, this.seg.el, this.levelTitle, this.combo.el, this.desc.el,
-      h('div', { class: 'guidebar' }, this.countChip, this.searchBox), this.list, this.pager);
+      h('div', { class: 'guidebar' }, this.countChip), this.list, this.pager);
   }
 
   async setPuzzle(key) {
@@ -128,19 +125,17 @@ export class GuidePanel {
     const cats = this.cats();
     this.sel = null; this.want = null;
     this.clearList();
-    this.search.value = '';
     if (!cats.length || i < 0 || i >= cats.length) {
       this.desc.setText(t('guide.nodata'));
       this.count.textContent = t('count.zero');
       this.cases = []; this.filtered = [];
-      this.pager.hidden = true; this.searchBox.style.display = 'none';
+      this.pager.hidden = true;
       this.emitSel();
       return;
     }
     this.cat = cats[i];
     this.desc.setText(td(this.cat.desc || ''));
     this.cases = this.cat.cases;
-    this.searchBox.style.display = this.cases.length > 12 ? '' : 'none';
     this.filtered = [...this.cases];
     this.page = 0;
     this.updateCount();
@@ -148,19 +143,9 @@ export class GuidePanel {
     this.emitSel();
   }
 
-  filterChanged(text) {
-    const q = text.trim().toLowerCase();
-    this.filtered = q ? this.cases.filter((c) => td(c.name).toLowerCase().includes(q) || td(c.note || '').toLowerCase().includes(q)
-      || c.name.toLowerCase().includes(q) || c.algs.some((a) => a.toLowerCase().includes(q))
-      || getCustom(this.caseKey(c)).some((a) => a.toLowerCase().includes(q))) : [...this.cases];
-    this.page = 0;
-    this.updateCount();
-    this.showPage();
-  }
-
   updateCount() {
     const n = this.cases.length, a = this.cases.reduce((s, c) => s + c.algs.length, 0);
-    this.count.textContent = this.filtered.length !== n ? t('count.match', { k: this.filtered.length, n }) : t('count.all', { n, a });
+    this.count.textContent = t('count.all', { n, a });
   }
 
   caseKey(cs) { return caseKey(this.key, this.levelId, this.cat ? this.cat.id : '', cs.name); }

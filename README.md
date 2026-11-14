@@ -32,7 +32,7 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 
 📘 HƯỚNG DẪN – hơn 5.900 trường hợp, hơn 6.000 công thức
 • Xem khối xoay từng bước theo công thức: ▶ phát / ⏸ tạm dừng, tiến – lùi từng nước, về đầu; nước đang xoay được đánh dấu ngay trên công thức.
-• Mỗi nhóm có phần giải thích dễ hiểu, ảnh 3D và sơ đồ nhìn từ trên cho từng trường hợp, tìm kiếm nhanh và phân trang gọn gàng.
+• Mỗi nhóm có phần giải thích dễ hiểu, ảnh 3D và sơ đồ nhìn từ trên cho từng trường hợp, phân trang gọn gàng.
 • Rubik 3x3 có 4 cấp độ: CFOP (Cross, F2L, OLL, PLL) · Tối ưu (F2L nâng cao, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Nhánh Roux (SBLS, CMLL, EO4A) · Tối thượng (VLS, OLLCP, ZBLL, 1LLL – hơn 5.000 công thức).
 • 2x2: ký hiệu, tầng đầu, OLL, PBL và bộ CLL nâng cao.
 • 4x4: phương pháp giảm khối (tâm → cạnh → 3x3), xử lý parity, OLL/PLL Parity.
@@ -65,7 +65,7 @@ Mỗi giây dùng ứng dụng bạn nhận +1 exp (gói thành viên nhận nhi
 • Gói $5/tháng: quyền lợi gói $1 · +50 exp mỗi giây · +5.000 exp lần đầu đăng ký, +5.000 exp mỗi đầu tháng.
 • Gói $10/tháng: quyền lợi gói $1 · +150 exp mỗi giây · +15.000 exp lần đầu đăng ký, +15.000 exp mỗi đầu tháng.
 • Gói $15/tháng: quyền lợi gói $1 · +300 exp mỗi giây · +30.000 exp lần đầu đăng ký, +30.000 exp mỗi đầu tháng.
-• Mua lẻ: $1 = 1.000 exp · $10 = 10.000 exp · $100 = 100.000 exp.
+• Mua lẻ: $1 = 1.000 exp · $10 = 15.000 exp · $100 = 200.000 exp.
 • Các gói tháng tự động gia hạn, huỷ bất cứ lúc nào trong Google Play.
 
 📊 THỐNG KÊ & GÓP Ý
@@ -114,7 +114,7 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 
 📘 GUIDE – 5,900+ cases, 6,000+ algorithms
 • Watch the puzzle turn step by step: ▶ play / ⏸ pause, step forward and back, jump to the start; the current move is highlighted in the algorithm.
-• Every set comes with a clear explanation, a 3D picture and a top-view diagram for each case, quick search and tidy paging.
+• Every set comes with a clear explanation, a 3D picture and a top-view diagram for each case, and tidy paging.
 • 3x3 has 4 levels: CFOP (Cross, F2L, OLL, PLL) · Optimal (Advanced F2L, Winter/Summer Variation, CLS, COLL, ELL, Anti-PLL) · Roux branch (SBLS, CMLL, EO4A) · Ultimate (VLS, OLLCP, ZBLL, 1LLL – 5,000+ algorithms).
 • 2x2: notation, first layer, OLL, PBL and the advanced CLL set.
 • 4x4: reduction method (centers → edges → 3x3), parity fixes, OLL/PLL Parity.
@@ -147,7 +147,7 @@ You earn +1 exp for every second you use the app (membership plans earn more). R
 • $5/month: everything in $1 · +50 exp per second · +5,000 exp the first time you subscribe, +5,000 exp at the start of every month.
 • $10/month: everything in $1 · +150 exp per second · +15,000 exp the first time you subscribe, +15,000 exp at the start of every month.
 • $15/month: everything in $1 · +300 exp per second · +30,000 exp the first time you subscribe, +30,000 exp at the start of every month.
-• One-off packs: $1 = 1,000 exp · $10 = 10,000 exp · $100 = 100,000 exp.
+• One-off packs: $1 = 1,000 exp · $10 = 15,000 exp · $100 = 200,000 exp.
 • Monthly plans renew automatically; cancel any time in Google Play.
 
 📊 STATISTICS & FEEDBACK
@@ -193,8 +193,8 @@ App dùng thư viện `com.android.billingclient:billing:8.3.0` (khai báo trong
 | Subscription | `cube_sub_10` | base plan ID `monthly`, 1 tháng, $10 |
 | Subscription | `cube_sub_15` | base plan ID `monthly`, 1 tháng, $15 |
 | One-time product | `exp_pack_1` | $1 (+1.000 exp) |
-| One-time product | `exp_pack_10` | $10 (+10.000 exp) |
-| One-time product | `exp_pack_100` | $100 (+100.000 exp) |
+| One-time product | `exp_pack_10` | $10 (+15.000 exp) |
+| One-time product | `exp_pack_100` | $100 (+200.000 exp) |
 
 Lưu ý khi cấu hình và thử nghiệm:
 - Phải **kích hoạt** từng subscription / base plan và từng sản phẩm. Phải tải một bản `.aab` có quyền Billing lên (internal testing là đủ) thì Play mới cho tạo sản phẩm, và chỉ bản cài từ Play (internal / closed / production) mới mua được; APK cài tay không mua được.

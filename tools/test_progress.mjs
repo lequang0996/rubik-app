@@ -58,8 +58,8 @@ progress.grant(1000); eq(progress.exp, before + 1000, 'grant vẫn cộng khi đ
 eq(SUBS.map((p) => p.rate).join(','), '10,50,150,300', 'tốc độ các gói');
 eq(SUBS.map((p) => p.first).join(','), '0,5000,15000,30000', 'thưởng lần đầu');
 eq(SUBS.map((p) => p.monthly).join(','), '0,5000,15000,30000', 'thưởng đầu tháng');
-eq(PACKS.map((p) => p.exp).join(','), '1000,10000,100000', 'gói mua lẻ (đã bỏ $1000)');
-eq(packExp('exp_pack_100'), 100000, 'packExp'); eq(packExp('xyz'), 0, 'packExp lạ');
+eq(PACKS.map((p) => p.exp).join(','), '1000,15000,200000', 'gói mua lẻ: $1=1000, $10=15000, $100=200000');
+eq(packExp('exp_pack_100'), 200000, 'packExp'); eq(packExp('xyz'), 0, 'packExp lạ');
 eq(bestPlan(['cube_sub_5', 'cube_sub_15', 'cube_sub_1']).id, 'cube_sub_15', 'gói cao nhất');
 eq(bestPlan([]), null, 'không có gói'); eq(bestPlan(['abc']), null, 'ID lạ');
 eq(monthKey(new Date(2026, 0, 31)), '2026-01', 'monthKey');
@@ -97,6 +97,7 @@ for (const f of jsFiles) {
 }
 for (const [, k] of UNLOCKS) if (k !== 'u10') used.add(k);
 for (const k of ['shop.btn.sub', 'shop.btn.up', 'shop.btn.down']) used.add(k);
+ok(!used.has('search.placeholder'), 'đã bỏ tính năng tìm kiếm khỏi danh sách ca');
 // khoá ghép động (t('color.' + x)…) hoặc tuỳ chọn có sẵn từ trước (bar.play có kiểm tra thiếu khoá)
 const dynamic = /^(t\.|ph\.|lang\.|rank\.|snd\.[td]\.|color\.|face\.|help\.keys\.|bar\.play$)/;
 for (const k of used) {

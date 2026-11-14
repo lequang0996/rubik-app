@@ -17,8 +17,8 @@ export const SUBS = [
 // Gói mua lẻ (sản phẩm dùng một lần, mua được nhiều lần)
 export const PACKS = [
   { id: 'exp_pack_1',    usd: 1,    exp: 1000 },
-  { id: 'exp_pack_10',   usd: 10,   exp: 10000 },
-  { id: 'exp_pack_100',  usd: 100,  exp: 100000 },
+  { id: 'exp_pack_10',   usd: 10,   exp: 15000 },
+  { id: 'exp_pack_100',  usd: 100,  exp: 200000 },
 ];
 
 export const subById = (id) => SUBS.find((p) => p.id === id) || null;

@@ -83,7 +83,7 @@ export function openLevelSheet() {
   const adLabel = h('span');
   const ruleLine = h('div', { class: 'lvline muted' });
   const adBtn = h('button', { type: 'button', class: 'action primary adbtn', onClick: watchRewardedAd }, icon('gift', 18), adLabel);
-  const shopBtn = h('button', { type: 'button', class: 'action shopbtn', onClick: openShopSheet }, icon('star', 18), h('span', {}, t('shop.menu')));
+  const shopBtn = h('button', { type: 'button', class: 'action shopbtn', onClick: openShopSheet }, h('span', { class: 'spark' }, '✨'), icon('star', 20), h('span', {}, t('shop.menu')), h('span', { class: 'spark' }, '✨'));
   const sheet = h('div', { class: 'sheet', role: 'dialog' }, h('div', { class: 'sheet-title' }, t('lv.title')), top, bar, expLine, next, adBtn, shopBtn,
     ruleLine, h('div', { class: 'section' }, t('lv.unlocks')), h('div', { class: 'steplist' }, rows.map((r) => r.el)));
 
