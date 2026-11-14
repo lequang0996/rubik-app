@@ -3,7 +3,7 @@ import { h, clear } from './dom.js';
 import { t } from './i18n.js';
 import { sheetHead } from './sheetui.js';
 import { fmtNum } from './levelui.js';
-import { SUBS, PACKS, currentPlan, onBillingChange, loadPrices, buy, manageSubscription, billingAvailable } from './billing.js';
+import { SUBS, PACKS, currentPlan, onBillingChange, loadPrices, buy, billingAvailable } from './billing.js';
 
 export async function openShopSheet() {
   const root = document.getElementById('modal-root');
@@ -40,7 +40,6 @@ export async function openShopSheet() {
         : (!loading && !data.available) ? h('div', { class: 'lvline muted' }, t('shop.unavail')) : null,
       h('div', { class: 'section' }, t('shop.subs')),
       h('div', { class: 'planlist' }, SUBS.map(planCard)),
-      cur && billingAvailable() ? h('button', { type: 'button', class: 'action', onClick: manageSubscription }, t('shop.manage')) : null,
       h('div', { class: 'section' }, t('shop.packs')),
       h('div', { class: 'langlist' }, PACKS.map(packRow)),
       h('div', { class: 'lvline muted shopnote' }, t('shop.note'))].filter(Boolean));   // append(null) sẽ in chữ "null" → lọc bỏ

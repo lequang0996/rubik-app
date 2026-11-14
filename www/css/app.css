@@ -327,7 +327,13 @@ html.has-banner { --sb: 0px; }
 }
 
 /* ---------------- Gói thành viên & mua exp ---------------- */
-.shopbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 8px; }
+.shopbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-top: 10px; min-height: 50px; border: 0; color: #fff; font-weight: 800; letter-spacing: .2px;
+  background: linear-gradient(135deg, #5b3df5 0%, #9b4dff 55%, #e04fd0 100%); box-shadow: 0 6px 18px rgba(124, 77, 255, .45), inset 0 1px 0 rgba(255, 255, 255, .28); position: relative; overflow: hidden; }
+.shopbtn .ic { color: #ffe27a; filter: drop-shadow(0 0 4px rgba(255, 226, 122, .8)); }
+.shopbtn::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent); transform: skewX(-18deg); animation: shopShine 3.8s ease-in-out infinite; }
+.shopbtn:active:not(:disabled) { background: linear-gradient(135deg, #4f33dd 0%, #8a3fee 55%, #cc43bd 100%); transform: scale(.985); }
+@keyframes shopShine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .shopbtn::after { animation: none; display: none; } }
 .sheet.shop .planlist { display: flex; flex-direction: column; gap: 8px; }
 .plancard { display: flex; flex-direction: column; gap: 8px; padding: 12px; background: var(--raised); border: 1px solid var(--border); border-radius: 12px; }
 .plancard.on { border-color: var(--accent); background: var(--accent-soft); }
@@ -342,3 +348,30 @@ html.has-banner { --sb: 0px; }
 .unlockrow .steptitle { min-width: 0; }
 .unlockrow .untext { display: block; }
 .unlockrow .ranksub { display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--muted); }
+
+/* ---------------- Thanh đếm + tìm kiếm của danh sách ca ---------------- */
+.guidebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin: 8px 0 4px; }
+.countchip { display: inline-flex; align-items: center; gap: 7px; flex: none; max-width: 100%; padding: 8px 13px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); font-size: 12.5px; font-weight: 700; }
+.countchip .ic { display: inline-flex; line-height: 0; }
+.counttext { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.searchbox { display: flex; align-items: center; gap: 8px; flex: 1 1 150px; min-width: 130px; padding: 0 14px; min-height: 40px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border); color: var(--muted); transition: border-color .15s, box-shadow .15s; }
+.searchbox:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); color: var(--accent-text); }
+.searchbox .ic { display: inline-flex; line-height: 0; flex: none; }
+.searchinput { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 14px; color: var(--text); min-height: 38px; -webkit-user-select: text; user-select: text; }
+.searchinput::placeholder { color: var(--faint); }
+
+/* ---------------- Công thức riêng của người dùng ---------------- */
+.case-foot { display: flex; justify-content: flex-end; margin-top: 2px; }
+.case-add { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); border: 1.5px dashed var(--accent); }
+.case-add:active { transform: scale(.92); }
+.algrow.custom { border-style: dashed; border-color: var(--accent); }
+.algtag { flex: none; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); }
+.algbtn { flex: none; width: 30px; height: 30px; margin: -4px -2px -4px 0; display: grid; place-items: center; border-radius: 8px; color: var(--muted); }
+.algbtn:active { background: var(--hover); color: var(--text); }
+.algarea { min-height: 84px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 15.5px; letter-spacing: .3px; }
+.algtools { display: flex; gap: 8px; margin-top: 8px; }
+.algtools .action { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.algstatus { min-height: 20px; margin: 8px 2px 2px; font-size: 12.5px; color: var(--muted); }
+.algstatus[data-kind="err"] { color: #d9534f; }
+.algstatus[data-kind="ok"] { color: #1f9d55; }
+.algpreview { min-height: 18px; margin: 0 2px 10px; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 13px; color: var(--text); overflow-wrap: anywhere; }

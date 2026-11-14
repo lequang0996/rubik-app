@@ -11,6 +11,7 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(InAppUpdatePlugin.class);   // phải đăng ký trước super.onCreate()
         registerPlugin(AdsPlugin.class);           // AdMob: banner · App Open · Rewarded
         registerPlugin(BillingPlugin.class);       // Google Play Billing: gói tháng + mua lẻ exp
+        registerPlugin(ClipboardPlugin.class);     // dán / sao chép công thức
         super.onCreate(savedInstanceState);
         // Màn hình luôn sáng khi app đang mở (tự tắt cờ khi app ra nền, không cần quyền đặc biệt)
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

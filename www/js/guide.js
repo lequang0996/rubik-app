@@ -5,6 +5,8 @@ import { loadPuzzleData } from './data.js';
 import { getPuzzle } from './registry.js';
 import { progress, levelReq } from './progress.js';
 import { toast } from './levelui.js';
+import { icon } from './icons.js';
+import { caseKey, getCustom } from './customalgs.js';
 import { Segmented, DescBox, CaseCard, StepPicker, cleanTitle, levelSummary } from './components.js';
 
 // Tính danh sách cấp độ từ dữ liệu: [[id, nhãn, tiêu đề]]
@@ -36,8 +38,10 @@ export class GuidePanel {
     this.levelTitle = h('div', { class: 'h2' });
     this.combo = new StepPicker((i) => this.categoryChanged(i));
     this.desc = new DescBox();
-    this.count = h('span', { class: 'badge' });
-    this.search = h('input', { type: 'search', class: 'input search', placeholder: t('search.placeholder'), enterkeyhint: 'search' });
+    this.count = h('span', { class: 'counttext' });
+    this.countChip = h('div', { class: 'countchip' }, icon('list', 16), this.count);
+    this.search = h('input', { type: 'search', class: 'searchinput', placeholder: t('search.placeholder'), enterkeyhint: 'search', 'aria-label': t('search.placeholder') });
+    this.searchBox = h('label', { class: 'searchbox' }, icon('search', 17), this.search);
     this.search.addEventListener('input', () => this.filterChanged(this.search.value));
     this.list = h('div', { class: 'cases' });
     this.bPrev = h('button', { type: 'button', class: 'ctl', onClick: () => this.goto(this.page - 1) }, '◀');
@@ -47,7 +51,7 @@ export class GuidePanel {
     this.pageTotal = h('span', { class: 'muted' }, '/ 1');
     this.pager = h('div', { class: 'pager', hidden: true }, this.bPrev, h('span', { class: 'muted' }, t('pager.page')), this.pageIn, this.pageTotal, this.bNext);
     this.el = h('div', { class: 'pane guide' }, this.seg.el, this.levelTitle, this.combo.el, this.desc.el,
-      h('div', { class: 'row between' }, this.count, this.search), this.list, this.pager);
+      h('div', { class: 'guidebar' }, this.countChip, this.searchBox), this.list, this.pager);
   }
 
   async setPuzzle(key) {
@@ -129,14 +133,14 @@ export class GuidePanel {
       this.desc.setText(t('guide.nodata'));
       this.count.textContent = t('count.zero');
       this.cases = []; this.filtered = [];
-      this.pager.hidden = true; this.search.style.display = 'none';
+      this.pager.hidden = true; this.searchBox.style.display = 'none';
       this.emitSel();
       return;
     }
     this.cat = cats[i];
     this.desc.setText(td(this.cat.desc || ''));
     this.cases = this.cat.cases;
-    this.search.style.display = this.cases.length > 12 ? '' : 'none';
+    this.searchBox.style.display = this.cases.length > 12 ? '' : 'none';
     this.filtered = [...this.cases];
     this.page = 0;
     this.updateCount();
@@ -147,7 +151,8 @@ export class GuidePanel {
   filterChanged(text) {
     const q = text.trim().toLowerCase();
     this.filtered = q ? this.cases.filter((c) => td(c.name).toLowerCase().includes(q) || td(c.note || '').toLowerCase().includes(q)
-      || c.name.toLowerCase().includes(q) || c.algs.some((a) => a.toLowerCase().includes(q))) : [...this.cases];
+      || c.name.toLowerCase().includes(q) || c.algs.some((a) => a.toLowerCase().includes(q))
+      || getCustom(this.caseKey(c)).some((a) => a.toLowerCase().includes(q))) : [...this.cases];
     this.page = 0;
     this.updateCount();
     this.showPage();
@@ -157,6 +162,8 @@ export class GuidePanel {
     const n = this.cases.length, a = this.cases.reduce((s, c) => s + c.algs.length, 0);
     this.count.textContent = this.filtered.length !== n ? t('count.match', { k: this.filtered.length, n }) : t('count.all', { n, a });
   }
+
+  caseKey(cs) { return caseKey(this.key, this.levelId, this.cat ? this.cat.id : '', cs.name); }
 
   pages() { return Math.max(1, Math.ceil(this.filtered.length / this.PAGE)); }
 
@@ -183,11 +190,14 @@ export class GuidePanel {
     if (gen !== this.gen) return;
     for (let k = 0; k < 5 && this.pending.length; k++) {
       const cs = this.pending.shift();
-      const card = new CaseCard(this.key, cs, this.cat, (c, r, a, cs2) => this.pick(c, r, a, cs2));
+      const card = new CaseCard(this.key, cs, this.cat, (c, r, a, cs2) => this.pick(c, r, a, cs2), {
+        key: this.caseKey(cs),
+        onRemoved: (row) => { if (this.activeRow === row) { this.activeRow = null; this.sel = null; this.emitSel(); } },   // xoá đúng công thức đang chọn
+      });
       this.list.append(card.el);
       if (this.want && cs.name === this.want.name) {            // đang khôi phục: chọn lại đúng công thức đã xem
         const w = this.want; this.want = null;
-        const row = card.rows[Math.max(0, cs.algs.indexOf(w.alg))];
+        const row = card.rows.find((r) => r.alg === w.alg) || card.rows[0];     // cả công thức tự thêm
         if (row && w.load) row.el.click();
         else if (row) { row.setActive(true); this.activeRow = row; }
         requestAnimationFrame(() => card.el.scrollIntoView({ block: 'center' }));

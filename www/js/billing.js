@@ -135,11 +135,6 @@ export async function loadPrices() {
   } catch { return { available: false, prices: {} }; }
 }
 
-export function manageSubscription() {
-  const p = currentPlan();
-  if (plugin) plugin.manageSubscriptions({ productId: p ? p.id : '' }).catch(() => {});
-}
-
 export async function initBilling() {
   applyPlan(currentPlan());                   // áp tốc độ exp + bỏ quảng cáo ngay từ bộ nhớ đệm, trước khi Play trả lời
   if (!plugin) return;

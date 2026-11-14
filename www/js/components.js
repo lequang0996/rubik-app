@@ -3,9 +3,11 @@ import { icon } from './icons.js';
 import { h, clear, esc } from './dom.js';
 import { t, td } from './i18n.js';
 import { moveCount } from './data.js';
+import { toast } from './levelui.js';
 import { caseImage } from './diagrams.js';
 import { getPuzzle } from './registry.js';
 import { CUBE_COLORS } from './cubes.js';
+import { getCustom, addCustom, removeCustom, openAddAlgSheet, copyAlg } from './customalgs.js';
 
 // ------------------------------------------------------------------ Segmented
 export class Segmented {
@@ -153,28 +155,61 @@ function thumb(img, size) {
 export { thumb };
 
 class AlgRow {
-  constructor(alg, onClick) {
-    this.el = h('div', { class: 'algrow', role: 'button', onClick: (e) => { e.stopPropagation(); onClick(); } },
-      h('span', { class: 'algplay' }, '▶'),
-      h('span', { class: 'algtext' }, alg),
-      h('span', { class: 'algmeta' }, t('alg.moves', { n: moveCount(alg) })));
+  // opts.custom: công thức người dùng tự thêm (có nhãn "Của bạn" + nút sao chép / xoá)
+  constructor(alg, onClick, opts = {}) {
+    this.alg = alg;
+    const kids = [h('span', { class: 'algplay' }, '▶'), h('span', { class: 'algtext' }, alg)];
+    if (opts.custom) kids.push(h('span', { class: 'algtag' }, t('alg.mine')));
+    kids.push(h('span', { class: 'algmeta' }, t('alg.moves', { n: moveCount(alg) })));
+    if (opts.custom) {
+      kids.push(h('button', { type: 'button', class: 'algbtn', 'aria-label': t('alg.copy'), onClick: (e) => { e.stopPropagation(); copyAlg(alg); } }, icon('copy', 16)));
+      kids.push(h('button', { type: 'button', class: 'algbtn', 'aria-label': t('alg.del'), onClick: (e) => { e.stopPropagation(); opts.onDelete(); } }, icon('trash', 16)));
+    }
+    this.el = h('div', { class: 'algrow' + (opts.custom ? ' custom' : ''), role: 'button', onClick: (e) => { e.stopPropagation(); onClick(); } }, kids);
   }
   setActive(on) { this.el.classList.toggle('active', on); }
 }
 
 export class CaseCard {
-  constructor(puzzleKey, cs, category, onPick) {
-    this.rows = [];
+  // ctx (tuỳ chọn) = { key, onRemoved(row) } bật nút "+" thêm công thức riêng cho ca này
+  constructor(puzzleKey, cs, category, onPick, ctx = null) {
+    this.rows = []; this.cs = cs; this.onPick = onPick; this.ctx = ctx; this.puzzleKey = puzzleKey;
     const setup = cs.setup || getPuzzle(puzzleKey).invertAlg(cs.algs[0]);
     const img = caseImage(puzzleKey, setup, category.diagram || '3d', category.mode || 'orient', 92);
-    const col = h('div', { class: 'case-col' }, h('div', { class: 'case-title' }, td(cs.name)));
-    if (cs.note) col.append(h('div', { class: 'case-note' }, td(cs.note)));
-    cs.algs.forEach((a) => {
-      const r = new AlgRow(a, () => onPick(this, r, a, cs));
-      this.rows.push(r);
-      col.append(r.el);
+    this.col = h('div', { class: 'case-col' }, h('div', { class: 'case-title' }, td(cs.name)));
+    if (cs.note) this.col.append(h('div', { class: 'case-note' }, td(cs.note)));
+    cs.algs.forEach((a) => this.addRow(a, false));
+    if (ctx) {
+      getCustom(ctx.key).forEach((a) => this.addRow(a, true));
+      this.foot = h('div', { class: 'case-foot' }, h('button', { type: 'button', class: 'case-add', 'aria-label': t('alg.add.btn'), title: t('alg.add.btn'), onClick: (e) => { e.stopPropagation(); this.openAdd(); } }, icon('plus', 18)));
+      this.col.append(this.foot);
+    }
+    this.el = h('div', { class: 'case', onClick: () => { if (this.rows.length) this.rows[0].el.click(); } }, thumb(img, 92), this.col);
+  }
+  addRow(a, custom) {
+    const r = new AlgRow(a, () => this.onPick(this, r, a, this.cs), custom ? { custom: true, onDelete: () => this.removeRow(r) } : {});
+    this.rows.push(r);
+    if (this.foot) this.col.insertBefore(r.el, this.foot); else this.col.append(r.el);
+    return r;
+  }
+  removeRow(r) {
+    removeCustom(this.ctx.key, r.alg);
+    this.rows = this.rows.filter((x) => x !== r);
+    r.el.remove();
+    if (this.ctx.onRemoved) this.ctx.onRemoved(r);
+    toast(t('alg.deleted'), 'info');
+  }
+  openAdd() {
+    openAddAlgSheet({
+      puzzleKey: this.puzzleKey, title: td(this.cs.name),
+      existing: [...this.cs.algs, ...getCustom(this.ctx.key)],
+      onSave: (alg) => {
+        if (!addCustom(this.ctx.key, alg)) return false;
+        const r = this.addRow(alg, true);
+        requestAnimationFrame(() => r.el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
+        return true;
+      },
     });
-    this.el = h('div', { class: 'case', onClick: () => { if (this.rows.length) this.rows[0].el.click(); } }, thumb(img, 92), col);
   }
 }
 

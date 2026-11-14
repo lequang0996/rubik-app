@@ -36,6 +36,14 @@ android {
         }
     }
     signingConfigs {
+        // Keystore debug CỐ ĐỊNH (không bí mật) để mọi bản build debug trên GitHub Actions cùng chữ ký → cài đè được, KHÔNG mất exp/dữ liệu.
+        // Nếu không cố định, mỗi lần CI chạy sinh khoá debug mới → Android bắt gỡ app cũ → mất hết dữ liệu (về Lv 1).
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
         release {
             if (keystorePath) {
                 storeFile file(keystorePath)
@@ -46,6 +54,9 @@ android {
         }
     }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             if (keystorePath) signingConfig signingConfigs.release
             minifyEnabled false

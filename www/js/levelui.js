@@ -9,8 +9,8 @@ import { showCelebration } from './celebrate.js';
 import { openShopSheet } from './shopui.js';
 
 let toastTimer = null;
-// Nhãn của một mốc mở khoá: 'u10' = Luyện tập · Chơi, còn lại là khoá chuỗi dịch
-export const unlockText = (k) => (k === 'u10' ? `${t('mode.practice')} · ${t('mode.play')}` : t(k));
+// Nhãn của một mốc mở khoá = khoá chuỗi dịch
+export const unlockText = (k) => t(k);
 
 // kind: 'lock' (đang khoá) · 'up' (lên cấp) · 'info'
 export function toast(text, kind = 'info') {

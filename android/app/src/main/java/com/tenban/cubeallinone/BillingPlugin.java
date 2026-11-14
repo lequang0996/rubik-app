@@ -1,8 +1,6 @@
 package com.tenban.cubeallinone;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -37,7 +35,7 @@ import java.util.Map;
 /**
  * Google Play Billing (thư viện 8.x).
  *  - 4 subscription tự động gia hạn theo tháng (cube_sub_1/5/10/15, base plan "monthly")
- *  - 4 sản phẩm mua một lần dùng nhiều lần (exp_pack_1/10/100/1000) – JS cộng exp rồi gọi consume()
+ *  - 4 sản phẩm mua một lần dùng nhiều lần (exp_pack_1/10/100) – JS cộng exp rồi gọi consume()
  *
  * Quyền lợi KHÔNG tính ở đây: JS gọi getPurchases() để biết gói nào đang hiệu lực (Play là nguồn sự thật)
  * rồi tự áp tốc độ exp / bỏ quảng cáo / thưởng. Kết quả mua gửi về JS qua sự kiện "purchaseUpdate".
@@ -47,7 +45,7 @@ import java.util.Map;
 public class BillingPlugin extends Plugin implements PurchasesUpdatedListener {
 
     static final String[] SUB_IDS = {"cube_sub_1", "cube_sub_5", "cube_sub_10", "cube_sub_15"};
-    static final String[] PACK_IDS = {"exp_pack_1", "exp_pack_10", "exp_pack_100", "exp_pack_1000"};
+    static final String[] PACK_IDS = {"exp_pack_1", "exp_pack_10", "exp_pack_100"};
     private static final String BASE_PLAN = "monthly";
 
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -184,22 +182,6 @@ public class BillingPlugin extends Plugin implements PurchasesUpdatedListener {
             if (r.getResponseCode() == BillingClient.BillingResponseCode.OK) call.resolve();
             else call.reject("consume " + r.getResponseCode());
         }), () -> call.reject("unavailable")));
-    }
-
-    /** Mở trang quản lý / huỷ gói đăng ký của Google Play. Input {productId?}. */
-    @PluginMethod
-    public void manageSubscriptions(final PluginCall call) {
-        final String id = call.getString("productId", "");
-        String url = "https://play.google.com/store/account/subscriptions?package=" + getContext().getPackageName();
-        if (id != null && !id.isEmpty()) url += "&sku=" + id;
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(i);
-            call.resolve();
-        } catch (Exception e) {
-            call.reject("cannot open");
-        }
     }
 
     // =====================================================================  Kết quả mua

@@ -58,14 +58,14 @@ Chuyển khối chỉ với một chạm. Khối được vẽ 3D mượt mà, x
 • Mục Âm thanh trong menu: bật / tắt nhạc nền và tiếng xoay, chọn bài; nhạc tự dừng khi bạn thoát ra màn hình chính.
 
 🏆 HỆ THỐNG CẤP ĐỘ NGƯỜI CHƠI (Lv 1 – 30)
-Mỗi giây dùng ứng dụng bạn nhận +1 exp (gói thành viên nhận nhiều hơn). Lên Lv 2–10 mỗi cấp cần 512 exp; lên Lv 11–30 cần 2^(n−1) exp cho cấp n. Lv 10 mở Luyện tập và Chơi · Lv 18 mở Thống kê · Lv 19 / 20 / 21 mở cấp nâng cao của 2x2 / 4x4 / 5x5 · Lv 22 mở 3x3 Tối ưu · Lv 23 mở 3x3 Roux · Lv 24 mở 3x3 Tối thượng · Lv 25 mở Góp ý. Màn hình luôn sáng khi đang mở app.
+Mỗi giây dùng ứng dụng bạn nhận +1 exp (gói thành viên nhận nhiều hơn). Lên Lv 2–10 mỗi cấp cần 512 exp; lên Lv 11–30 cần 2^(n−1) exp cho cấp n. Hướng dẫn, Luyện tập và Chơi mở sẵn từ đầu · Lv 18 mở Thống kê · Lv 19 / 20 / 21 mở cấp nâng cao của 2x2 / 4x4 / 5x5 · Lv 22 mở 3x3 Tối ưu · Lv 23 mở 3x3 Roux · Lv 24 mở 3x3 Tối thượng · Lv 25 mở Góp ý. Màn hình luôn sáng khi đang mở app.
 
 💎 GÓI THÀNH VIÊN & MUA EXP (Google Play)
 • Gói $1/tháng: bỏ quảng cáo mở app và biểu ngữ (vẫn còn quảng cáo xem nhận thưởng) · +10 exp mỗi giây.
 • Gói $5/tháng: quyền lợi gói $1 · +50 exp mỗi giây · +5.000 exp lần đầu đăng ký, +5.000 exp mỗi đầu tháng.
 • Gói $10/tháng: quyền lợi gói $1 · +150 exp mỗi giây · +15.000 exp lần đầu đăng ký, +15.000 exp mỗi đầu tháng.
 • Gói $15/tháng: quyền lợi gói $1 · +300 exp mỗi giây · +30.000 exp lần đầu đăng ký, +30.000 exp mỗi đầu tháng.
-• Mua lẻ: $1 = 1.000 exp · $10 = 10.000 exp · $100 = 100.000 exp · $1.000 = 1.000.000 exp.
+• Mua lẻ: $1 = 1.000 exp · $10 = 10.000 exp · $100 = 100.000 exp.
 • Các gói tháng tự động gia hạn, huỷ bất cứ lúc nào trong Google Play.
 
 📊 THỐNG KÊ & GÓP Ý
@@ -140,14 +140,14 @@ Switch puzzles with one tap. Smooth 3D rendering with lively layer-turn animatio
 • The Sound item in the menu switches music and turn sounds on / off and picks the track; music pauses automatically when you leave the app.
 
 🏆 PLAYER LEVELS (Lv 1 – 30)
-You earn +1 exp for every second you use the app (membership plans earn more). Reaching Lv 2–10 costs 512 exp per level; reaching Lv 11–30 costs 2^(n−1) exp for level n. Lv 10 unlocks Practice and Play · Lv 18 Statistics · Lv 19 / 20 / 21 the advanced levels of 2x2 / 4x4 / 5x5 · Lv 22 3x3 Optimal · Lv 23 3x3 Roux · Lv 24 3x3 Ultimate · Lv 25 Feedback. The screen stays on while the app is open.
+You earn +1 exp for every second you use the app (membership plans earn more). Reaching Lv 2–10 costs 512 exp per level; reaching Lv 11–30 costs 2^(n−1) exp for level n. Guide, Practice and Play are open from the start · Lv 18 Statistics · Lv 19 / 20 / 21 the advanced levels of 2x2 / 4x4 / 5x5 · Lv 22 3x3 Optimal · Lv 23 3x3 Roux · Lv 24 3x3 Ultimate · Lv 25 Feedback. The screen stays on while the app is open.
 
 💎 MEMBERSHIP & EXP PACKS (Google Play)
 • $1/month: no app-open or banner ads (rewarded ads remain) · +10 exp per second.
 • $5/month: everything in $1 · +50 exp per second · +5,000 exp the first time you subscribe, +5,000 exp at the start of every month.
 • $10/month: everything in $1 · +150 exp per second · +15,000 exp the first time you subscribe, +15,000 exp at the start of every month.
 • $15/month: everything in $1 · +300 exp per second · +30,000 exp the first time you subscribe, +30,000 exp at the start of every month.
-• One-off packs: $1 = 1,000 exp · $10 = 10,000 exp · $100 = 100,000 exp · $1,000 = 1,000,000 exp.
+• One-off packs: $1 = 1,000 exp · $10 = 10,000 exp · $100 = 100,000 exp.
 • Monthly plans renew automatically; cancel any time in Google Play.
 
 📊 STATISTICS & FEEDBACK
@@ -195,10 +195,19 @@ App dùng thư viện `com.android.billingclient:billing:8.3.0` (khai báo trong
 | One-time product | `exp_pack_1` | $1 (+1.000 exp) |
 | One-time product | `exp_pack_10` | $10 (+10.000 exp) |
 | One-time product | `exp_pack_100` | $100 (+100.000 exp) |
-| One-time product | `exp_pack_1000` | $1.000 (+1.000.000 exp) |
 
 Lưu ý khi cấu hình và thử nghiệm:
 - Phải **kích hoạt** từng subscription / base plan và từng sản phẩm. Phải tải một bản `.aab` có quyền Billing lên (internal testing là đủ) thì Play mới cho tạo sản phẩm, và chỉ bản cài từ Play (internal / closed / production) mới mua được; APK cài tay không mua được.
 - Thêm tài khoản thử nghiệm ở **Play Console → Settings → License testing** để mua thử không bị trừ tiền (gói tháng thử sẽ gia hạn nhanh hơn).
-- Giá hiển thị trong app lấy từ Google Play theo tiền tệ / quốc gia của người dùng; $1.000 cần Play cho phép mức giá này ở quốc gia bán.
+- Giá hiển thị trong app lấy từ Google Play theo tiền tệ / quốc gia của người dùng. Quản lý / huỷ gói do người dùng làm trong Google Play (app không có nút riêng).
 - Quyền lợi luôn đọc lại từ Google Play mỗi lần mở app và khi quay lại app; không cần máy chủ riêng. Nếu muốn chống gian lận kỹ hơn (exp lưu trên máy nên người dùng root có thể sửa), cần xác minh purchase token bằng Google Play Developer API từ máy chủ của bạn.
+
+### Giữ exp và cấp khi cập nhật
+
+- Dữ liệu cấp độ lưu dạng `{ v, exp, lv }` (kèm bản sao dự phòng). Khi mở app, nếu công thức lên cấp mới đòi nhiều exp hơn cho cấp `lv` đã đạt, exp được nâng lên đúng mốc của cấp đó → người chơi **không bao giờ bị tụt cấp** và tổng exp không bao giờ giảm. Dữ liệu của bản cũ (chưa có `lv`) được suy ra cấp từ công thức cũ `2^(n-1)`.
+- Muốn đổi công thức cấp độ trong tương lai: sửa `stepCost()` trong `www/js/progress.js`; người chơi cũ tự được giữ cấp.
+- **Bản debug trên GitHub Actions** được ký bằng `android/app/debug.keystore` cố định (không bí mật) để các bản build cài đè nhau được. Trước đây mỗi lần CI chạy sinh khoá debug mới → Android bắt gỡ app cũ → mất hết dữ liệu (về Lv 1). Lần đầu cài bản ký bằng khoá mới này vẫn phải gỡ bản cũ một lần; từ các lần sau cài đè bình thường.
+
+### Công thức riêng
+
+Mỗi thẻ ca trong tab Hướng dẫn có nút "+" ở góc dưới bên phải: nhập hoặc dán công thức (tự sửa dấu nháy cong, ngoặc, số thứ tự, xuống dòng; kiểm tra bằng engine của từng puzzle), lưu trên máy theo từng ca, có nút sao chép và xoá. Android dùng plugin `ClipboardPlugin.java` để dán / sao chép.

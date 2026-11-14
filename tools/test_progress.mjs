@@ -29,7 +29,7 @@ eq(levelOf(1e15), MAX_LEVEL, 'vượt Lv30 vẫn là 30');
 for (let n = 2; n <= 30; n++) ok(levelExp(n) > levelExp(n - 1), `mốc Lv${n} tăng dần`);
 
 // ---- mốc mở khoá đúng yêu cầu
-eq(MODE_REQ[1], 10, 'Luyện tập Lv10'); eq(MODE_REQ[2], 10, 'Chơi Lv10');
+eq(MODE_REQ.join(','), '0,0,0', 'Hướng dẫn / Luyện tập / Chơi mở sẵn (bỏ khoá Lv10)');
 eq(REQ_STATS, 18, 'Thống kê Lv18'); eq(REQ_FEEDBACK, 25, 'Góp ý Lv25');
 eq(levelReq('2x2', 'advanced'), 19, '2x2 nâng cao Lv19');
 eq(levelReq('4x4', 'advanced'), 20, '4x4 nâng cao Lv20');
@@ -40,7 +40,7 @@ eq(levelReq('3x3', 'l5'), 24, '3x3 Tối thượng Lv24');
 eq(levelReq('3x3', 'basic'), 0, '3x3 cơ bản mở sẵn');
 eq(levelReq('pyraminx', 'advanced'), 19, 'Pyraminx nâng cao Lv19');
 eq(levelReq('skewb', 'advanced'), 19, 'Skewb nâng cao Lv19');
-eq(UNLOCKS.map(([n]) => n).join(','), '10,18,19,20,21,22,23,24,25', 'danh sách mốc hiển thị');
+eq(UNLOCKS.map(([n]) => n).join(','), '18,19,20,21,22,23,24,25', 'danh sách mốc hiển thị (không còn Lv10)');
 ok(UNLOCKS.every(([n], i) => i === 0 || n > UNLOCKS[i - 1][0]), 'mốc tăng dần');
 
 // ---- tốc độ exp + cộng thưởng
@@ -58,7 +58,7 @@ progress.grant(1000); eq(progress.exp, before + 1000, 'grant vẫn cộng khi đ
 eq(SUBS.map((p) => p.rate).join(','), '10,50,150,300', 'tốc độ các gói');
 eq(SUBS.map((p) => p.first).join(','), '0,5000,15000,30000', 'thưởng lần đầu');
 eq(SUBS.map((p) => p.monthly).join(','), '0,5000,15000,30000', 'thưởng đầu tháng');
-eq(PACKS.map((p) => p.exp).join(','), '1000,10000,100000,1000000', 'gói mua lẻ');
+eq(PACKS.map((p) => p.exp).join(','), '1000,10000,100000', 'gói mua lẻ (đã bỏ $1000)');
 eq(packExp('exp_pack_100'), 100000, 'packExp'); eq(packExp('xyz'), 0, 'packExp lạ');
 eq(bestPlan(['cube_sub_5', 'cube_sub_15', 'cube_sub_1']).id, 'cube_sub_15', 'gói cao nhất');
 eq(bestPlan([]), null, 'không có gói'); eq(bestPlan(['abc']), null, 'ID lạ');
@@ -113,6 +113,31 @@ for (const l of langs) {
   ok(dict[l]['shop.current'].includes('{p}') && dict[l]['shop.ok.sub'].includes('{p}'), `shop.current/ok.sub của ${l} thiếu {p}`);
   for (const k of ['shop.btn.sub', 'shop.btn.up', 'shop.btn.down']) ok(dict[l][k].includes('{p}'), `${k} của ${l} thiếu {p}`);
 }
+
+// ---- giữ exp / cấp khi cập nhật hoặc đổi công thức (chạy trong tiến trình con để mỗi lần có localStorage riêng)
+import { spawnSync } from 'node:child_process';
+const probe = (saved) => {
+  const code = `
+    const store = new Map(Object.entries(${JSON.stringify(saved)}));
+    globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)) };
+    const m = await import('${path.resolve('www/js/progress.js').replace(/\\/g, '/')}');
+    console.log(JSON.stringify({ exp: m.progress.exp, level: m.progress.level, saved: JSON.parse(store.get('rubik_studio_progress') || 'null') }));`;
+  const r = spawnSync(process.execPath, ['--input-type=module', '-e', code], { encoding: 'utf8' });
+  if (r.status !== 0) throw new Error(r.stderr);
+  return JSON.parse(r.stdout.trim().split('\n').pop());
+};
+const legacy = (exp) => ({ rubik_studio_progress: JSON.stringify({ exp, celebrated: false }) });   // định dạng bản cũ: không có v / lv
+let g = probe(legacy(300));                                   // cũ: 300 exp = Lv 9 (2^8=256 ≤ 300)
+eq(g.level, 9, 'dữ liệu cũ 300 exp vẫn giữ Lv 9 (công thức mới sẽ cho Lv 1)'); eq(g.exp, levelExp(9), 'exp được nâng lên đúng mốc Lv 9');
+eq(g.saved.v, 2, 'ghi lại định dạng mới'); eq(g.saved.lv, 9, 'lưu cấp đã đạt');
+g = probe(legacy(0)); eq(g.level, 1, 'người mới: Lv 1'); eq(g.exp, 0, 'người mới: 0 exp');
+g = probe(legacy(100000000)); eq(g.level, 27, 'dữ liệu cũ 100 triệu exp (Lv 27 theo công thức cũ) không bị hạ cấp'); ok(g.exp >= 100000000, 'exp không bao giờ bị giảm');
+g = probe({ rubik_studio_progress: JSON.stringify({ v: 2, exp: 1000, lv: 5, celebrated: false }) });
+eq(g.level, 5, 'đã lưu Lv 5 mà công thức mới tính thấp hơn → vẫn giữ Lv 5'); eq(g.exp, levelExp(5), 'exp nâng lên mốc Lv 5');
+g = probe({ rubik_studio_progress: JSON.stringify({ v: 2, exp: 9000, lv: 10, celebrated: false }) });
+eq(g.exp, 9000, 'exp đã cao hơn mốc cấp đã lưu: giữ nguyên'); eq(g.level, levelOf(9000), 'cấp theo công thức hiện hành');
+g = probe({ rubik_studio_progress: '{hỏng', rubik_studio_progress_bak: JSON.stringify({ v: 2, exp: 7000, lv: 11 }) });
+eq(g.exp, 7000, 'khoá chính hỏng → khôi phục từ bản sao dự phòng');
 
 console.log(fail ? `\nTHẤT BẠI: ${fail}/${total}` : `\nTẤT CẢ ĐẠT: ${total} kiểm tra (cấp độ · mở khoá · gói · dịch)`);
 process.exit(fail ? 1 : 0);
